@@ -1,0 +1,41 @@
+name: CodeGuard SCM & Regression Test Selection CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  verify:
+    name: Type Check, Real Automated Tests & Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Node Dependencies
+        run: npm ci
+
+      - name: Run TypeScript Type Check (Lint)
+        run: npm run lint
+
+      - name: Execute Genuine Automated Test Suite
+        run: npm test
+
+      - name: Build Application Artifacts
+        run: npm run build

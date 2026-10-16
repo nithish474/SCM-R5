@@ -1,0 +1,59 @@
+    </main>
+
+    <footer class="app-footer">
+        <div class="footer-inner">
+            <div class="footer-brand-block">
+                <div class="d-flex align-center gap-sm">
+                    <span class="brand-icon" style="width: 24px; height: 24px; font-size: 0.8rem;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                    </span>
+                    <strong style="color: #ffffff; font-size: 0.95rem;">CodeGuard</strong>
+                    <span class="badge badge-secondary" style="font-size: 0.7rem; padding: 0.1rem 0.4rem;">SCM & RTS</span>
+                </div>
+                <p class="text-muted" style="font-size: 0.8rem; margin-top: 0.4rem; max-width: 420px; line-height: 1.4;">
+                    Software Configuration Management (SCM) & Regression Testing System. AST dependency mapping, change-impact analysis, and automated test minimization.
+                </p>
+            </div>
+
+            <div class="footer-links-group d-flex gap-lg flex-wrap" style="font-size: 0.82rem;">
+                <div>
+                    <div class="footer-col-title">Navigation</div>
+                    <ul class="footer-links-list">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/dashboard">Dashboard</a></li>
+                        <li><a href="/dashboard#commits">Commit Analysis</a></li>
+                        <li><a href="/dependency-map">Dependency Map</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-col-title">Verification</div>
+                    <ul class="footer-links-list">
+                        <li><a href="/regression-tests">Regression Tests</a></li>
+                        <li><a href="/risk-analysis">Risk Analysis</a></li>
+                        <li><a href="/reports">Reports Catalog</a></li>
+                        <li><a href="/about">Academic Guide</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-col-title">SCM Status</div>
+                    <div class="text-muted" style="font-size: 0.78rem; line-height: 1.6;">
+                        <div>Engine: <span class="text-success">AST Static Parser</span></div>
+                        <div>Store: <span class="text-success">SQLite (codeguard.db)</span></div>
+                        <div>Runner: <span class="text-success">PyTest Automated</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom-bar">
+            <span>&copy; CodeGuard SCM Platform &bull; Academic Software Engineering Project &bull; Built with Node.js, Express, Python AST &amp; SQLite</span>
+            <span>IEEE Standard 828 SCM Compliant</span>
+        </div>
+    </footer>
+
+    <script src="/static/js/main.js"></script>
+    <% if (typeof extraScripts !== 'undefined') { %><%- extraScripts %><% } %>
+</body>
+</html>

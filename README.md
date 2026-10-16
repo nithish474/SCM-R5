@@ -1,11 +1,26 @@
-<div align="center">
+# CodeGuard
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+CodeGuard analyzes Git commits, maps their dependency impact, recommends targeted
+regression tests, and records test and risk results in SQLite.
 
-  <h1>Built with AI Studio</h2>
+## Run locally
 
-  <p>The fastest path from prompt to production with Gemini.</p>
+```powershell
+py -3 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+py -3 -m pip install -r requirements.txt
+npm install
+npm run dev
+```
 
-  <a href="https://aistudio.google.com/apps">Start building</a>
+Open `http://localhost:3000`. By default, CodeGuard analyzes this repository.
+Set `PYTHON_EXECUTABLE` when the required Python launcher is not available as
+`py` on Windows or `python3` on macOS/Linux.
 
-</div>
+## Verify
+
+```powershell
+npm run lint
+npm run build
+npm run test:python
+```

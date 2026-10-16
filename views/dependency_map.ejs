@@ -1,0 +1,587 @@
+<%- include('partials/header', { title: 'CodeGuard - Interactive 3D Dependency Map', activePage: 'dependency-map' }) %>
+
+<!-- Include 3D Force Graph and Three.js from verified CDN -->
+<script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+<script src="https://unpkg.com/3d-force-graph@1.73.3/dist/3d-force-graph.min.js"></script>
+
+<div class="page-header d-flex justify-between align-center flex-wrap gap-md">
+    <div>
+        <div class="breadcrumb">
+            <a href="/">Home</a> &gt; <span>Interactive 3D Dependency Map</span>
+        </div>
+        <h1 class="page-title">Source Dependency Graph (Interactive 3D AST Map)</h1>
+        <p class="text-muted" style="margin-top: 0.25rem;">
+            Discovers inter-module relationships by parsing source Abstract Syntax Trees (AST) to model downstream impact propagation in 3D coordinate space.
+        </p>
+    </div>
+    <div class="d-flex gap-sm align-center">
+        <div class="btn-group d-flex" style="background: #f1f5f9; border-radius: var(--radius-md); padding: 2px;">
+            <button class="btn btn-primary btn-xs" id="mode3dBtn" onclick="switchViewMode('3d')" title="Switch to 3D Force-Directed View">🌐 3D Force</button>
+            <button class="btn btn-light btn-xs" id="mode2dBtn" onclick="switchViewMode('2d')" title="Switch to 2D Planar Layout">🗺️ 2D Canvas</button>
+        </div>
+        <div class="btn-group d-flex" style="background: #f1f5f9; border-radius: var(--radius-md); padding: 2px;">
+            <button class="btn btn-light btn-xs" id="resetZoomBtn" onclick="resetGraphView()" title="Reset Camera View">⟲ Reset Camera</button>
+        </div>
+        <a href="/dashboard" class="btn btn-outline btn-sm">Back to Dashboard</a>
+    </div>
+</div>
+
+<!-- Graph Controls Toolbar -->
+<div class="card shadow-xs" style="margin-bottom: 1.25rem; padding: 0.85rem 1.25rem;">
+    <div class="d-flex justify-between align-center flex-wrap gap-md">
+        <div class="d-flex align-center gap-md flex-wrap">
+            <div class="search-box">
+                <input type="text" id="nodeSearchInput" class="form-input form-input-sm" placeholder="Search file or module..." oninput="filterGraphNodes(this.value)">
+            </div>
+            <div class="d-flex align-center gap-xs flex-wrap">
+                <span class="text-muted" style="font-size: 0.8rem; font-weight: 500;">Filter:</span>
+                <button class="btn btn-sm btn-outline filter-btn active" data-filter="all" onclick="setGraphFilter('all', this)">All Nodes (<span id="nodeCountBadge"><%= dep_map.nodes.length %></span>)</button>
+                <button class="btn btn-sm btn-outline filter-btn" data-filter="core" onclick="setGraphFilter('core', this)">Core Engine</button>
+                <button class="btn btn-sm btn-outline filter-btn" data-filter="database" onclick="setGraphFilter('database', this)">Database</button>
+                <button class="btn btn-sm btn-outline filter-btn" data-filter="tests" onclick="setGraphFilter('tests', this)">Tests</button>
+            </div>
+        </div>
+
+        <div class="d-flex align-center gap-md flex-wrap" style="font-size: 0.8rem;">
+            <div class="legend-item"><span class="legend-dot" style="background: #3b82f6;"></span> Core Modules</div>
+            <div class="legend-item"><span class="legend-dot" style="background: #10b981;"></span> Database</div>
+            <div class="legend-item"><span class="legend-dot" style="background: #8b5cf6;"></span> Test Suites</div>
+            <div class="legend-item"><span class="legend-dot" style="background: #64748b;"></span> Web & Tools</div>
+            <div class="legend-item"><span class="legend-line" style="border-top: 2px dashed #94a3b8;"></span> Import Edge</div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Visualization Workspace -->
+<div class="dep-map-layout">
+    <!-- Graph Canvas Container -->
+    <div class="card dep-graph-card" id="graphContainer" style="position: relative; overflow: hidden; min-height: 600px; background: #0b0f19;">
+        <!-- 3D WebGL Canvas Mount -->
+        <div id="graph3dContainer" style="width: 100%; height: 600px; position: absolute; top: 0; left: 0; z-index: 1;"></div>
+
+        <!-- 2D SVG Fallback Mount -->
+        <div class="graph-canvas-wrapper" id="canvasWrapper" style="display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; background: #ffffff;">
+            <svg id="depMapSvg" width="100%" height="600" viewBox="0 0 900 600">
+                <defs>
+                    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="22" refY="3" orient="auto">
+                        <polygon points="0 0, 8 3, 0 6" fill="#94a3b8" />
+                    </marker>
+                    <marker id="arrowhead-highlight" markerWidth="8" markerHeight="6" refX="22" refY="3" orient="auto">
+                        <polygon points="0 0, 8 3, 0 6" fill="#2563eb" />
+                    </marker>
+                </defs>
+                <g id="viewportGroup">
+                    <g id="edgesGroup"></g>
+                    <g id="nodesGroup"></g>
+                </g>
+            </svg>
+        </div>
+
+        <div class="graph-overlay-hint" style="position: absolute; bottom: 12px; left: 16px; z-index: 10; background: rgba(15, 23, 42, 0.75); color: #94a3b8; padding: 6px 12px; border-radius: 6px; font-size: 0.75rem; pointer-events: none; backdrop-filter: blur(4px);">
+            <span id="controlHintText">Left click + drag to rotate &bull; Right click + drag to pan &bull; Scroll to zoom &bull; Click node to inspect</span>
+        </div>
+    </div>
+
+    <!-- Node Inspector Sidebar -->
+    <div class="card dep-inspector-card" id="nodeInspectorCard">
+        <div class="card-header">
+            <span class="text-muted" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">Node Inspector</span>
+            <h3 id="inspectorTitle" style="font-size: 1.05rem; word-break: break-all; margin-top: 0.25rem;">Select a file</h3>
+        </div>
+        <div class="card-body" id="inspectorBody">
+            <div class="empty-state-text text-muted" id="inspectorEmptyState">
+                Click any node in the 3D dependency graph to inspect its AST import connections, blast radius, and related test suites.
+            </div>
+            <div id="inspectorDetails" style="display: none;">
+                <div class="d-flex justify-between align-center">
+                    <div>
+                        <div class="inspector-label">Component Category</div>
+                        <div id="inspectorCategory" class="badge badge-info" style="margin-top: 0.2rem;">Core Module</div>
+                    </div>
+                    <button class="btn btn-primary btn-xs" id="simulateBlastBtn" onclick="runBlastRadiusSimulation()">
+                        🔥 Blast Radius
+                    </button>
+                </div>
+
+                <div id="blastRadiusAlert" class="alert alert-warning" style="display: none; margin-top: 0.75rem; padding: 0.5rem 0.75rem; font-size: 0.78rem;">
+                    <strong>Blast Radius:</strong> <span id="blastCountText">0</span> downstream files impacted. Estimated risk score: <span id="blastRiskScore" class="font-bold">0</span>.
+                </div>
+
+                <div class="inspector-section" style="margin-top: 1rem;">
+                    <div class="inspector-label">Downstream Dependents (Who imports this?)</div>
+                    <p class="text-muted" style="font-size: 0.75rem;">Changes to this file will propagate to:</p>
+                    <ul id="inspectorDependentsList" class="inspector-list" style="margin-top: 0.4rem;"></ul>
+                </div>
+
+                <div class="inspector-section" style="margin-top: 1rem;">
+                    <div class="inspector-label">Upstream Dependencies (What does this import?)</div>
+                    <ul id="inspectorDependenciesList" class="inspector-list" style="margin-top: 0.4rem;"></ul>
+                </div>
+
+                <div class="inspector-section" style="margin-top: 1rem;">
+                    <div class="inspector-label">Target Regression Tests</div>
+                    <ul id="inspectorTestsList" class="inspector-list" style="margin-top: 0.4rem;"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Graph Data Injected into JS -->
+<script>
+    window.GRAPH_DATA = <%- JSON.stringify(dep_map) %>;
+</script>
+
+<script>
+let currentFilter = 'all';
+let currentSearch = '';
+let currentMode = '3d';
+let activeSelectedNode = null;
+let graph3dInstance = null;
+
+// Color palette
+function getNodeCategory(path) {
+    const p = (path || '').toLowerCase();
+    if (p.startsWith('core/') || p.includes('/core/') || p.includes('engine') || p.includes('calc')) return 'core';
+    if (p.startsWith('database/') || p.includes('db') || p.includes('models')) return 'database';
+    if (p.startsWith('tests/') || p.includes('test_') || p.includes('_test') || p.includes('.test.')) return 'tests';
+    return 'other';
+}
+
+function getNodeColor(category) {
+    switch (category) {
+        case 'core': return '#3b82f6';
+        case 'database': return '#10b981';
+        case 'tests': return '#8b5cf6';
+        default: return '#64748b';
+    }
+}
+
+// -------------------------------------------------------------
+// 3D Force Graph Initialization
+// -------------------------------------------------------------
+function init3dGraph(data) {
+    const container = document.getElementById('graph3dContainer');
+    if (!container || typeof ForceGraph3D === 'undefined') {
+        console.warn('3d-force-graph library not loaded, falling back to 2D view');
+        switchViewMode('2d');
+        return;
+    }
+
+    container.innerHTML = '';
+
+    const nodes = (data.nodes || []).map(id => ({
+        id: id,
+        name: id,
+        category: getNodeCategory(id),
+        color: getNodeColor(getNodeCategory(id))
+    }));
+
+    const links = (data.edges || []).map(e => ({
+        source: e.source || e.source_file,
+        target: e.target || e.target_file,
+        type: e.type || e.dep_type || 'import'
+    }));
+
+    try {
+        graph3dInstance = ForceGraph3D()(container)
+            .graphData({ nodes, links })
+            .nodeLabel(node => `<div style="background:#1e293b; color:#f8fafc; padding:4px 8px; border-radius:4px; font-family:monospace; font-size:12px; border:1px solid #334155;"><strong>${node.id}</strong><br><span style="color:#94a3b8;">${node.category.toUpperCase()}</span></div>`)
+            .nodeColor(node => {
+                if (activeSelectedNode && node.id === activeSelectedNode) return '#fbbf24';
+                return node.color;
+            })
+            .nodeRelSize(5)
+            .nodeVal(node => (node.category === 'tests' ? 4 : 6))
+            .linkSource('source')
+            .linkTarget('target')
+            .linkColor(() => '#475569')
+            .linkWidth(link => {
+                if (activeSelectedNode && (link.source.id === activeSelectedNode || link.target.id === activeSelectedNode)) {
+                    return 2.5;
+                }
+                return 1.2;
+            })
+            .linkDirectionalParticles(2)
+            .linkDirectionalParticleWidth(link => {
+                if (activeSelectedNode && (link.source.id === activeSelectedNode || link.target.id === activeSelectedNode)) {
+                    return 3;
+                }
+                return 1;
+            })
+            .linkDirectionalParticleSpeed(0.006)
+            .linkDirectionalArrowLength(4)
+            .linkDirectionalArrowRelPos(1)
+            .backgroundColor('#0b0f19')
+            .onNodeClick(node => {
+                selectNode(node.id);
+                // Aim camera at node
+                const distance = 80;
+                const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z);
+                graph3dInstance.cameraPosition(
+                    { x: node.x * distRatio, y: node.y * distRatio, z: node.z * distRatio },
+                    node,
+                    1200
+                );
+            })
+            .onBackgroundClick(() => {
+                clearSelection();
+            });
+
+        // Set initial camera view
+        graph3dInstance.cameraPosition({ x: 0, y: 0, z: 240 });
+    } catch (err) {
+        console.error('Failed to initialize 3D graph:', err);
+        switchViewMode('2d');
+    }
+}
+
+// -------------------------------------------------------------
+// 2D SVG Layout Fallback
+// -------------------------------------------------------------
+let currentZoom = 1;
+let panX = 0, panY = 0;
+let isPanning = false;
+let startX = 0, startY = 0;
+
+function update2dGraphTransform() {
+    const vp = document.getElementById('viewportGroup');
+    if (vp) {
+        vp.setAttribute('transform', `translate(${panX}, ${panY}) scale(${currentZoom})`);
+    }
+}
+
+function init2dPanControls() {
+    const svg = document.getElementById('depMapSvg');
+    if (!svg) return;
+
+    svg.addEventListener('mousedown', (e) => {
+        if (e.target.closest('.dep-node')) return;
+        isPanning = true;
+        startX = e.clientX - panX;
+        startY = e.clientY - panY;
+        svg.style.cursor = 'grabbing';
+    });
+
+    window.addEventListener('mousemove', (e) => {
+        if (!isPanning) return;
+        panX = e.clientX - startX;
+        panY = e.clientY - startY;
+        update2dGraphTransform();
+    });
+
+    window.addEventListener('mouseup', () => {
+        if (isPanning) {
+            isPanning = false;
+            svg.style.cursor = 'default';
+        }
+    });
+}
+
+function render2dGraph(data) {
+    const svg = document.getElementById('depMapSvg');
+    const edgesGroup = document.getElementById('edgesGroup');
+    const nodesGroup = document.getElementById('nodesGroup');
+    if (!svg || !data || !data.nodes) return;
+
+    edgesGroup.innerHTML = '';
+    nodesGroup.innerHTML = '';
+
+    const nodes = data.nodes;
+    const edges = data.edges || [];
+
+    const width = 900;
+    const height = 600;
+    const radius = Math.min(width, height) * 0.38;
+    const centerX = width / 2;
+    const centerY = height / 2;
+
+    const nodePositions = {};
+    const total = nodes.length;
+
+    nodes.forEach((n, i) => {
+        const angle = (i / Math.max(1, total)) * 2 * Math.PI - Math.PI / 2;
+        nodePositions[n] = {
+            x: centerX + radius * Math.cos(angle),
+            y: centerY + radius * Math.sin(angle)
+        };
+    });
+
+    edges.forEach((edge, idx) => {
+        const src = edge.source || edge.source_file;
+        const tgt = edge.target || edge.target_file;
+        const p1 = nodePositions[src];
+        const p2 = nodePositions[tgt];
+        if (!p1 || !p2) return;
+
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        const dx = p2.x - p1.x;
+        const dy = p2.y - p1.y;
+        const cx = (p1.x + p2.x) / 2 - dy * 0.15;
+        const cy = (p1.y + p2.y) / 2 + dx * 0.15;
+
+        path.setAttribute('d', `M ${p1.x} ${p1.y} Q ${cx} ${cy} ${p2.x} ${p2.y}`);
+        path.setAttribute('class', 'dep-edge');
+        path.setAttribute('stroke', '#cbd5e1');
+        path.setAttribute('stroke-width', '1.5');
+        path.setAttribute('fill', 'none');
+        path.setAttribute('marker-end', 'url(#arrowhead)');
+        path.dataset.source = src;
+        path.dataset.target = tgt;
+        edgesGroup.appendChild(path);
+    });
+
+    nodes.forEach((nodeName) => {
+        const pos = nodePositions[nodeName];
+        if (!pos) return;
+        const cat = getNodeCategory(nodeName);
+        const col = getNodeColor(cat);
+
+        const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        g.setAttribute('class', 'dep-node');
+        g.dataset.id = nodeName;
+        g.dataset.category = cat;
+        g.style.cursor = 'pointer';
+
+        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        circle.setAttribute('cx', pos.x);
+        circle.setAttribute('cy', pos.y);
+        circle.setAttribute('r', '14');
+        circle.setAttribute('fill', col);
+        circle.setAttribute('stroke', '#ffffff');
+        circle.setAttribute('stroke-width', '2');
+        g.appendChild(circle);
+
+        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        text.setAttribute('x', pos.x);
+        text.setAttribute('y', pos.y + 24);
+        text.setAttribute('text-anchor', 'middle');
+        text.setAttribute('font-size', '11');
+        text.setAttribute('font-weight', '500');
+        text.setAttribute('fill', '#334155');
+        text.textContent = nodeName.length > 18 ? nodeName.substring(0, 15) + '...' : nodeName;
+        g.appendChild(text);
+
+        g.addEventListener('click', (e) => {
+            e.stopPropagation();
+            selectNode(nodeName);
+        });
+
+        nodesGroup.appendChild(g);
+    });
+}
+
+// -------------------------------------------------------------
+// View Switching and Controls
+// -------------------------------------------------------------
+function switchViewMode(mode) {
+    currentMode = mode;
+    const container3d = document.getElementById('graph3dContainer');
+    const container2d = document.getElementById('canvasWrapper');
+    const mode3dBtn = document.getElementById('mode3dBtn');
+    const mode2dBtn = document.getElementById('mode2dBtn');
+    const hint = document.getElementById('controlHintText');
+
+    if (mode === '3d') {
+        container3d.style.display = 'block';
+        container2d.style.display = 'none';
+        mode3dBtn.className = 'btn btn-primary btn-xs';
+        mode2dBtn.className = 'btn btn-light btn-xs';
+        if (hint) hint.textContent = 'Left click + drag to rotate • Right click + drag to pan • Scroll to zoom • Click node to inspect';
+        if (!graph3dInstance) {
+            init3dGraph(window.GRAPH_DATA);
+        }
+    } else {
+        container3d.style.display = 'none';
+        container2d.style.display = 'block';
+        mode2dBtn.className = 'btn btn-primary btn-xs';
+        mode3dBtn.className = 'btn btn-light btn-xs';
+        if (hint) hint.textContent = 'Drag canvas to pan • Click node to inspect • Use toolbar buttons to zoom';
+        render2dGraph(window.GRAPH_DATA);
+    }
+}
+
+function resetGraphView() {
+    if (currentMode === '3d' && graph3dInstance) {
+        graph3dInstance.cameraPosition({ x: 0, y: 0, z: 240 }, { x: 0, y: 0, z: 0 }, 1000);
+    } else {
+        panX = 0;
+        panY = 0;
+        currentZoom = 1;
+        update2dGraphTransform();
+    }
+    clearSelection();
+}
+
+function selectNode(nodeName) {
+    activeSelectedNode = nodeName;
+
+    // Update Node Inspector Sidebar
+    document.getElementById('inspectorEmptyState').style.display = 'none';
+    document.getElementById('inspectorDetails').style.display = 'block';
+    document.getElementById('inspectorTitle').textContent = nodeName;
+
+    const cat = getNodeCategory(nodeName);
+    const catBadge = document.getElementById('inspectorCategory');
+    catBadge.textContent = cat.toUpperCase() + ' MODULE';
+    catBadge.style.background = getNodeColor(cat);
+
+    // Compute direct dependents (who imports nodeName)
+    const edges = window.GRAPH_DATA.edges || [];
+    const dependents = edges
+        .filter(e => (e.target || e.target_file) === nodeName)
+        .map(e => e.source || e.source_file);
+
+    // Compute upstream dependencies (what does nodeName import)
+    const dependencies = edges
+        .filter(e => (e.source || e.source_file) === nodeName)
+        .map(e => e.target || e.target_file);
+
+    // Tests related to this node
+    const relatedTests = (window.GRAPH_DATA.nodes || []).filter(n => {
+        const isTest = n.includes('test_') || n.includes('_test') || n.includes('.test.');
+        return isTest && (dependents.includes(n) || n.toLowerCase().includes(nodeName.replace(/\.[^.]+$/, '').toLowerCase()));
+    });
+
+    renderList('inspectorDependentsList', dependents, 'No downstream files import this module.');
+    renderList('inspectorDependenciesList', dependencies, 'No local imports in this module.');
+    renderList('inspectorTestsList', relatedTests, 'No mapped regression tests.');
+
+    // Highlight edges in 3D
+    if (graph3dInstance) {
+        graph3dInstance.refresh();
+    }
+
+    // Highlight edges in 2D
+    const svgEdges = document.querySelectorAll('.dep-edge');
+    svgEdges.forEach(e => {
+        if (e.dataset.source === nodeName || e.dataset.target === nodeName) {
+            e.setAttribute('stroke', '#2563eb');
+            e.setAttribute('stroke-width', '2.5');
+            e.setAttribute('marker-end', 'url(#arrowhead-highlight)');
+        } else {
+            e.setAttribute('stroke', '#e2e8f0');
+            e.setAttribute('stroke-width', '1');
+            e.setAttribute('marker-end', 'url(#arrowhead)');
+        }
+    });
+}
+
+function clearSelection() {
+    activeSelectedNode = null;
+    document.getElementById('inspectorEmptyState').style.display = 'block';
+    document.getElementById('inspectorDetails').style.display = 'none';
+    document.getElementById('blastRadiusAlert').style.display = 'none';
+
+    if (graph3dInstance) {
+        graph3dInstance.refresh();
+    }
+}
+
+function renderList(elementId, items, emptyText) {
+    const list = document.getElementById(elementId);
+    if (!list) return;
+    list.innerHTML = '';
+    if (!items || items.length === 0) {
+        list.innerHTML = `<li class="text-muted" style="font-size:0.75rem;">${emptyText}</li>`;
+        return;
+    }
+    items.forEach(item => {
+        const li = document.createElement('li');
+        li.style.cursor = 'pointer';
+        li.style.padding = '3px 6px';
+        li.style.borderRadius = '4px';
+        li.style.fontSize = '0.8rem';
+        li.innerHTML = `<code>${item}</code>`;
+        li.addEventListener('click', () => selectNode(item));
+        list.appendChild(li);
+    });
+}
+
+function runBlastRadiusSimulation() {
+    if (!activeSelectedNode) return;
+
+    // Traverse downstream blast radius
+    const edges = window.GRAPH_DATA.edges || [];
+    const visited = new Set();
+    const queue = [activeSelectedNode];
+
+    while (queue.length > 0) {
+        const curr = queue.shift();
+        const next = edges
+            .filter(e => (e.target || e.target_file) === curr)
+            .map(e => e.source || e.source_file);
+
+        next.forEach(dep => {
+            if (!visited.has(dep) && dep !== activeSelectedNode) {
+                visited.add(dep);
+                queue.push(dep);
+            }
+        });
+    }
+
+    const count = visited.size;
+    const estScore = Math.round((count * 2.0 + 1.5) * 10) / 10;
+
+    const alert = document.getElementById('blastRadiusAlert');
+    alert.style.display = 'block';
+    document.getElementById('blastCountText').textContent = count;
+    document.getElementById('blastRiskScore').textContent = estScore;
+}
+
+function filterGraphNodes(query) {
+    currentSearch = (query || '').toLowerCase().trim();
+    applyFilterAndSearch();
+}
+
+function setGraphFilter(filterName, btn) {
+    currentFilter = filterName;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    applyFilterAndSearch();
+}
+
+function applyFilterAndSearch() {
+    const allNodes = window.GRAPH_DATA.nodes || [];
+    const filteredNodes = allNodes.filter(n => {
+        const cat = getNodeCategory(n);
+        const matchesFilter = (currentFilter === 'all') || (cat === currentFilter);
+        const matchesSearch = !currentSearch || n.toLowerCase().includes(currentSearch);
+        return matchesFilter && matchesSearch;
+    });
+
+    const nodeSet = new Set(filteredNodes);
+    const filteredEdges = (window.GRAPH_DATA.edges || []).filter(e => {
+        const s = e.source || e.source_file;
+        const t = e.target || e.target_file;
+        return nodeSet.has(s) && nodeSet.has(t);
+    });
+
+    const filteredData = { nodes: filteredNodes, edges: filteredEdges };
+    document.getElementById('nodeCountBadge').textContent = filteredNodes.length;
+
+    if (currentMode === '3d' && graph3dInstance) {
+        const nodes = filteredNodes.map(id => ({
+            id: id,
+            name: id,
+            category: getNodeCategory(id),
+            color: getNodeColor(getNodeCategory(id))
+        }));
+        const links = filteredEdges.map(e => ({
+            source: e.source || e.source_file,
+            target: e.target || e.target_file,
+            type: e.type || e.dep_type || 'import'
+        }));
+        graph3dInstance.graphData({ nodes, links });
+    } else {
+        render2dGraph(filteredData);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    init3dGraph(window.GRAPH_DATA);
+    init2dPanControls();
+});
+</script>
+
+<%- include('partials/footer') %>

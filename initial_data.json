@@ -1,0 +1,1420 @@
+{
+  "commits": [
+    {
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "author": "Alex Developer",
+      "author_email": "alex@codeguard.dev",
+      "timestamp": "2026-09-07 09:36:39",
+      "message": "Initial commit: Add database access layer and unit tests",
+      "branch": "master",
+      "analyzed_at": "2026-09-07 09:44:12",
+      "lines_added": 42,
+      "lines_deleted": 0,
+      "risk_score": 20.1,
+      "risk_level": "High",
+      "risk_breakdown": "{\"total_score\": 20.1, \"risk_level\": \"High\", \"badge_class\": \"risk-high\", \"risk_color\": \"#ef4444\", \"dependents_count\": 6, \"dependents_score\": 12.0, \"failing_files\": [\"database.py\", \"test_database.py\"], \"past_failures_score\": 6.0, \"total_lines_changed\": 42, \"lines_score\": 2.1, \"reviewer_suggestions\": [{\"file\": \"login.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (28 lines)\"}, {\"file\": \"payment.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (21 lines)\"}, {\"file\": \"profile.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (16 lines)\"}, {\"file\": \"test_login.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (14 lines)\"}, {\"file\": \"test_payment.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (17 lines)\"}, {\"file\": \"test_profile.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (17 lines)\"}], \"formula_summary\": \"(6 dependents \\u00d7 2) + (2 past defect files \\u00d7 3) + (42 lines \\u00f7 20)\"}",
+      "status": "COMPLETED"
+    },
+    {
+      "commit_hash": "02ddaf57f0af0d2de0314266b7b8eeed042c53f2",
+      "author": "Alex Developer",
+      "author_email": "alex@codeguard.dev",
+      "timestamp": "2026-09-07 09:36:39",
+      "message": "Feature: Implement Login, Payment, and Profile services with unit tests",
+      "branch": "master",
+      "analyzed_at": "2026-09-07 09:44:12",
+      "lines_added": 103,
+      "lines_deleted": 0,
+      "risk_score": 23.1,
+      "risk_level": "High",
+      "risk_breakdown": "{\"total_score\": 23.1, \"risk_level\": \"High\", \"badge_class\": \"risk-high\", \"risk_color\": \"#ef4444\", \"dependents_count\": 0, \"dependents_score\": 0.0, \"failing_files\": [\"login.py\", \"payment.py\", \"profile.py\", \"test_login.py\", \"test_payment.py\", \"test_profile.py\"], \"past_failures_score\": 18.0, \"total_lines_changed\": 103, \"lines_score\": 5.15, \"reviewer_suggestions\": [], \"formula_summary\": \"(0 dependents \\u00d7 2) + (6 past defect files \\u00d7 3) + (103 lines \\u00f7 20)\"}",
+      "status": "COMPLETED"
+    },
+    {
+      "commit_hash": "9cf778cc10f9639726fa7adc06e4c6abeccd0cef",
+      "author": "Alex Developer",
+      "author_email": "alex@codeguard.dev",
+      "timestamp": "2026-09-07 09:36:39",
+      "message": "Refactor: Upgrade session token formatting and add logout method in login.py",
+      "branch": "master",
+      "analyzed_at": "2026-09-07 09:44:12",
+      "lines_added": 11,
+      "lines_deleted": 1,
+      "risk_score": 13.6,
+      "risk_level": "High",
+      "risk_breakdown": "{\"total_score\": 13.6, \"risk_level\": \"High\", \"badge_class\": \"risk-high\", \"risk_color\": \"#ef4444\", \"dependents_count\": 5, \"dependents_score\": 10.0, \"failing_files\": [\"login.py\"], \"past_failures_score\": 3.0, \"total_lines_changed\": 12, \"lines_score\": 0.6, \"reviewer_suggestions\": [{\"file\": \"payment.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (21 lines)\"}, {\"file\": \"profile.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (16 lines)\"}, {\"file\": \"test_login.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (14 lines)\"}, {\"file\": \"test_payment.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (17 lines)\"}, {\"file\": \"test_profile.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (17 lines)\"}], \"formula_summary\": \"(5 dependents \\u00d7 2) + (1 past defect files \\u00d7 3) + (12 lines \\u00f7 20)\"}",
+      "status": "COMPLETED"
+    },
+    {
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "author": "Alex Developer",
+      "author_email": "alex@codeguard.dev",
+      "timestamp": "2026-09-07 09:36:39",
+      "message": "Fix(database): Enforce realm requirement in get_user_password_hash [BREAKING]",
+      "branch": "master",
+      "analyzed_at": "2026-09-07 09:50:19",
+      "lines_added": 5,
+      "lines_deleted": 3,
+      "risk_score": 17.4,
+      "risk_level": "High",
+      "risk_breakdown": "{\"total_score\": 17.4, \"risk_level\": \"High\", \"badge_class\": \"risk-high\", \"risk_color\": \"#ef4444\", \"dependents_count\": 7, \"dependents_score\": 14.0, \"failing_files\": [\"database.py\"], \"past_failures_score\": 3.0, \"total_lines_changed\": 8, \"lines_score\": 0.4, \"reviewer_suggestions\": [{\"file\": \"login.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (28 lines)\"}, {\"file\": \"payment.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (21 lines)\"}, {\"file\": \"test_database.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (17 lines)\"}, {\"file\": \"profile.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (16 lines)\"}, {\"file\": \"test_login.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (14 lines)\"}, {\"file\": \"test_payment.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (17 lines)\"}, {\"file\": \"test_profile.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (17 lines)\"}], \"formula_summary\": \"(7 dependents \\u00d7 2) + (1 past defect files \\u00d7 3) + (8 lines \\u00f7 20)\"}",
+      "status": "COMPLETED"
+    }
+  ],
+  "changed_files": [
+    {
+      "id": 21,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "filepath": "database.py",
+      "change_type": "A",
+      "lines_added": 25,
+      "lines_deleted": 0,
+      "blame_author": "Alex Developer"
+    },
+    {
+      "id": 22,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "filepath": "test_database.py",
+      "change_type": "A",
+      "lines_added": 17,
+      "lines_deleted": 0,
+      "blame_author": "Alex Developer"
+    },
+    {
+      "id": 23,
+      "commit_hash": "02ddaf57f0af0d2de0314266b7b8eeed042c53f2",
+      "filepath": "login.py",
+      "change_type": "A",
+      "lines_added": 18,
+      "lines_deleted": 0,
+      "blame_author": "Alex Developer"
+    },
+    {
+      "id": 24,
+      "commit_hash": "02ddaf57f0af0d2de0314266b7b8eeed042c53f2",
+      "filepath": "payment.py",
+      "change_type": "A",
+      "lines_added": 21,
+      "lines_deleted": 0,
+      "blame_author": "Alex Developer"
+    },
+    {
+      "id": 25,
+      "commit_hash": "02ddaf57f0af0d2de0314266b7b8eeed042c53f2",
+      "filepath": "profile.py",
+      "change_type": "A",
+      "lines_added": 16,
+      "lines_deleted": 0,
+      "blame_author": "Alex Developer"
+    },
+    {
+      "id": 26,
+      "commit_hash": "02ddaf57f0af0d2de0314266b7b8eeed042c53f2",
+      "filepath": "test_login.py",
+      "change_type": "A",
+      "lines_added": 14,
+      "lines_deleted": 0,
+      "blame_author": "Alex Developer"
+    },
+    {
+      "id": 27,
+      "commit_hash": "02ddaf57f0af0d2de0314266b7b8eeed042c53f2",
+      "filepath": "test_payment.py",
+      "change_type": "A",
+      "lines_added": 17,
+      "lines_deleted": 0,
+      "blame_author": "Alex Developer"
+    },
+    {
+      "id": 28,
+      "commit_hash": "02ddaf57f0af0d2de0314266b7b8eeed042c53f2",
+      "filepath": "test_profile.py",
+      "change_type": "A",
+      "lines_added": 17,
+      "lines_deleted": 0,
+      "blame_author": "Alex Developer"
+    },
+    {
+      "id": 29,
+      "commit_hash": "9cf778cc10f9639726fa7adc06e4c6abeccd0cef",
+      "filepath": "login.py",
+      "change_type": "M",
+      "lines_added": 11,
+      "lines_deleted": 1,
+      "blame_author": "Alex Developer"
+    },
+    {
+      "id": 31,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "filepath": "database.py",
+      "change_type": "M",
+      "lines_added": 5,
+      "lines_deleted": 3,
+      "blame_author": "Alex Developer"
+    }
+  ],
+  "affected_files": [
+    {
+      "id": 37,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "filepath": "login.py",
+      "depth": 1,
+      "reason": "Directly imports database.py"
+    },
+    {
+      "id": 38,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "filepath": "payment.py",
+      "depth": 1,
+      "reason": "Directly imports database.py"
+    },
+    {
+      "id": 39,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "filepath": "profile.py",
+      "depth": 2,
+      "reason": "Transitively depends on database.py (via login.py)"
+    },
+    {
+      "id": 40,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "filepath": "test_login.py",
+      "depth": 2,
+      "reason": "Transitively depends on database.py (via login.py)"
+    },
+    {
+      "id": 41,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "filepath": "test_payment.py",
+      "depth": 2,
+      "reason": "Transitively depends on database.py (via login.py)"
+    },
+    {
+      "id": 42,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "filepath": "test_profile.py",
+      "depth": 2,
+      "reason": "Transitively depends on database.py (via login.py)"
+    },
+    {
+      "id": 43,
+      "commit_hash": "9cf778cc10f9639726fa7adc06e4c6abeccd0cef",
+      "filepath": "payment.py",
+      "depth": 1,
+      "reason": "Directly imports login.py"
+    },
+    {
+      "id": 44,
+      "commit_hash": "9cf778cc10f9639726fa7adc06e4c6abeccd0cef",
+      "filepath": "profile.py",
+      "depth": 1,
+      "reason": "Directly imports login.py"
+    },
+    {
+      "id": 45,
+      "commit_hash": "9cf778cc10f9639726fa7adc06e4c6abeccd0cef",
+      "filepath": "test_login.py",
+      "depth": 1,
+      "reason": "Directly imports login.py"
+    },
+    {
+      "id": 46,
+      "commit_hash": "9cf778cc10f9639726fa7adc06e4c6abeccd0cef",
+      "filepath": "test_payment.py",
+      "depth": 1,
+      "reason": "Directly imports login.py"
+    },
+    {
+      "id": 47,
+      "commit_hash": "9cf778cc10f9639726fa7adc06e4c6abeccd0cef",
+      "filepath": "test_profile.py",
+      "depth": 1,
+      "reason": "Directly imports login.py"
+    },
+    {
+      "id": 55,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "filepath": "login.py",
+      "depth": 1,
+      "reason": "Directly imports database.py"
+    },
+    {
+      "id": 56,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "filepath": "payment.py",
+      "depth": 1,
+      "reason": "Directly imports database.py"
+    },
+    {
+      "id": 57,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "filepath": "test_database.py",
+      "depth": 1,
+      "reason": "Directly imports database.py"
+    },
+    {
+      "id": 58,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "filepath": "profile.py",
+      "depth": 2,
+      "reason": "Transitively depends on database.py (via login.py)"
+    },
+    {
+      "id": 59,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "filepath": "test_login.py",
+      "depth": 2,
+      "reason": "Transitively depends on database.py (via login.py)"
+    },
+    {
+      "id": 60,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "filepath": "test_payment.py",
+      "depth": 2,
+      "reason": "Transitively depends on database.py (via login.py)"
+    },
+    {
+      "id": 61,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "filepath": "test_profile.py",
+      "depth": 2,
+      "reason": "Transitively depends on database.py (via login.py)"
+    }
+  ],
+  "dependency_edges": [
+    {
+      "id": 81,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "source_file": "test_database.py",
+      "target_file": "database.py",
+      "dep_type": "import"
+    },
+    {
+      "id": 82,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "source_file": "login.py",
+      "target_file": "database.py",
+      "dep_type": "import"
+    },
+    {
+      "id": 83,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "source_file": "test_login.py",
+      "target_file": "login.py",
+      "dep_type": "import"
+    },
+    {
+      "id": 84,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "source_file": "payment.py",
+      "target_file": "database.py",
+      "dep_type": "import"
+    },
+    {
+      "id": 85,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "source_file": "payment.py",
+      "target_file": "login.py",
+      "dep_type": "import"
+    },
+    {
+      "id": 86,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "source_file": "test_payment.py",
+      "target_file": "payment.py",
+      "dep_type": "import"
+    },
+    {
+      "id": 87,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "source_file": "test_payment.py",
+      "target_file": "login.py",
+      "dep_type": "import"
+    },
+    {
+      "id": 88,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "source_file": "profile.py",
+      "target_file": "login.py",
+      "dep_type": "import"
+    },
+    {
+      "id": 89,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "source_file": "test_profile.py",
+      "target_file": "profile.py",
+      "dep_type": "import"
+    },
+    {
+      "id": 90,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "source_file": "test_profile.py",
+      "target_file": "login.py",
+      "dep_type": "import"
+    },
+    {
+      "id": 91,
+      "commit_hash": "02ddaf57f0af0d2de0314266b7b8eeed042c53f2",
+      "source_file": "test_database.py",
+      "target_file": "database.py",
+      "dep_type": "import"
+    },
+    {
+      "id": 92,
+      "commit_hash": "02ddaf57f0af0d2de0314266b7b8eeed042c53f2",
+      "source_file": "login.py",
+      "target_file": "database.py",
+      "dep_type": "import"
+    },
+    {
+      "id": 93,
+      "commit_hash": "02ddaf57f0af0d2de0314266b7b8eeed042c53f2",
+      "source_file": "test_login.py",
+      "target_file": "login.py",
+      "dep_type": "import"
+    },
+    {
+      "id": 94,
+      "commit_hash": "02ddaf57f0af0d2de0314266b7b8eeed042c53f2",
+      "source_file": "payment.py",
+      "target_file": "database.py",
+      "dep_type": "import"
+    },
+    {
+      "id": 95,
+      "commit_hash": "02ddaf57f0af0d2de0314266b7b8eeed042c53f2",
+      "source_file": "payment.py",
+      "target_file": "login.py",
+      "dep_type": "import"
+    },
+    {
+      "id": 96,
+      "commit_hash": "02ddaf57f0af0d2de0314266b7b8eeed042c53f2",
+      "source_file": "test_payment.py",
+      "target_file": "payment.py",
+      "dep_type": "import"
+    },
+    {
+      "id": 97,
+      "commit_hash": "02ddaf57f0af0d2de0314266b7b8eeed042c53f2",
+      "source_file": "test_payment.py",
+      "target_file": "login.py",
+      "dep_type": "import"
+    },
+    {
+      "id": 98,
+      "commit_hash": "02ddaf57f0af0d2de0314266b7b8eeed042c53f2",
+      "source_file": "profile.py",
+      "target_file": "login.py",
+      "dep_type": "import"
+    },
+    {
+      "id": 99,
+      "commit_hash": "02ddaf57f0af0d2de0314266b7b8eeed042c53f2",
+      "source_file": "test_profile.py",
+      "target_file": "profile.py",
+      "dep_type": "import"
+    },
+    {
+      "id": 100,
+      "commit_hash": "02ddaf57f0af0d2de0314266b7b8eeed042c53f2",
+      "source_file": "test_profile.py",
+      "target_file": "login.py",
+      "dep_type": "import"
+    },
+    {
+      "id": 101,
+      "commit_hash": "9cf778cc10f9639726fa7adc06e4c6abeccd0cef",
+      "source_file": "test_database.py",
+      "target_file": "database.py",
+      "dep_type": "import"
+    },
+    {
+      "id": 102,
+      "commit_hash": "9cf778cc10f9639726fa7adc06e4c6abeccd0cef",
+      "source_file": "login.py",
+      "target_file": "database.py",
+      "dep_type": "import"
+    },
+    {
+      "id": 103,
+      "commit_hash": "9cf778cc10f9639726fa7adc06e4c6abeccd0cef",
+      "source_file": "test_login.py",
+      "target_file": "login.py",
+      "dep_type": "import"
+    },
+    {
+      "id": 104,
+      "commit_hash": "9cf778cc10f9639726fa7adc06e4c6abeccd0cef",
+      "source_file": "payment.py",
+      "target_file": "database.py",
+      "dep_type": "import"
+    },
+    {
+      "id": 105,
+      "commit_hash": "9cf778cc10f9639726fa7adc06e4c6abeccd0cef",
+      "source_file": "payment.py",
+      "target_file": "login.py",
+      "dep_type": "import"
+    },
+    {
+      "id": 106,
+      "commit_hash": "9cf778cc10f9639726fa7adc06e4c6abeccd0cef",
+      "source_file": "test_payment.py",
+      "target_file": "payment.py",
+      "dep_type": "import"
+    },
+    {
+      "id": 107,
+      "commit_hash": "9cf778cc10f9639726fa7adc06e4c6abeccd0cef",
+      "source_file": "test_payment.py",
+      "target_file": "login.py",
+      "dep_type": "import"
+    },
+    {
+      "id": 108,
+      "commit_hash": "9cf778cc10f9639726fa7adc06e4c6abeccd0cef",
+      "source_file": "profile.py",
+      "target_file": "login.py",
+      "dep_type": "import"
+    },
+    {
+      "id": 109,
+      "commit_hash": "9cf778cc10f9639726fa7adc06e4c6abeccd0cef",
+      "source_file": "test_profile.py",
+      "target_file": "profile.py",
+      "dep_type": "import"
+    },
+    {
+      "id": 110,
+      "commit_hash": "9cf778cc10f9639726fa7adc06e4c6abeccd0cef",
+      "source_file": "test_profile.py",
+      "target_file": "login.py",
+      "dep_type": "import"
+    },
+    {
+      "id": 121,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "source_file": "test_database.py",
+      "target_file": "database.py",
+      "dep_type": "import"
+    },
+    {
+      "id": 122,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "source_file": "login.py",
+      "target_file": "database.py",
+      "dep_type": "import"
+    },
+    {
+      "id": 123,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "source_file": "test_login.py",
+      "target_file": "login.py",
+      "dep_type": "import"
+    },
+    {
+      "id": 124,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "source_file": "payment.py",
+      "target_file": "database.py",
+      "dep_type": "import"
+    },
+    {
+      "id": 125,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "source_file": "payment.py",
+      "target_file": "login.py",
+      "dep_type": "import"
+    },
+    {
+      "id": 126,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "source_file": "test_payment.py",
+      "target_file": "payment.py",
+      "dep_type": "import"
+    },
+    {
+      "id": 127,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "source_file": "test_payment.py",
+      "target_file": "login.py",
+      "dep_type": "import"
+    },
+    {
+      "id": 128,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "source_file": "profile.py",
+      "target_file": "login.py",
+      "dep_type": "import"
+    },
+    {
+      "id": 129,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "source_file": "test_profile.py",
+      "target_file": "profile.py",
+      "dep_type": "import"
+    },
+    {
+      "id": 130,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "source_file": "test_profile.py",
+      "target_file": "login.py",
+      "dep_type": "import"
+    }
+  ],
+  "test_runs": [
+    {
+      "id": 61,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "test_file": "test_database.py",
+      "test_name": "test_database.py::test_database_connection",
+      "status": "PASSED",
+      "duration_sec": 0.001,
+      "error_message": "",
+      "stdout": "============================= test session starts ==============================\nplatform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0 -- /usr/bin/python3\ncachedir: .pytest_cache\nrootdir: /app/applet/sample_repo\ncollecting ... collected 9 items\n\ntest_database.py::test_database_connection PASSED                        [ 11%]\ntest_database.py::test_get_user_password FAILED                          [ 22%]\ntest_database.py::test_update_balance PASSED                             [ 33%]\ntest_login.py::test_successful_login FAILED                              [ 44%]\ntest_login.py::test_failed_login PASSED                                  [ 55%]\ntest_payment.py::test_payment_success FAILED                             [ 66%]\ntest_payment.py::test_payment_unauthorized PASSED                        [ 77%]\ntest_profile.py::test_get_profile_success FAILED                         [ 88%]\ntest_profile.py::test_get_profile_invalid PASSED                         [100%]\n\n=================================== FAILURES ===================================\n____________________________ test_get_user_password ____________________________\ntest_database.py:11: in test_get_user_password\n    assert db.get_user_password_hash(\"alice\") == \"hash_123\"\nE   AssertionError: assert None == 'hash_123'\nE    +  where None = get_user_password_hash('alice')\nE    +    where get_user_password_hash = <database.Database object at 0x7f761df058d0>.get_user_password_hash\n____________________________ test_successful_login _____________________________\ntest_login.py:8: in test_successful_login\n    assert token is not None\nE   assert None is not None\n_____________________________ test_payment_success _____________________________\ntest_payment.py:11: in test_payment_success\n    assert result[\"status\"] == \"success\"\nE   AssertionError: assert 'unauthorized' == 'success'\nE     \nE     - success\nE     + unauthorized\n___________________________ test_get_profile_success ___________________________\ntest_profile.py:11: in test_get_profile_success\n    assert data is not None\nE   assert None is not None\n------------------- generated xml file: /tmp/tmphw_2ds2g.xml -------------------\n=========================== short test summary info ============================\nFAILED test_database.py::test_get_user_password - AssertionError: assert None...\nFAILED test_login.py::test_successful_login - assert None is not None\nFAILED test_payment.py::test_payment_success - AssertionError: assert 'unauth...\nFAILED test_profile.py::test_get_profile_success - assert None is not None\n========================= 4 failed, 5 passed in 0.07s ==========================\n",
+      "run_at": "2026-09-07 09:44:12"
+    },
+    {
+      "id": 62,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "test_file": "test_database.py",
+      "test_name": "test_database.py::test_get_user_password",
+      "status": "FAILED",
+      "duration_sec": 0.001,
+      "error_message": "AssertionError: assert None == 'hash_123'\n +  where None = get_user_password_hash('alice')\n +    where get_user_password_hash = <database.Database object at 0x7f761df058d0>.get_user_password_hash",
+      "stdout": "============================= test session starts ==============================\nplatform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0 -- /usr/bin/python3\ncachedir: .pytest_cache\nrootdir: /app/applet/sample_repo\ncollecting ... collected 9 items\n\ntest_database.py::test_database_connection PASSED                        [ 11%]\ntest_database.py::test_get_user_password FAILED                          [ 22%]\ntest_database.py::test_update_balance PASSED                             [ 33%]\ntest_login.py::test_successful_login FAILED                              [ 44%]\ntest_login.py::test_failed_login PASSED                                  [ 55%]\ntest_payment.py::test_payment_success FAILED                             [ 66%]\ntest_payment.py::test_payment_unauthorized PASSED                        [ 77%]\ntest_profile.py::test_get_profile_success FAILED                         [ 88%]\ntest_profile.py::test_get_profile_invalid PASSED                         [100%]\n\n=================================== FAILURES ===================================\n____________________________ test_get_user_password ____________________________\ntest_database.py:11: in test_get_user_password\n    assert db.get_user_password_hash(\"alice\") == \"hash_123\"\nE   AssertionError: assert None == 'hash_123'\nE    +  where None = get_user_password_hash('alice')\nE    +    where get_user_password_hash = <database.Database object at 0x7f761df058d0>.get_user_password_hash\n____________________________ test_successful_login _____________________________\ntest_login.py:8: in test_successful_login\n    assert token is not None\nE   assert None is not None\n_____________________________ test_payment_success _____________________________\ntest_payment.py:11: in test_payment_success\n    assert result[\"status\"] == \"success\"\nE   AssertionError: assert 'unauthorized' == 'success'\nE     \nE     - success\nE     + unauthorized\n___________________________ test_get_profile_success ___________________________\ntest_profile.py:11: in test_get_profile_success\n    assert data is not None\nE   assert None is not None\n------------------- generated xml file: /tmp/tmphw_2ds2g.xml -------------------\n=========================== short test summary info ============================\nFAILED test_database.py::test_get_user_password - AssertionError: assert None...\nFAILED test_login.py::test_successful_login - assert None is not None\nFAILED test_payment.py::test_payment_success - AssertionError: assert 'unauth...\nFAILED test_profile.py::test_get_profile_success - assert None is not None\n========================= 4 failed, 5 passed in 0.07s ==========================\n",
+      "run_at": "2026-09-07 09:44:12"
+    },
+    {
+      "id": 63,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "test_file": "test_database.py",
+      "test_name": "test_database.py::test_update_balance",
+      "status": "PASSED",
+      "duration_sec": 0.001,
+      "error_message": "",
+      "stdout": "============================= test session starts ==============================\nplatform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0 -- /usr/bin/python3\ncachedir: .pytest_cache\nrootdir: /app/applet/sample_repo\ncollecting ... collected 9 items\n\ntest_database.py::test_database_connection PASSED                        [ 11%]\ntest_database.py::test_get_user_password FAILED                          [ 22%]\ntest_database.py::test_update_balance PASSED                             [ 33%]\ntest_login.py::test_successful_login FAILED                              [ 44%]\ntest_login.py::test_failed_login PASSED                                  [ 55%]\ntest_payment.py::test_payment_success FAILED                             [ 66%]\ntest_payment.py::test_payment_unauthorized PASSED                        [ 77%]\ntest_profile.py::test_get_profile_success FAILED                         [ 88%]\ntest_profile.py::test_get_profile_invalid PASSED                         [100%]\n\n=================================== FAILURES ===================================\n____________________________ test_get_user_password ____________________________\ntest_database.py:11: in test_get_user_password\n    assert db.get_user_password_hash(\"alice\") == \"hash_123\"\nE   AssertionError: assert None == 'hash_123'\nE    +  where None = get_user_password_hash('alice')\nE    +    where get_user_password_hash = <database.Database object at 0x7f761df058d0>.get_user_password_hash\n____________________________ test_successful_login _____________________________\ntest_login.py:8: in test_successful_login\n    assert token is not None\nE   assert None is not None\n_____________________________ test_payment_success _____________________________\ntest_payment.py:11: in test_payment_success\n    assert result[\"status\"] == \"success\"\nE   AssertionError: assert 'unauthorized' == 'success'\nE     \nE     - success\nE     + unauthorized\n___________________________ test_get_profile_success ___________________________\ntest_profile.py:11: in test_get_profile_success\n    assert data is not None\nE   assert None is not None\n------------------- generated xml file: /tmp/tmphw_2ds2g.xml -------------------\n=========================== short test summary info ============================\nFAILED test_database.py::test_get_user_password - AssertionError: assert None...\nFAILED test_login.py::test_successful_login - assert None is not None\nFAILED test_payment.py::test_payment_success - AssertionError: assert 'unauth...\nFAILED test_profile.py::test_get_profile_success - assert None is not None\n========================= 4 failed, 5 passed in 0.07s ==========================\n",
+      "run_at": "2026-09-07 09:44:12"
+    },
+    {
+      "id": 64,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "test_file": "test_login.py",
+      "test_name": "test_login.py::test_successful_login",
+      "status": "FAILED",
+      "duration_sec": 0.001,
+      "error_message": "assert None is not None",
+      "stdout": "============================= test session starts ==============================\nplatform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0 -- /usr/bin/python3\ncachedir: .pytest_cache\nrootdir: /app/applet/sample_repo\ncollecting ... collected 9 items\n\ntest_database.py::test_database_connection PASSED                        [ 11%]\ntest_database.py::test_get_user_password FAILED                          [ 22%]\ntest_database.py::test_update_balance PASSED                             [ 33%]\ntest_login.py::test_successful_login FAILED                              [ 44%]\ntest_login.py::test_failed_login PASSED                                  [ 55%]\ntest_payment.py::test_payment_success FAILED                             [ 66%]\ntest_payment.py::test_payment_unauthorized PASSED                        [ 77%]\ntest_profile.py::test_get_profile_success FAILED                         [ 88%]\ntest_profile.py::test_get_profile_invalid PASSED                         [100%]\n\n=================================== FAILURES ===================================\n____________________________ test_get_user_password ____________________________\ntest_database.py:11: in test_get_user_password\n    assert db.get_user_password_hash(\"alice\") == \"hash_123\"\nE   AssertionError: assert None == 'hash_123'\nE    +  where None = get_user_password_hash('alice')\nE    +    where get_user_password_hash = <database.Database object at 0x7f761df058d0>.get_user_password_hash\n____________________________ test_successful_login _____________________________\ntest_login.py:8: in test_successful_login\n    assert token is not None\nE   assert None is not None\n_____________________________ test_payment_success _____________________________\ntest_payment.py:11: in test_payment_success\n    assert result[\"status\"] == \"success\"\nE   AssertionError: assert 'unauthorized' == 'success'\nE     \nE     - success\nE     + unauthorized\n___________________________ test_get_profile_success ___________________________\ntest_profile.py:11: in test_get_profile_success\n    assert data is not None\nE   assert None is not None\n------------------- generated xml file: /tmp/tmphw_2ds2g.xml -------------------\n=========================== short test summary info ============================\nFAILED test_database.py::test_get_user_password - AssertionError: assert None...\nFAILED test_login.py::test_successful_login - assert None is not None\nFAILED test_payment.py::test_payment_success - AssertionError: assert 'unauth...\nFAILED test_profile.py::test_get_profile_success - assert None is not None\n========================= 4 failed, 5 passed in 0.07s ==========================\n",
+      "run_at": "2026-09-07 09:44:12"
+    },
+    {
+      "id": 65,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "test_file": "test_login.py",
+      "test_name": "test_login.py::test_failed_login",
+      "status": "PASSED",
+      "duration_sec": 0.0,
+      "error_message": "",
+      "stdout": "============================= test session starts ==============================\nplatform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0 -- /usr/bin/python3\ncachedir: .pytest_cache\nrootdir: /app/applet/sample_repo\ncollecting ... collected 9 items\n\ntest_database.py::test_database_connection PASSED                        [ 11%]\ntest_database.py::test_get_user_password FAILED                          [ 22%]\ntest_database.py::test_update_balance PASSED                             [ 33%]\ntest_login.py::test_successful_login FAILED                              [ 44%]\ntest_login.py::test_failed_login PASSED                                  [ 55%]\ntest_payment.py::test_payment_success FAILED                             [ 66%]\ntest_payment.py::test_payment_unauthorized PASSED                        [ 77%]\ntest_profile.py::test_get_profile_success FAILED                         [ 88%]\ntest_profile.py::test_get_profile_invalid PASSED                         [100%]\n\n=================================== FAILURES ===================================\n____________________________ test_get_user_password ____________________________\ntest_database.py:11: in test_get_user_password\n    assert db.get_user_password_hash(\"alice\") == \"hash_123\"\nE   AssertionError: assert None == 'hash_123'\nE    +  where None = get_user_password_hash('alice')\nE    +    where get_user_password_hash = <database.Database object at 0x7f761df058d0>.get_user_password_hash\n____________________________ test_successful_login _____________________________\ntest_login.py:8: in test_successful_login\n    assert token is not None\nE   assert None is not None\n_____________________________ test_payment_success _____________________________\ntest_payment.py:11: in test_payment_success\n    assert result[\"status\"] == \"success\"\nE   AssertionError: assert 'unauthorized' == 'success'\nE     \nE     - success\nE     + unauthorized\n___________________________ test_get_profile_success ___________________________\ntest_profile.py:11: in test_get_profile_success\n    assert data is not None\nE   assert None is not None\n------------------- generated xml file: /tmp/tmphw_2ds2g.xml -------------------\n=========================== short test summary info ============================\nFAILED test_database.py::test_get_user_password - AssertionError: assert None...\nFAILED test_login.py::test_successful_login - assert None is not None\nFAILED test_payment.py::test_payment_success - AssertionError: assert 'unauth...\nFAILED test_profile.py::test_get_profile_success - assert None is not None\n========================= 4 failed, 5 passed in 0.07s ==========================\n",
+      "run_at": "2026-09-07 09:44:12"
+    },
+    {
+      "id": 66,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "test_file": "test_payment.py",
+      "test_name": "test_payment.py::test_payment_success",
+      "status": "FAILED",
+      "duration_sec": 0.001,
+      "error_message": "AssertionError: assert 'unauthorized' == 'success'\n  \n  - success\n  + unauthorized",
+      "stdout": "============================= test session starts ==============================\nplatform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0 -- /usr/bin/python3\ncachedir: .pytest_cache\nrootdir: /app/applet/sample_repo\ncollecting ... collected 9 items\n\ntest_database.py::test_database_connection PASSED                        [ 11%]\ntest_database.py::test_get_user_password FAILED                          [ 22%]\ntest_database.py::test_update_balance PASSED                             [ 33%]\ntest_login.py::test_successful_login FAILED                              [ 44%]\ntest_login.py::test_failed_login PASSED                                  [ 55%]\ntest_payment.py::test_payment_success FAILED                             [ 66%]\ntest_payment.py::test_payment_unauthorized PASSED                        [ 77%]\ntest_profile.py::test_get_profile_success FAILED                         [ 88%]\ntest_profile.py::test_get_profile_invalid PASSED                         [100%]\n\n=================================== FAILURES ===================================\n____________________________ test_get_user_password ____________________________\ntest_database.py:11: in test_get_user_password\n    assert db.get_user_password_hash(\"alice\") == \"hash_123\"\nE   AssertionError: assert None == 'hash_123'\nE    +  where None = get_user_password_hash('alice')\nE    +    where get_user_password_hash = <database.Database object at 0x7f761df058d0>.get_user_password_hash\n____________________________ test_successful_login _____________________________\ntest_login.py:8: in test_successful_login\n    assert token is not None\nE   assert None is not None\n_____________________________ test_payment_success _____________________________\ntest_payment.py:11: in test_payment_success\n    assert result[\"status\"] == \"success\"\nE   AssertionError: assert 'unauthorized' == 'success'\nE     \nE     - success\nE     + unauthorized\n___________________________ test_get_profile_success ___________________________\ntest_profile.py:11: in test_get_profile_success\n    assert data is not None\nE   assert None is not None\n------------------- generated xml file: /tmp/tmphw_2ds2g.xml -------------------\n=========================== short test summary info ============================\nFAILED test_database.py::test_get_user_password - AssertionError: assert None...\nFAILED test_login.py::test_successful_login - assert None is not None\nFAILED test_payment.py::test_payment_success - AssertionError: assert 'unauth...\nFAILED test_profile.py::test_get_profile_success - assert None is not None\n========================= 4 failed, 5 passed in 0.07s ==========================\n",
+      "run_at": "2026-09-07 09:44:12"
+    },
+    {
+      "id": 67,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "test_file": "test_payment.py",
+      "test_name": "test_payment.py::test_payment_unauthorized",
+      "status": "PASSED",
+      "duration_sec": 0.0,
+      "error_message": "",
+      "stdout": "============================= test session starts ==============================\nplatform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0 -- /usr/bin/python3\ncachedir: .pytest_cache\nrootdir: /app/applet/sample_repo\ncollecting ... collected 9 items\n\ntest_database.py::test_database_connection PASSED                        [ 11%]\ntest_database.py::test_get_user_password FAILED                          [ 22%]\ntest_database.py::test_update_balance PASSED                             [ 33%]\ntest_login.py::test_successful_login FAILED                              [ 44%]\ntest_login.py::test_failed_login PASSED                                  [ 55%]\ntest_payment.py::test_payment_success FAILED                             [ 66%]\ntest_payment.py::test_payment_unauthorized PASSED                        [ 77%]\ntest_profile.py::test_get_profile_success FAILED                         [ 88%]\ntest_profile.py::test_get_profile_invalid PASSED                         [100%]\n\n=================================== FAILURES ===================================\n____________________________ test_get_user_password ____________________________\ntest_database.py:11: in test_get_user_password\n    assert db.get_user_password_hash(\"alice\") == \"hash_123\"\nE   AssertionError: assert None == 'hash_123'\nE    +  where None = get_user_password_hash('alice')\nE    +    where get_user_password_hash = <database.Database object at 0x7f761df058d0>.get_user_password_hash\n____________________________ test_successful_login _____________________________\ntest_login.py:8: in test_successful_login\n    assert token is not None\nE   assert None is not None\n_____________________________ test_payment_success _____________________________\ntest_payment.py:11: in test_payment_success\n    assert result[\"status\"] == \"success\"\nE   AssertionError: assert 'unauthorized' == 'success'\nE     \nE     - success\nE     + unauthorized\n___________________________ test_get_profile_success ___________________________\ntest_profile.py:11: in test_get_profile_success\n    assert data is not None\nE   assert None is not None\n------------------- generated xml file: /tmp/tmphw_2ds2g.xml -------------------\n=========================== short test summary info ============================\nFAILED test_database.py::test_get_user_password - AssertionError: assert None...\nFAILED test_login.py::test_successful_login - assert None is not None\nFAILED test_payment.py::test_payment_success - AssertionError: assert 'unauth...\nFAILED test_profile.py::test_get_profile_success - assert None is not None\n========================= 4 failed, 5 passed in 0.07s ==========================\n",
+      "run_at": "2026-09-07 09:44:12"
+    },
+    {
+      "id": 68,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "test_file": "test_profile.py",
+      "test_name": "test_profile.py::test_get_profile_success",
+      "status": "FAILED",
+      "duration_sec": 0.001,
+      "error_message": "assert None is not None",
+      "stdout": "============================= test session starts ==============================\nplatform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0 -- /usr/bin/python3\ncachedir: .pytest_cache\nrootdir: /app/applet/sample_repo\ncollecting ... collected 9 items\n\ntest_database.py::test_database_connection PASSED                        [ 11%]\ntest_database.py::test_get_user_password FAILED                          [ 22%]\ntest_database.py::test_update_balance PASSED                             [ 33%]\ntest_login.py::test_successful_login FAILED                              [ 44%]\ntest_login.py::test_failed_login PASSED                                  [ 55%]\ntest_payment.py::test_payment_success FAILED                             [ 66%]\ntest_payment.py::test_payment_unauthorized PASSED                        [ 77%]\ntest_profile.py::test_get_profile_success FAILED                         [ 88%]\ntest_profile.py::test_get_profile_invalid PASSED                         [100%]\n\n=================================== FAILURES ===================================\n____________________________ test_get_user_password ____________________________\ntest_database.py:11: in test_get_user_password\n    assert db.get_user_password_hash(\"alice\") == \"hash_123\"\nE   AssertionError: assert None == 'hash_123'\nE    +  where None = get_user_password_hash('alice')\nE    +    where get_user_password_hash = <database.Database object at 0x7f761df058d0>.get_user_password_hash\n____________________________ test_successful_login _____________________________\ntest_login.py:8: in test_successful_login\n    assert token is not None\nE   assert None is not None\n_____________________________ test_payment_success _____________________________\ntest_payment.py:11: in test_payment_success\n    assert result[\"status\"] == \"success\"\nE   AssertionError: assert 'unauthorized' == 'success'\nE     \nE     - success\nE     + unauthorized\n___________________________ test_get_profile_success ___________________________\ntest_profile.py:11: in test_get_profile_success\n    assert data is not None\nE   assert None is not None\n------------------- generated xml file: /tmp/tmphw_2ds2g.xml -------------------\n=========================== short test summary info ============================\nFAILED test_database.py::test_get_user_password - AssertionError: assert None...\nFAILED test_login.py::test_successful_login - assert None is not None\nFAILED test_payment.py::test_payment_success - AssertionError: assert 'unauth...\nFAILED test_profile.py::test_get_profile_success - assert None is not None\n========================= 4 failed, 5 passed in 0.07s ==========================\n",
+      "run_at": "2026-09-07 09:44:12"
+    },
+    {
+      "id": 69,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "test_file": "test_profile.py",
+      "test_name": "test_profile.py::test_get_profile_invalid",
+      "status": "PASSED",
+      "duration_sec": 0.0,
+      "error_message": "",
+      "stdout": "============================= test session starts ==============================\nplatform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0 -- /usr/bin/python3\ncachedir: .pytest_cache\nrootdir: /app/applet/sample_repo\ncollecting ... collected 9 items\n\ntest_database.py::test_database_connection PASSED                        [ 11%]\ntest_database.py::test_get_user_password FAILED                          [ 22%]\ntest_database.py::test_update_balance PASSED                             [ 33%]\ntest_login.py::test_successful_login FAILED                              [ 44%]\ntest_login.py::test_failed_login PASSED                                  [ 55%]\ntest_payment.py::test_payment_success FAILED                             [ 66%]\ntest_payment.py::test_payment_unauthorized PASSED                        [ 77%]\ntest_profile.py::test_get_profile_success FAILED                         [ 88%]\ntest_profile.py::test_get_profile_invalid PASSED                         [100%]\n\n=================================== FAILURES ===================================\n____________________________ test_get_user_password ____________________________\ntest_database.py:11: in test_get_user_password\n    assert db.get_user_password_hash(\"alice\") == \"hash_123\"\nE   AssertionError: assert None == 'hash_123'\nE    +  where None = get_user_password_hash('alice')\nE    +    where get_user_password_hash = <database.Database object at 0x7f761df058d0>.get_user_password_hash\n____________________________ test_successful_login _____________________________\ntest_login.py:8: in test_successful_login\n    assert token is not None\nE   assert None is not None\n_____________________________ test_payment_success _____________________________\ntest_payment.py:11: in test_payment_success\n    assert result[\"status\"] == \"success\"\nE   AssertionError: assert 'unauthorized' == 'success'\nE     \nE     - success\nE     + unauthorized\n___________________________ test_get_profile_success ___________________________\ntest_profile.py:11: in test_get_profile_success\n    assert data is not None\nE   assert None is not None\n------------------- generated xml file: /tmp/tmphw_2ds2g.xml -------------------\n=========================== short test summary info ============================\nFAILED test_database.py::test_get_user_password - AssertionError: assert None...\nFAILED test_login.py::test_successful_login - assert None is not None\nFAILED test_payment.py::test_payment_success - AssertionError: assert 'unauth...\nFAILED test_profile.py::test_get_profile_success - assert None is not None\n========================= 4 failed, 5 passed in 0.07s ==========================\n",
+      "run_at": "2026-09-07 09:44:12"
+    },
+    {
+      "id": 70,
+      "commit_hash": "02ddaf57f0af0d2de0314266b7b8eeed042c53f2",
+      "test_file": "test_login.py",
+      "test_name": "test_login.py::test_successful_login",
+      "status": "FAILED",
+      "duration_sec": 0.001,
+      "error_message": "assert None is not None",
+      "stdout": "============================= test session starts ==============================\nplatform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0 -- /usr/bin/python3\ncachedir: .pytest_cache\nrootdir: /app/applet/sample_repo\ncollecting ... collected 6 items\n\ntest_login.py::test_successful_login FAILED                              [ 16%]\ntest_login.py::test_failed_login PASSED                                  [ 33%]\ntest_payment.py::test_payment_success FAILED                             [ 50%]\ntest_payment.py::test_payment_unauthorized PASSED                        [ 66%]\ntest_profile.py::test_get_profile_success FAILED                         [ 83%]\ntest_profile.py::test_get_profile_invalid PASSED                         [100%]\n\n=================================== FAILURES ===================================\n____________________________ test_successful_login _____________________________\ntest_login.py:8: in test_successful_login\n    assert token is not None\nE   assert None is not None\n_____________________________ test_payment_success _____________________________\ntest_payment.py:11: in test_payment_success\n    assert result[\"status\"] == \"success\"\nE   AssertionError: assert 'unauthorized' == 'success'\nE     \nE     - success\nE     + unauthorized\n___________________________ test_get_profile_success ___________________________\ntest_profile.py:11: in test_get_profile_success\n    assert data is not None\nE   assert None is not None\n------------------- generated xml file: /tmp/tmp1g_w12ke.xml -------------------\n=========================== short test summary info ============================\nFAILED test_login.py::test_successful_login - assert None is not None\nFAILED test_payment.py::test_payment_success - AssertionError: assert 'unauth...\nFAILED test_profile.py::test_get_profile_success - assert None is not None\n========================= 3 failed, 3 passed in 0.05s ==========================\n",
+      "run_at": "2026-09-07 09:44:12"
+    },
+    {
+      "id": 71,
+      "commit_hash": "02ddaf57f0af0d2de0314266b7b8eeed042c53f2",
+      "test_file": "test_login.py",
+      "test_name": "test_login.py::test_failed_login",
+      "status": "PASSED",
+      "duration_sec": 0.001,
+      "error_message": "",
+      "stdout": "============================= test session starts ==============================\nplatform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0 -- /usr/bin/python3\ncachedir: .pytest_cache\nrootdir: /app/applet/sample_repo\ncollecting ... collected 6 items\n\ntest_login.py::test_successful_login FAILED                              [ 16%]\ntest_login.py::test_failed_login PASSED                                  [ 33%]\ntest_payment.py::test_payment_success FAILED                             [ 50%]\ntest_payment.py::test_payment_unauthorized PASSED                        [ 66%]\ntest_profile.py::test_get_profile_success FAILED                         [ 83%]\ntest_profile.py::test_get_profile_invalid PASSED                         [100%]\n\n=================================== FAILURES ===================================\n____________________________ test_successful_login _____________________________\ntest_login.py:8: in test_successful_login\n    assert token is not None\nE   assert None is not None\n_____________________________ test_payment_success _____________________________\ntest_payment.py:11: in test_payment_success\n    assert result[\"status\"] == \"success\"\nE   AssertionError: assert 'unauthorized' == 'success'\nE     \nE     - success\nE     + unauthorized\n___________________________ test_get_profile_success ___________________________\ntest_profile.py:11: in test_get_profile_success\n    assert data is not None\nE   assert None is not None\n------------------- generated xml file: /tmp/tmp1g_w12ke.xml -------------------\n=========================== short test summary info ============================\nFAILED test_login.py::test_successful_login - assert None is not None\nFAILED test_payment.py::test_payment_success - AssertionError: assert 'unauth...\nFAILED test_profile.py::test_get_profile_success - assert None is not None\n========================= 3 failed, 3 passed in 0.05s ==========================\n",
+      "run_at": "2026-09-07 09:44:12"
+    },
+    {
+      "id": 72,
+      "commit_hash": "02ddaf57f0af0d2de0314266b7b8eeed042c53f2",
+      "test_file": "test_payment.py",
+      "test_name": "test_payment.py::test_payment_success",
+      "status": "FAILED",
+      "duration_sec": 0.001,
+      "error_message": "AssertionError: assert 'unauthorized' == 'success'\n  \n  - success\n  + unauthorized",
+      "stdout": "============================= test session starts ==============================\nplatform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0 -- /usr/bin/python3\ncachedir: .pytest_cache\nrootdir: /app/applet/sample_repo\ncollecting ... collected 6 items\n\ntest_login.py::test_successful_login FAILED                              [ 16%]\ntest_login.py::test_failed_login PASSED                                  [ 33%]\ntest_payment.py::test_payment_success FAILED                             [ 50%]\ntest_payment.py::test_payment_unauthorized PASSED                        [ 66%]\ntest_profile.py::test_get_profile_success FAILED                         [ 83%]\ntest_profile.py::test_get_profile_invalid PASSED                         [100%]\n\n=================================== FAILURES ===================================\n____________________________ test_successful_login _____________________________\ntest_login.py:8: in test_successful_login\n    assert token is not None\nE   assert None is not None\n_____________________________ test_payment_success _____________________________\ntest_payment.py:11: in test_payment_success\n    assert result[\"status\"] == \"success\"\nE   AssertionError: assert 'unauthorized' == 'success'\nE     \nE     - success\nE     + unauthorized\n___________________________ test_get_profile_success ___________________________\ntest_profile.py:11: in test_get_profile_success\n    assert data is not None\nE   assert None is not None\n------------------- generated xml file: /tmp/tmp1g_w12ke.xml -------------------\n=========================== short test summary info ============================\nFAILED test_login.py::test_successful_login - assert None is not None\nFAILED test_payment.py::test_payment_success - AssertionError: assert 'unauth...\nFAILED test_profile.py::test_get_profile_success - assert None is not None\n========================= 3 failed, 3 passed in 0.05s ==========================\n",
+      "run_at": "2026-09-07 09:44:12"
+    },
+    {
+      "id": 73,
+      "commit_hash": "02ddaf57f0af0d2de0314266b7b8eeed042c53f2",
+      "test_file": "test_payment.py",
+      "test_name": "test_payment.py::test_payment_unauthorized",
+      "status": "PASSED",
+      "duration_sec": 0.0,
+      "error_message": "",
+      "stdout": "============================= test session starts ==============================\nplatform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0 -- /usr/bin/python3\ncachedir: .pytest_cache\nrootdir: /app/applet/sample_repo\ncollecting ... collected 6 items\n\ntest_login.py::test_successful_login FAILED                              [ 16%]\ntest_login.py::test_failed_login PASSED                                  [ 33%]\ntest_payment.py::test_payment_success FAILED                             [ 50%]\ntest_payment.py::test_payment_unauthorized PASSED                        [ 66%]\ntest_profile.py::test_get_profile_success FAILED                         [ 83%]\ntest_profile.py::test_get_profile_invalid PASSED                         [100%]\n\n=================================== FAILURES ===================================\n____________________________ test_successful_login _____________________________\ntest_login.py:8: in test_successful_login\n    assert token is not None\nE   assert None is not None\n_____________________________ test_payment_success _____________________________\ntest_payment.py:11: in test_payment_success\n    assert result[\"status\"] == \"success\"\nE   AssertionError: assert 'unauthorized' == 'success'\nE     \nE     - success\nE     + unauthorized\n___________________________ test_get_profile_success ___________________________\ntest_profile.py:11: in test_get_profile_success\n    assert data is not None\nE   assert None is not None\n------------------- generated xml file: /tmp/tmp1g_w12ke.xml -------------------\n=========================== short test summary info ============================\nFAILED test_login.py::test_successful_login - assert None is not None\nFAILED test_payment.py::test_payment_success - AssertionError: assert 'unauth...\nFAILED test_profile.py::test_get_profile_success - assert None is not None\n========================= 3 failed, 3 passed in 0.05s ==========================\n",
+      "run_at": "2026-09-07 09:44:12"
+    },
+    {
+      "id": 74,
+      "commit_hash": "02ddaf57f0af0d2de0314266b7b8eeed042c53f2",
+      "test_file": "test_profile.py",
+      "test_name": "test_profile.py::test_get_profile_success",
+      "status": "FAILED",
+      "duration_sec": 0.001,
+      "error_message": "assert None is not None",
+      "stdout": "============================= test session starts ==============================\nplatform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0 -- /usr/bin/python3\ncachedir: .pytest_cache\nrootdir: /app/applet/sample_repo\ncollecting ... collected 6 items\n\ntest_login.py::test_successful_login FAILED                              [ 16%]\ntest_login.py::test_failed_login PASSED                                  [ 33%]\ntest_payment.py::test_payment_success FAILED                             [ 50%]\ntest_payment.py::test_payment_unauthorized PASSED                        [ 66%]\ntest_profile.py::test_get_profile_success FAILED                         [ 83%]\ntest_profile.py::test_get_profile_invalid PASSED                         [100%]\n\n=================================== FAILURES ===================================\n____________________________ test_successful_login _____________________________\ntest_login.py:8: in test_successful_login\n    assert token is not None\nE   assert None is not None\n_____________________________ test_payment_success _____________________________\ntest_payment.py:11: in test_payment_success\n    assert result[\"status\"] == \"success\"\nE   AssertionError: assert 'unauthorized' == 'success'\nE     \nE     - success\nE     + unauthorized\n___________________________ test_get_profile_success ___________________________\ntest_profile.py:11: in test_get_profile_success\n    assert data is not None\nE   assert None is not None\n------------------- generated xml file: /tmp/tmp1g_w12ke.xml -------------------\n=========================== short test summary info ============================\nFAILED test_login.py::test_successful_login - assert None is not None\nFAILED test_payment.py::test_payment_success - AssertionError: assert 'unauth...\nFAILED test_profile.py::test_get_profile_success - assert None is not None\n========================= 3 failed, 3 passed in 0.05s ==========================\n",
+      "run_at": "2026-09-07 09:44:12"
+    },
+    {
+      "id": 75,
+      "commit_hash": "02ddaf57f0af0d2de0314266b7b8eeed042c53f2",
+      "test_file": "test_profile.py",
+      "test_name": "test_profile.py::test_get_profile_invalid",
+      "status": "PASSED",
+      "duration_sec": 0.001,
+      "error_message": "",
+      "stdout": "============================= test session starts ==============================\nplatform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0 -- /usr/bin/python3\ncachedir: .pytest_cache\nrootdir: /app/applet/sample_repo\ncollecting ... collected 6 items\n\ntest_login.py::test_successful_login FAILED                              [ 16%]\ntest_login.py::test_failed_login PASSED                                  [ 33%]\ntest_payment.py::test_payment_success FAILED                             [ 50%]\ntest_payment.py::test_payment_unauthorized PASSED                        [ 66%]\ntest_profile.py::test_get_profile_success FAILED                         [ 83%]\ntest_profile.py::test_get_profile_invalid PASSED                         [100%]\n\n=================================== FAILURES ===================================\n____________________________ test_successful_login _____________________________\ntest_login.py:8: in test_successful_login\n    assert token is not None\nE   assert None is not None\n_____________________________ test_payment_success _____________________________\ntest_payment.py:11: in test_payment_success\n    assert result[\"status\"] == \"success\"\nE   AssertionError: assert 'unauthorized' == 'success'\nE     \nE     - success\nE     + unauthorized\n___________________________ test_get_profile_success ___________________________\ntest_profile.py:11: in test_get_profile_success\n    assert data is not None\nE   assert None is not None\n------------------- generated xml file: /tmp/tmp1g_w12ke.xml -------------------\n=========================== short test summary info ============================\nFAILED test_login.py::test_successful_login - assert None is not None\nFAILED test_payment.py::test_payment_success - AssertionError: assert 'unauth...\nFAILED test_profile.py::test_get_profile_success - assert None is not None\n========================= 3 failed, 3 passed in 0.05s ==========================\n",
+      "run_at": "2026-09-07 09:44:12"
+    },
+    {
+      "id": 76,
+      "commit_hash": "9cf778cc10f9639726fa7adc06e4c6abeccd0cef",
+      "test_file": "test_login.py",
+      "test_name": "test_login.py::test_successful_login",
+      "status": "FAILED",
+      "duration_sec": 0.001,
+      "error_message": "assert None is not None",
+      "stdout": "============================= test session starts ==============================\nplatform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0 -- /usr/bin/python3\ncachedir: .pytest_cache\nrootdir: /app/applet/sample_repo\ncollecting ... collected 6 items\n\ntest_login.py::test_successful_login FAILED                              [ 16%]\ntest_login.py::test_failed_login PASSED                                  [ 33%]\ntest_payment.py::test_payment_success FAILED                             [ 50%]\ntest_payment.py::test_payment_unauthorized PASSED                        [ 66%]\ntest_profile.py::test_get_profile_success FAILED                         [ 83%]\ntest_profile.py::test_get_profile_invalid PASSED                         [100%]\n\n=================================== FAILURES ===================================\n____________________________ test_successful_login _____________________________\ntest_login.py:8: in test_successful_login\n    assert token is not None\nE   assert None is not None\n_____________________________ test_payment_success _____________________________\ntest_payment.py:11: in test_payment_success\n    assert result[\"status\"] == \"success\"\nE   AssertionError: assert 'unauthorized' == 'success'\nE     \nE     - success\nE     + unauthorized\n___________________________ test_get_profile_success ___________________________\ntest_profile.py:11: in test_get_profile_success\n    assert data is not None\nE   assert None is not None\n------------------- generated xml file: /tmp/tmp1t21t4f0.xml -------------------\n=========================== short test summary info ============================\nFAILED test_login.py::test_successful_login - assert None is not None\nFAILED test_payment.py::test_payment_success - AssertionError: assert 'unauth...\nFAILED test_profile.py::test_get_profile_success - assert None is not None\n========================= 3 failed, 3 passed in 0.06s ==========================\n",
+      "run_at": "2026-09-07 09:44:13"
+    },
+    {
+      "id": 77,
+      "commit_hash": "9cf778cc10f9639726fa7adc06e4c6abeccd0cef",
+      "test_file": "test_login.py",
+      "test_name": "test_login.py::test_failed_login",
+      "status": "PASSED",
+      "duration_sec": 0.001,
+      "error_message": "",
+      "stdout": "============================= test session starts ==============================\nplatform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0 -- /usr/bin/python3\ncachedir: .pytest_cache\nrootdir: /app/applet/sample_repo\ncollecting ... collected 6 items\n\ntest_login.py::test_successful_login FAILED                              [ 16%]\ntest_login.py::test_failed_login PASSED                                  [ 33%]\ntest_payment.py::test_payment_success FAILED                             [ 50%]\ntest_payment.py::test_payment_unauthorized PASSED                        [ 66%]\ntest_profile.py::test_get_profile_success FAILED                         [ 83%]\ntest_profile.py::test_get_profile_invalid PASSED                         [100%]\n\n=================================== FAILURES ===================================\n____________________________ test_successful_login _____________________________\ntest_login.py:8: in test_successful_login\n    assert token is not None\nE   assert None is not None\n_____________________________ test_payment_success _____________________________\ntest_payment.py:11: in test_payment_success\n    assert result[\"status\"] == \"success\"\nE   AssertionError: assert 'unauthorized' == 'success'\nE     \nE     - success\nE     + unauthorized\n___________________________ test_get_profile_success ___________________________\ntest_profile.py:11: in test_get_profile_success\n    assert data is not None\nE   assert None is not None\n------------------- generated xml file: /tmp/tmp1t21t4f0.xml -------------------\n=========================== short test summary info ============================\nFAILED test_login.py::test_successful_login - assert None is not None\nFAILED test_payment.py::test_payment_success - AssertionError: assert 'unauth...\nFAILED test_profile.py::test_get_profile_success - assert None is not None\n========================= 3 failed, 3 passed in 0.06s ==========================\n",
+      "run_at": "2026-09-07 09:44:13"
+    },
+    {
+      "id": 78,
+      "commit_hash": "9cf778cc10f9639726fa7adc06e4c6abeccd0cef",
+      "test_file": "test_payment.py",
+      "test_name": "test_payment.py::test_payment_success",
+      "status": "FAILED",
+      "duration_sec": 0.001,
+      "error_message": "AssertionError: assert 'unauthorized' == 'success'\n  \n  - success\n  + unauthorized",
+      "stdout": "============================= test session starts ==============================\nplatform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0 -- /usr/bin/python3\ncachedir: .pytest_cache\nrootdir: /app/applet/sample_repo\ncollecting ... collected 6 items\n\ntest_login.py::test_successful_login FAILED                              [ 16%]\ntest_login.py::test_failed_login PASSED                                  [ 33%]\ntest_payment.py::test_payment_success FAILED                             [ 50%]\ntest_payment.py::test_payment_unauthorized PASSED                        [ 66%]\ntest_profile.py::test_get_profile_success FAILED                         [ 83%]\ntest_profile.py::test_get_profile_invalid PASSED                         [100%]\n\n=================================== FAILURES ===================================\n____________________________ test_successful_login _____________________________\ntest_login.py:8: in test_successful_login\n    assert token is not None\nE   assert None is not None\n_____________________________ test_payment_success _____________________________\ntest_payment.py:11: in test_payment_success\n    assert result[\"status\"] == \"success\"\nE   AssertionError: assert 'unauthorized' == 'success'\nE     \nE     - success\nE     + unauthorized\n___________________________ test_get_profile_success ___________________________\ntest_profile.py:11: in test_get_profile_success\n    assert data is not None\nE   assert None is not None\n------------------- generated xml file: /tmp/tmp1t21t4f0.xml -------------------\n=========================== short test summary info ============================\nFAILED test_login.py::test_successful_login - assert None is not None\nFAILED test_payment.py::test_payment_success - AssertionError: assert 'unauth...\nFAILED test_profile.py::test_get_profile_success - assert None is not None\n========================= 3 failed, 3 passed in 0.06s ==========================\n",
+      "run_at": "2026-09-07 09:44:13"
+    },
+    {
+      "id": 79,
+      "commit_hash": "9cf778cc10f9639726fa7adc06e4c6abeccd0cef",
+      "test_file": "test_payment.py",
+      "test_name": "test_payment.py::test_payment_unauthorized",
+      "status": "PASSED",
+      "duration_sec": 0.001,
+      "error_message": "",
+      "stdout": "============================= test session starts ==============================\nplatform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0 -- /usr/bin/python3\ncachedir: .pytest_cache\nrootdir: /app/applet/sample_repo\ncollecting ... collected 6 items\n\ntest_login.py::test_successful_login FAILED                              [ 16%]\ntest_login.py::test_failed_login PASSED                                  [ 33%]\ntest_payment.py::test_payment_success FAILED                             [ 50%]\ntest_payment.py::test_payment_unauthorized PASSED                        [ 66%]\ntest_profile.py::test_get_profile_success FAILED                         [ 83%]\ntest_profile.py::test_get_profile_invalid PASSED                         [100%]\n\n=================================== FAILURES ===================================\n____________________________ test_successful_login _____________________________\ntest_login.py:8: in test_successful_login\n    assert token is not None\nE   assert None is not None\n_____________________________ test_payment_success _____________________________\ntest_payment.py:11: in test_payment_success\n    assert result[\"status\"] == \"success\"\nE   AssertionError: assert 'unauthorized' == 'success'\nE     \nE     - success\nE     + unauthorized\n___________________________ test_get_profile_success ___________________________\ntest_profile.py:11: in test_get_profile_success\n    assert data is not None\nE   assert None is not None\n------------------- generated xml file: /tmp/tmp1t21t4f0.xml -------------------\n=========================== short test summary info ============================\nFAILED test_login.py::test_successful_login - assert None is not None\nFAILED test_payment.py::test_payment_success - AssertionError: assert 'unauth...\nFAILED test_profile.py::test_get_profile_success - assert None is not None\n========================= 3 failed, 3 passed in 0.06s ==========================\n",
+      "run_at": "2026-09-07 09:44:13"
+    },
+    {
+      "id": 80,
+      "commit_hash": "9cf778cc10f9639726fa7adc06e4c6abeccd0cef",
+      "test_file": "test_profile.py",
+      "test_name": "test_profile.py::test_get_profile_success",
+      "status": "FAILED",
+      "duration_sec": 0.001,
+      "error_message": "assert None is not None",
+      "stdout": "============================= test session starts ==============================\nplatform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0 -- /usr/bin/python3\ncachedir: .pytest_cache\nrootdir: /app/applet/sample_repo\ncollecting ... collected 6 items\n\ntest_login.py::test_successful_login FAILED                              [ 16%]\ntest_login.py::test_failed_login PASSED                                  [ 33%]\ntest_payment.py::test_payment_success FAILED                             [ 50%]\ntest_payment.py::test_payment_unauthorized PASSED                        [ 66%]\ntest_profile.py::test_get_profile_success FAILED                         [ 83%]\ntest_profile.py::test_get_profile_invalid PASSED                         [100%]\n\n=================================== FAILURES ===================================\n____________________________ test_successful_login _____________________________\ntest_login.py:8: in test_successful_login\n    assert token is not None\nE   assert None is not None\n_____________________________ test_payment_success _____________________________\ntest_payment.py:11: in test_payment_success\n    assert result[\"status\"] == \"success\"\nE   AssertionError: assert 'unauthorized' == 'success'\nE     \nE     - success\nE     + unauthorized\n___________________________ test_get_profile_success ___________________________\ntest_profile.py:11: in test_get_profile_success\n    assert data is not None\nE   assert None is not None\n------------------- generated xml file: /tmp/tmp1t21t4f0.xml -------------------\n=========================== short test summary info ============================\nFAILED test_login.py::test_successful_login - assert None is not None\nFAILED test_payment.py::test_payment_success - AssertionError: assert 'unauth...\nFAILED test_profile.py::test_get_profile_success - assert None is not None\n========================= 3 failed, 3 passed in 0.06s ==========================\n",
+      "run_at": "2026-09-07 09:44:13"
+    },
+    {
+      "id": 81,
+      "commit_hash": "9cf778cc10f9639726fa7adc06e4c6abeccd0cef",
+      "test_file": "test_profile.py",
+      "test_name": "test_profile.py::test_get_profile_invalid",
+      "status": "PASSED",
+      "duration_sec": 0.0,
+      "error_message": "",
+      "stdout": "============================= test session starts ==============================\nplatform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0 -- /usr/bin/python3\ncachedir: .pytest_cache\nrootdir: /app/applet/sample_repo\ncollecting ... collected 6 items\n\ntest_login.py::test_successful_login FAILED                              [ 16%]\ntest_login.py::test_failed_login PASSED                                  [ 33%]\ntest_payment.py::test_payment_success FAILED                             [ 50%]\ntest_payment.py::test_payment_unauthorized PASSED                        [ 66%]\ntest_profile.py::test_get_profile_success FAILED                         [ 83%]\ntest_profile.py::test_get_profile_invalid PASSED                         [100%]\n\n=================================== FAILURES ===================================\n____________________________ test_successful_login _____________________________\ntest_login.py:8: in test_successful_login\n    assert token is not None\nE   assert None is not None\n_____________________________ test_payment_success _____________________________\ntest_payment.py:11: in test_payment_success\n    assert result[\"status\"] == \"success\"\nE   AssertionError: assert 'unauthorized' == 'success'\nE     \nE     - success\nE     + unauthorized\n___________________________ test_get_profile_success ___________________________\ntest_profile.py:11: in test_get_profile_success\n    assert data is not None\nE   assert None is not None\n------------------- generated xml file: /tmp/tmp1t21t4f0.xml -------------------\n=========================== short test summary info ============================\nFAILED test_login.py::test_successful_login - assert None is not None\nFAILED test_payment.py::test_payment_success - AssertionError: assert 'unauth...\nFAILED test_profile.py::test_get_profile_success - assert None is not None\n========================= 3 failed, 3 passed in 0.06s ==========================\n",
+      "run_at": "2026-09-07 09:44:13"
+    },
+    {
+      "id": 91,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "test_file": "test_database.py",
+      "test_name": "test_database.py::test_database_connection",
+      "status": "PASSED",
+      "duration_sec": 0.001,
+      "error_message": "",
+      "stdout": "============================= test session starts ==============================\nplatform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0 -- /usr/bin/python3\ncachedir: .pytest_cache\nrootdir: /app/applet/sample_repo\ncollecting ... collected 9 items\n\ntest_database.py::test_database_connection PASSED                        [ 11%]\ntest_database.py::test_get_user_password FAILED                          [ 22%]\ntest_database.py::test_update_balance PASSED                             [ 33%]\ntest_login.py::test_successful_login FAILED                              [ 44%]\ntest_login.py::test_failed_login PASSED                                  [ 55%]\ntest_payment.py::test_payment_success FAILED                             [ 66%]\ntest_payment.py::test_payment_unauthorized PASSED                        [ 77%]\ntest_profile.py::test_get_profile_success FAILED                         [ 88%]\ntest_profile.py::test_get_profile_invalid PASSED                         [100%]\n\n=================================== FAILURES ===================================\n____________________________ test_get_user_password ____________________________\ntest_database.py:11: in test_get_user_password\n    assert db.get_user_password_hash(\"alice\") == \"hash_123\"\nE   AssertionError: assert None == 'hash_123'\nE    +  where None = get_user_password_hash('alice')\nE    +    where get_user_password_hash = <database.Database object at 0x7fb7728f9ab0>.get_user_password_hash\n____________________________ test_successful_login _____________________________\ntest_login.py:8: in test_successful_login\n    assert token is not None\nE   assert None is not None\n_____________________________ test_payment_success _____________________________\ntest_payment.py:11: in test_payment_success\n    assert result[\"status\"] == \"success\"\nE   AssertionError: assert 'unauthorized' == 'success'\nE     \nE     - success\nE     + unauthorized\n___________________________ test_get_profile_success ___________________________\ntest_profile.py:11: in test_get_profile_success\n    assert data is not None\nE   assert None is not None\n------------------- generated xml file: /tmp/tmpr8xh8c59.xml -------------------\n=========================== short test summary info ============================\nFAILED test_database.py::test_get_user_password - AssertionError: assert None...\nFAILED test_login.py::test_successful_login - assert None is not None\nFAILED test_payment.py::test_payment_success - AssertionError: assert 'unauth...\nFAILED test_profile.py::test_get_profile_success - assert None is not None\n========================= 4 failed, 5 passed in 0.06s ==========================\n",
+      "run_at": "2026-09-07 09:50:19"
+    },
+    {
+      "id": 92,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "test_file": "test_database.py",
+      "test_name": "test_database.py::test_get_user_password",
+      "status": "FAILED",
+      "duration_sec": 0.001,
+      "error_message": "AssertionError: assert None == 'hash_123'\n +  where None = get_user_password_hash('alice')\n +    where get_user_password_hash = <database.Database object at 0x7fb7728f9ab0>.get_user_password_hash",
+      "stdout": "============================= test session starts ==============================\nplatform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0 -- /usr/bin/python3\ncachedir: .pytest_cache\nrootdir: /app/applet/sample_repo\ncollecting ... collected 9 items\n\ntest_database.py::test_database_connection PASSED                        [ 11%]\ntest_database.py::test_get_user_password FAILED                          [ 22%]\ntest_database.py::test_update_balance PASSED                             [ 33%]\ntest_login.py::test_successful_login FAILED                              [ 44%]\ntest_login.py::test_failed_login PASSED                                  [ 55%]\ntest_payment.py::test_payment_success FAILED                             [ 66%]\ntest_payment.py::test_payment_unauthorized PASSED                        [ 77%]\ntest_profile.py::test_get_profile_success FAILED                         [ 88%]\ntest_profile.py::test_get_profile_invalid PASSED                         [100%]\n\n=================================== FAILURES ===================================\n____________________________ test_get_user_password ____________________________\ntest_database.py:11: in test_get_user_password\n    assert db.get_user_password_hash(\"alice\") == \"hash_123\"\nE   AssertionError: assert None == 'hash_123'\nE    +  where None = get_user_password_hash('alice')\nE    +    where get_user_password_hash = <database.Database object at 0x7fb7728f9ab0>.get_user_password_hash\n____________________________ test_successful_login _____________________________\ntest_login.py:8: in test_successful_login\n    assert token is not None\nE   assert None is not None\n_____________________________ test_payment_success _____________________________\ntest_payment.py:11: in test_payment_success\n    assert result[\"status\"] == \"success\"\nE   AssertionError: assert 'unauthorized' == 'success'\nE     \nE     - success\nE     + unauthorized\n___________________________ test_get_profile_success ___________________________\ntest_profile.py:11: in test_get_profile_success\n    assert data is not None\nE   assert None is not None\n------------------- generated xml file: /tmp/tmpr8xh8c59.xml -------------------\n=========================== short test summary info ============================\nFAILED test_database.py::test_get_user_password - AssertionError: assert None...\nFAILED test_login.py::test_successful_login - assert None is not None\nFAILED test_payment.py::test_payment_success - AssertionError: assert 'unauth...\nFAILED test_profile.py::test_get_profile_success - assert None is not None\n========================= 4 failed, 5 passed in 0.06s ==========================\n",
+      "run_at": "2026-09-07 09:50:19"
+    },
+    {
+      "id": 93,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "test_file": "test_database.py",
+      "test_name": "test_database.py::test_update_balance",
+      "status": "PASSED",
+      "duration_sec": 0.001,
+      "error_message": "",
+      "stdout": "============================= test session starts ==============================\nplatform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0 -- /usr/bin/python3\ncachedir: .pytest_cache\nrootdir: /app/applet/sample_repo\ncollecting ... collected 9 items\n\ntest_database.py::test_database_connection PASSED                        [ 11%]\ntest_database.py::test_get_user_password FAILED                          [ 22%]\ntest_database.py::test_update_balance PASSED                             [ 33%]\ntest_login.py::test_successful_login FAILED                              [ 44%]\ntest_login.py::test_failed_login PASSED                                  [ 55%]\ntest_payment.py::test_payment_success FAILED                             [ 66%]\ntest_payment.py::test_payment_unauthorized PASSED                        [ 77%]\ntest_profile.py::test_get_profile_success FAILED                         [ 88%]\ntest_profile.py::test_get_profile_invalid PASSED                         [100%]\n\n=================================== FAILURES ===================================\n____________________________ test_get_user_password ____________________________\ntest_database.py:11: in test_get_user_password\n    assert db.get_user_password_hash(\"alice\") == \"hash_123\"\nE   AssertionError: assert None == 'hash_123'\nE    +  where None = get_user_password_hash('alice')\nE    +    where get_user_password_hash = <database.Database object at 0x7fb7728f9ab0>.get_user_password_hash\n____________________________ test_successful_login _____________________________\ntest_login.py:8: in test_successful_login\n    assert token is not None\nE   assert None is not None\n_____________________________ test_payment_success _____________________________\ntest_payment.py:11: in test_payment_success\n    assert result[\"status\"] == \"success\"\nE   AssertionError: assert 'unauthorized' == 'success'\nE     \nE     - success\nE     + unauthorized\n___________________________ test_get_profile_success ___________________________\ntest_profile.py:11: in test_get_profile_success\n    assert data is not None\nE   assert None is not None\n------------------- generated xml file: /tmp/tmpr8xh8c59.xml -------------------\n=========================== short test summary info ============================\nFAILED test_database.py::test_get_user_password - AssertionError: assert None...\nFAILED test_login.py::test_successful_login - assert None is not None\nFAILED test_payment.py::test_payment_success - AssertionError: assert 'unauth...\nFAILED test_profile.py::test_get_profile_success - assert None is not None\n========================= 4 failed, 5 passed in 0.06s ==========================\n",
+      "run_at": "2026-09-07 09:50:19"
+    },
+    {
+      "id": 94,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "test_file": "test_login.py",
+      "test_name": "test_login.py::test_successful_login",
+      "status": "FAILED",
+      "duration_sec": 0.001,
+      "error_message": "assert None is not None",
+      "stdout": "============================= test session starts ==============================\nplatform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0 -- /usr/bin/python3\ncachedir: .pytest_cache\nrootdir: /app/applet/sample_repo\ncollecting ... collected 9 items\n\ntest_database.py::test_database_connection PASSED                        [ 11%]\ntest_database.py::test_get_user_password FAILED                          [ 22%]\ntest_database.py::test_update_balance PASSED                             [ 33%]\ntest_login.py::test_successful_login FAILED                              [ 44%]\ntest_login.py::test_failed_login PASSED                                  [ 55%]\ntest_payment.py::test_payment_success FAILED                             [ 66%]\ntest_payment.py::test_payment_unauthorized PASSED                        [ 77%]\ntest_profile.py::test_get_profile_success FAILED                         [ 88%]\ntest_profile.py::test_get_profile_invalid PASSED                         [100%]\n\n=================================== FAILURES ===================================\n____________________________ test_get_user_password ____________________________\ntest_database.py:11: in test_get_user_password\n    assert db.get_user_password_hash(\"alice\") == \"hash_123\"\nE   AssertionError: assert None == 'hash_123'\nE    +  where None = get_user_password_hash('alice')\nE    +    where get_user_password_hash = <database.Database object at 0x7fb7728f9ab0>.get_user_password_hash\n____________________________ test_successful_login _____________________________\ntest_login.py:8: in test_successful_login\n    assert token is not None\nE   assert None is not None\n_____________________________ test_payment_success _____________________________\ntest_payment.py:11: in test_payment_success\n    assert result[\"status\"] == \"success\"\nE   AssertionError: assert 'unauthorized' == 'success'\nE     \nE     - success\nE     + unauthorized\n___________________________ test_get_profile_success ___________________________\ntest_profile.py:11: in test_get_profile_success\n    assert data is not None\nE   assert None is not None\n------------------- generated xml file: /tmp/tmpr8xh8c59.xml -------------------\n=========================== short test summary info ============================\nFAILED test_database.py::test_get_user_password - AssertionError: assert None...\nFAILED test_login.py::test_successful_login - assert None is not None\nFAILED test_payment.py::test_payment_success - AssertionError: assert 'unauth...\nFAILED test_profile.py::test_get_profile_success - assert None is not None\n========================= 4 failed, 5 passed in 0.06s ==========================\n",
+      "run_at": "2026-09-07 09:50:19"
+    },
+    {
+      "id": 95,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "test_file": "test_login.py",
+      "test_name": "test_login.py::test_failed_login",
+      "status": "PASSED",
+      "duration_sec": 0.0,
+      "error_message": "",
+      "stdout": "============================= test session starts ==============================\nplatform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0 -- /usr/bin/python3\ncachedir: .pytest_cache\nrootdir: /app/applet/sample_repo\ncollecting ... collected 9 items\n\ntest_database.py::test_database_connection PASSED                        [ 11%]\ntest_database.py::test_get_user_password FAILED                          [ 22%]\ntest_database.py::test_update_balance PASSED                             [ 33%]\ntest_login.py::test_successful_login FAILED                              [ 44%]\ntest_login.py::test_failed_login PASSED                                  [ 55%]\ntest_payment.py::test_payment_success FAILED                             [ 66%]\ntest_payment.py::test_payment_unauthorized PASSED                        [ 77%]\ntest_profile.py::test_get_profile_success FAILED                         [ 88%]\ntest_profile.py::test_get_profile_invalid PASSED                         [100%]\n\n=================================== FAILURES ===================================\n____________________________ test_get_user_password ____________________________\ntest_database.py:11: in test_get_user_password\n    assert db.get_user_password_hash(\"alice\") == \"hash_123\"\nE   AssertionError: assert None == 'hash_123'\nE    +  where None = get_user_password_hash('alice')\nE    +    where get_user_password_hash = <database.Database object at 0x7fb7728f9ab0>.get_user_password_hash\n____________________________ test_successful_login _____________________________\ntest_login.py:8: in test_successful_login\n    assert token is not None\nE   assert None is not None\n_____________________________ test_payment_success _____________________________\ntest_payment.py:11: in test_payment_success\n    assert result[\"status\"] == \"success\"\nE   AssertionError: assert 'unauthorized' == 'success'\nE     \nE     - success\nE     + unauthorized\n___________________________ test_get_profile_success ___________________________\ntest_profile.py:11: in test_get_profile_success\n    assert data is not None\nE   assert None is not None\n------------------- generated xml file: /tmp/tmpr8xh8c59.xml -------------------\n=========================== short test summary info ============================\nFAILED test_database.py::test_get_user_password - AssertionError: assert None...\nFAILED test_login.py::test_successful_login - assert None is not None\nFAILED test_payment.py::test_payment_success - AssertionError: assert 'unauth...\nFAILED test_profile.py::test_get_profile_success - assert None is not None\n========================= 4 failed, 5 passed in 0.06s ==========================\n",
+      "run_at": "2026-09-07 09:50:19"
+    },
+    {
+      "id": 96,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "test_file": "test_payment.py",
+      "test_name": "test_payment.py::test_payment_success",
+      "status": "FAILED",
+      "duration_sec": 0.001,
+      "error_message": "AssertionError: assert 'unauthorized' == 'success'\n  \n  - success\n  + unauthorized",
+      "stdout": "============================= test session starts ==============================\nplatform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0 -- /usr/bin/python3\ncachedir: .pytest_cache\nrootdir: /app/applet/sample_repo\ncollecting ... collected 9 items\n\ntest_database.py::test_database_connection PASSED                        [ 11%]\ntest_database.py::test_get_user_password FAILED                          [ 22%]\ntest_database.py::test_update_balance PASSED                             [ 33%]\ntest_login.py::test_successful_login FAILED                              [ 44%]\ntest_login.py::test_failed_login PASSED                                  [ 55%]\ntest_payment.py::test_payment_success FAILED                             [ 66%]\ntest_payment.py::test_payment_unauthorized PASSED                        [ 77%]\ntest_profile.py::test_get_profile_success FAILED                         [ 88%]\ntest_profile.py::test_get_profile_invalid PASSED                         [100%]\n\n=================================== FAILURES ===================================\n____________________________ test_get_user_password ____________________________\ntest_database.py:11: in test_get_user_password\n    assert db.get_user_password_hash(\"alice\") == \"hash_123\"\nE   AssertionError: assert None == 'hash_123'\nE    +  where None = get_user_password_hash('alice')\nE    +    where get_user_password_hash = <database.Database object at 0x7fb7728f9ab0>.get_user_password_hash\n____________________________ test_successful_login _____________________________\ntest_login.py:8: in test_successful_login\n    assert token is not None\nE   assert None is not None\n_____________________________ test_payment_success _____________________________\ntest_payment.py:11: in test_payment_success\n    assert result[\"status\"] == \"success\"\nE   AssertionError: assert 'unauthorized' == 'success'\nE     \nE     - success\nE     + unauthorized\n___________________________ test_get_profile_success ___________________________\ntest_profile.py:11: in test_get_profile_success\n    assert data is not None\nE   assert None is not None\n------------------- generated xml file: /tmp/tmpr8xh8c59.xml -------------------\n=========================== short test summary info ============================\nFAILED test_database.py::test_get_user_password - AssertionError: assert None...\nFAILED test_login.py::test_successful_login - assert None is not None\nFAILED test_payment.py::test_payment_success - AssertionError: assert 'unauth...\nFAILED test_profile.py::test_get_profile_success - assert None is not None\n========================= 4 failed, 5 passed in 0.06s ==========================\n",
+      "run_at": "2026-09-07 09:50:19"
+    },
+    {
+      "id": 97,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "test_file": "test_payment.py",
+      "test_name": "test_payment.py::test_payment_unauthorized",
+      "status": "PASSED",
+      "duration_sec": 0.0,
+      "error_message": "",
+      "stdout": "============================= test session starts ==============================\nplatform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0 -- /usr/bin/python3\ncachedir: .pytest_cache\nrootdir: /app/applet/sample_repo\ncollecting ... collected 9 items\n\ntest_database.py::test_database_connection PASSED                        [ 11%]\ntest_database.py::test_get_user_password FAILED                          [ 22%]\ntest_database.py::test_update_balance PASSED                             [ 33%]\ntest_login.py::test_successful_login FAILED                              [ 44%]\ntest_login.py::test_failed_login PASSED                                  [ 55%]\ntest_payment.py::test_payment_success FAILED                             [ 66%]\ntest_payment.py::test_payment_unauthorized PASSED                        [ 77%]\ntest_profile.py::test_get_profile_success FAILED                         [ 88%]\ntest_profile.py::test_get_profile_invalid PASSED                         [100%]\n\n=================================== FAILURES ===================================\n____________________________ test_get_user_password ____________________________\ntest_database.py:11: in test_get_user_password\n    assert db.get_user_password_hash(\"alice\") == \"hash_123\"\nE   AssertionError: assert None == 'hash_123'\nE    +  where None = get_user_password_hash('alice')\nE    +    where get_user_password_hash = <database.Database object at 0x7fb7728f9ab0>.get_user_password_hash\n____________________________ test_successful_login _____________________________\ntest_login.py:8: in test_successful_login\n    assert token is not None\nE   assert None is not None\n_____________________________ test_payment_success _____________________________\ntest_payment.py:11: in test_payment_success\n    assert result[\"status\"] == \"success\"\nE   AssertionError: assert 'unauthorized' == 'success'\nE     \nE     - success\nE     + unauthorized\n___________________________ test_get_profile_success ___________________________\ntest_profile.py:11: in test_get_profile_success\n    assert data is not None\nE   assert None is not None\n------------------- generated xml file: /tmp/tmpr8xh8c59.xml -------------------\n=========================== short test summary info ============================\nFAILED test_database.py::test_get_user_password - AssertionError: assert None...\nFAILED test_login.py::test_successful_login - assert None is not None\nFAILED test_payment.py::test_payment_success - AssertionError: assert 'unauth...\nFAILED test_profile.py::test_get_profile_success - assert None is not None\n========================= 4 failed, 5 passed in 0.06s ==========================\n",
+      "run_at": "2026-09-07 09:50:19"
+    },
+    {
+      "id": 98,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "test_file": "test_profile.py",
+      "test_name": "test_profile.py::test_get_profile_success",
+      "status": "FAILED",
+      "duration_sec": 0.001,
+      "error_message": "assert None is not None",
+      "stdout": "============================= test session starts ==============================\nplatform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0 -- /usr/bin/python3\ncachedir: .pytest_cache\nrootdir: /app/applet/sample_repo\ncollecting ... collected 9 items\n\ntest_database.py::test_database_connection PASSED                        [ 11%]\ntest_database.py::test_get_user_password FAILED                          [ 22%]\ntest_database.py::test_update_balance PASSED                             [ 33%]\ntest_login.py::test_successful_login FAILED                              [ 44%]\ntest_login.py::test_failed_login PASSED                                  [ 55%]\ntest_payment.py::test_payment_success FAILED                             [ 66%]\ntest_payment.py::test_payment_unauthorized PASSED                        [ 77%]\ntest_profile.py::test_get_profile_success FAILED                         [ 88%]\ntest_profile.py::test_get_profile_invalid PASSED                         [100%]\n\n=================================== FAILURES ===================================\n____________________________ test_get_user_password ____________________________\ntest_database.py:11: in test_get_user_password\n    assert db.get_user_password_hash(\"alice\") == \"hash_123\"\nE   AssertionError: assert None == 'hash_123'\nE    +  where None = get_user_password_hash('alice')\nE    +    where get_user_password_hash = <database.Database object at 0x7fb7728f9ab0>.get_user_password_hash\n____________________________ test_successful_login _____________________________\ntest_login.py:8: in test_successful_login\n    assert token is not None\nE   assert None is not None\n_____________________________ test_payment_success _____________________________\ntest_payment.py:11: in test_payment_success\n    assert result[\"status\"] == \"success\"\nE   AssertionError: assert 'unauthorized' == 'success'\nE     \nE     - success\nE     + unauthorized\n___________________________ test_get_profile_success ___________________________\ntest_profile.py:11: in test_get_profile_success\n    assert data is not None\nE   assert None is not None\n------------------- generated xml file: /tmp/tmpr8xh8c59.xml -------------------\n=========================== short test summary info ============================\nFAILED test_database.py::test_get_user_password - AssertionError: assert None...\nFAILED test_login.py::test_successful_login - assert None is not None\nFAILED test_payment.py::test_payment_success - AssertionError: assert 'unauth...\nFAILED test_profile.py::test_get_profile_success - assert None is not None\n========================= 4 failed, 5 passed in 0.06s ==========================\n",
+      "run_at": "2026-09-07 09:50:19"
+    },
+    {
+      "id": 99,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "test_file": "test_profile.py",
+      "test_name": "test_profile.py::test_get_profile_invalid",
+      "status": "PASSED",
+      "duration_sec": 0.0,
+      "error_message": "",
+      "stdout": "============================= test session starts ==============================\nplatform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0 -- /usr/bin/python3\ncachedir: .pytest_cache\nrootdir: /app/applet/sample_repo\ncollecting ... collected 9 items\n\ntest_database.py::test_database_connection PASSED                        [ 11%]\ntest_database.py::test_get_user_password FAILED                          [ 22%]\ntest_database.py::test_update_balance PASSED                             [ 33%]\ntest_login.py::test_successful_login FAILED                              [ 44%]\ntest_login.py::test_failed_login PASSED                                  [ 55%]\ntest_payment.py::test_payment_success FAILED                             [ 66%]\ntest_payment.py::test_payment_unauthorized PASSED                        [ 77%]\ntest_profile.py::test_get_profile_success FAILED                         [ 88%]\ntest_profile.py::test_get_profile_invalid PASSED                         [100%]\n\n=================================== FAILURES ===================================\n____________________________ test_get_user_password ____________________________\ntest_database.py:11: in test_get_user_password\n    assert db.get_user_password_hash(\"alice\") == \"hash_123\"\nE   AssertionError: assert None == 'hash_123'\nE    +  where None = get_user_password_hash('alice')\nE    +    where get_user_password_hash = <database.Database object at 0x7fb7728f9ab0>.get_user_password_hash\n____________________________ test_successful_login _____________________________\ntest_login.py:8: in test_successful_login\n    assert token is not None\nE   assert None is not None\n_____________________________ test_payment_success _____________________________\ntest_payment.py:11: in test_payment_success\n    assert result[\"status\"] == \"success\"\nE   AssertionError: assert 'unauthorized' == 'success'\nE     \nE     - success\nE     + unauthorized\n___________________________ test_get_profile_success ___________________________\ntest_profile.py:11: in test_get_profile_success\n    assert data is not None\nE   assert None is not None\n------------------- generated xml file: /tmp/tmpr8xh8c59.xml -------------------\n=========================== short test summary info ============================\nFAILED test_database.py::test_get_user_password - AssertionError: assert None...\nFAILED test_login.py::test_successful_login - assert None is not None\nFAILED test_payment.py::test_payment_success - AssertionError: assert 'unauth...\nFAILED test_profile.py::test_get_profile_success - assert None is not None\n========================= 4 failed, 5 passed in 0.06s ==========================\n",
+      "run_at": "2026-09-07 09:50:19"
+    }
+  ],
+  "audit_logs": [
+    {
+      "id": 1,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "stage": "BASELINE_RECORDED",
+      "message": "Commit baseline c9be741 registered by Alex Developer",
+      "metadata_json": null,
+      "timestamp": "2026-09-07 09:43:15"
+    },
+    {
+      "id": 2,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "stage": "CHANGE_DETECTED",
+      "message": "Detected 2 changed file(s)",
+      "metadata_json": "{\"files\": [\"database.py\", \"test_database.py\"]}",
+      "timestamp": "2026-09-07 09:43:15"
+    },
+    {
+      "id": 3,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "stage": "DEP_MAPPED",
+      "message": "Identified 6 affected downstream file(s)",
+      "metadata_json": "{\"affected\": [\"login.py\", \"payment.py\", \"profile.py\", \"test_login.py\", \"test_payment.py\", \"test_profile.py\"]}",
+      "timestamp": "2026-09-07 09:43:15"
+    },
+    {
+      "id": 4,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "stage": "TESTS_RUN",
+      "message": "Executed 9 regression test(s): 5 passed, 4 failed",
+      "metadata_json": "{\"passed\": 5, \"failed\": 4}",
+      "timestamp": "2026-09-07 09:43:15"
+    },
+    {
+      "id": 5,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "stage": "RISK_SCORED",
+      "message": "Calculated change risk score: 14.1 (High)",
+      "metadata_json": "{\"total_score\": 14.1, \"risk_level\": \"High\", \"badge_class\": \"risk-high\", \"risk_color\": \"#ef4444\", \"dependents_count\": 6, \"dependents_score\": 12.0, \"failing_files\": [], \"past_failures_score\": 0.0, \"total_lines_changed\": 42, \"lines_score\": 2.1, \"reviewer_suggestions\": [{\"file\": \"login.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (28 lines)\"}, {\"file\": \"payment.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (21 lines)\"}, {\"file\": \"profile.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (16 lines)\"}, {\"file\": \"test_login.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (14 lines)\"}, {\"file\": \"test_payment.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (17 lines)\"}, {\"file\": \"test_profile.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (17 lines)\"}], \"formula_summary\": \"(6 dependents \\u00d7 2) + (0 past defect files \\u00d7 3) + (42 lines \\u00f7 20)\"}",
+      "timestamp": "2026-09-07 09:43:15"
+    },
+    {
+      "id": 6,
+      "commit_hash": "02ddaf57f0af0d2de0314266b7b8eeed042c53f2",
+      "stage": "BASELINE_RECORDED",
+      "message": "Commit baseline 02ddaf5 registered by Alex Developer",
+      "metadata_json": null,
+      "timestamp": "2026-09-07 09:43:15"
+    },
+    {
+      "id": 7,
+      "commit_hash": "02ddaf57f0af0d2de0314266b7b8eeed042c53f2",
+      "stage": "CHANGE_DETECTED",
+      "message": "Detected 6 changed file(s)",
+      "metadata_json": "{\"files\": [\"login.py\", \"payment.py\", \"profile.py\", \"test_login.py\", \"test_payment.py\", \"test_profile.py\"]}",
+      "timestamp": "2026-09-07 09:43:15"
+    },
+    {
+      "id": 8,
+      "commit_hash": "02ddaf57f0af0d2de0314266b7b8eeed042c53f2",
+      "stage": "DEP_MAPPED",
+      "message": "Identified 0 affected downstream file(s)",
+      "metadata_json": "{\"affected\": []}",
+      "timestamp": "2026-09-07 09:43:15"
+    },
+    {
+      "id": 9,
+      "commit_hash": "02ddaf57f0af0d2de0314266b7b8eeed042c53f2",
+      "stage": "TESTS_RUN",
+      "message": "Executed 6 regression test(s): 3 passed, 3 failed",
+      "metadata_json": "{\"passed\": 3, \"failed\": 3}",
+      "timestamp": "2026-09-07 09:43:15"
+    },
+    {
+      "id": 10,
+      "commit_hash": "02ddaf57f0af0d2de0314266b7b8eeed042c53f2",
+      "stage": "RISK_SCORED",
+      "message": "Calculated change risk score: 23.1 (High)",
+      "metadata_json": "{\"total_score\": 23.1, \"risk_level\": \"High\", \"badge_class\": \"risk-high\", \"risk_color\": \"#ef4444\", \"dependents_count\": 0, \"dependents_score\": 0.0, \"failing_files\": [\"login.py\", \"payment.py\", \"profile.py\", \"test_login.py\", \"test_payment.py\", \"test_profile.py\"], \"past_failures_score\": 18.0, \"total_lines_changed\": 103, \"lines_score\": 5.15, \"reviewer_suggestions\": [], \"formula_summary\": \"(0 dependents \\u00d7 2) + (6 past defect files \\u00d7 3) + (103 lines \\u00f7 20)\"}",
+      "timestamp": "2026-09-07 09:43:15"
+    },
+    {
+      "id": 11,
+      "commit_hash": "9cf778cc10f9639726fa7adc06e4c6abeccd0cef",
+      "stage": "BASELINE_RECORDED",
+      "message": "Commit baseline 9cf778c registered by Alex Developer",
+      "metadata_json": null,
+      "timestamp": "2026-09-07 09:43:15"
+    },
+    {
+      "id": 12,
+      "commit_hash": "9cf778cc10f9639726fa7adc06e4c6abeccd0cef",
+      "stage": "CHANGE_DETECTED",
+      "message": "Detected 1 changed file(s)",
+      "metadata_json": "{\"files\": [\"login.py\"]}",
+      "timestamp": "2026-09-07 09:43:15"
+    },
+    {
+      "id": 13,
+      "commit_hash": "9cf778cc10f9639726fa7adc06e4c6abeccd0cef",
+      "stage": "DEP_MAPPED",
+      "message": "Identified 5 affected downstream file(s)",
+      "metadata_json": "{\"affected\": [\"payment.py\", \"profile.py\", \"test_login.py\", \"test_payment.py\", \"test_profile.py\"]}",
+      "timestamp": "2026-09-07 09:43:15"
+    },
+    {
+      "id": 14,
+      "commit_hash": "9cf778cc10f9639726fa7adc06e4c6abeccd0cef",
+      "stage": "TESTS_RUN",
+      "message": "Executed 6 regression test(s): 3 passed, 3 failed",
+      "metadata_json": "{\"passed\": 3, \"failed\": 3}",
+      "timestamp": "2026-09-07 09:43:16"
+    },
+    {
+      "id": 15,
+      "commit_hash": "9cf778cc10f9639726fa7adc06e4c6abeccd0cef",
+      "stage": "RISK_SCORED",
+      "message": "Calculated change risk score: 13.6 (High)",
+      "metadata_json": "{\"total_score\": 13.6, \"risk_level\": \"High\", \"badge_class\": \"risk-high\", \"risk_color\": \"#ef4444\", \"dependents_count\": 5, \"dependents_score\": 10.0, \"failing_files\": [\"login.py\"], \"past_failures_score\": 3.0, \"total_lines_changed\": 12, \"lines_score\": 0.6, \"reviewer_suggestions\": [{\"file\": \"payment.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (21 lines)\"}, {\"file\": \"profile.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (16 lines)\"}, {\"file\": \"test_login.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (14 lines)\"}, {\"file\": \"test_payment.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (17 lines)\"}, {\"file\": \"test_profile.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (17 lines)\"}], \"formula_summary\": \"(5 dependents \\u00d7 2) + (1 past defect files \\u00d7 3) + (12 lines \\u00f7 20)\"}",
+      "timestamp": "2026-09-07 09:43:16"
+    },
+    {
+      "id": 16,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "stage": "BASELINE_RECORDED",
+      "message": "Commit baseline bac3151 registered by Alex Developer",
+      "metadata_json": null,
+      "timestamp": "2026-09-07 09:43:16"
+    },
+    {
+      "id": 17,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "stage": "CHANGE_DETECTED",
+      "message": "Detected 1 changed file(s)",
+      "metadata_json": "{\"files\": [\"database.py\"]}",
+      "timestamp": "2026-09-07 09:43:16"
+    },
+    {
+      "id": 18,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "stage": "DEP_MAPPED",
+      "message": "Identified 7 affected downstream file(s)",
+      "metadata_json": "{\"affected\": [\"login.py\", \"payment.py\", \"test_database.py\", \"profile.py\", \"test_login.py\", \"test_payment.py\", \"test_profile.py\"]}",
+      "timestamp": "2026-09-07 09:43:16"
+    },
+    {
+      "id": 19,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "stage": "TESTS_RUN",
+      "message": "Executed 9 regression test(s): 5 passed, 4 failed",
+      "metadata_json": "{\"passed\": 5, \"failed\": 4}",
+      "timestamp": "2026-09-07 09:43:16"
+    },
+    {
+      "id": 20,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "stage": "RISK_SCORED",
+      "message": "Calculated change risk score: 17.4 (High)",
+      "metadata_json": "{\"total_score\": 17.4, \"risk_level\": \"High\", \"badge_class\": \"risk-high\", \"risk_color\": \"#ef4444\", \"dependents_count\": 7, \"dependents_score\": 14.0, \"failing_files\": [\"database.py\"], \"past_failures_score\": 3.0, \"total_lines_changed\": 8, \"lines_score\": 0.4, \"reviewer_suggestions\": [{\"file\": \"login.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (28 lines)\"}, {\"file\": \"payment.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (21 lines)\"}, {\"file\": \"test_database.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (17 lines)\"}, {\"file\": \"profile.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (16 lines)\"}, {\"file\": \"test_login.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (14 lines)\"}, {\"file\": \"test_payment.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (17 lines)\"}, {\"file\": \"test_profile.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (17 lines)\"}], \"formula_summary\": \"(7 dependents \\u00d7 2) + (1 past defect files \\u00d7 3) + (8 lines \\u00f7 20)\"}",
+      "timestamp": "2026-09-07 09:43:16"
+    },
+    {
+      "id": 21,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "stage": "BASELINE_RECORDED",
+      "message": "Commit baseline c9be741 registered by Alex Developer",
+      "metadata_json": null,
+      "timestamp": "2026-09-07 09:43:55"
+    },
+    {
+      "id": 22,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "stage": "CHANGE_DETECTED",
+      "message": "Detected 2 changed file(s)",
+      "metadata_json": "{\"files\": [\"database.py\", \"test_database.py\"]}",
+      "timestamp": "2026-09-07 09:43:55"
+    },
+    {
+      "id": 23,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "stage": "DEP_MAPPED",
+      "message": "Identified 6 affected downstream file(s)",
+      "metadata_json": "{\"affected\": [\"login.py\", \"payment.py\", \"profile.py\", \"test_login.py\", \"test_payment.py\", \"test_profile.py\"]}",
+      "timestamp": "2026-09-07 09:43:55"
+    },
+    {
+      "id": 24,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "stage": "TESTS_RUN",
+      "message": "Executed 9 regression test(s): 5 passed, 4 failed",
+      "metadata_json": "{\"passed\": 5, \"failed\": 4}",
+      "timestamp": "2026-09-07 09:43:56"
+    },
+    {
+      "id": 25,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "stage": "RISK_SCORED",
+      "message": "Calculated change risk score: 20.1 (High)",
+      "metadata_json": "{\"total_score\": 20.1, \"risk_level\": \"High\", \"badge_class\": \"risk-high\", \"risk_color\": \"#ef4444\", \"dependents_count\": 6, \"dependents_score\": 12.0, \"failing_files\": [\"database.py\", \"test_database.py\"], \"past_failures_score\": 6.0, \"total_lines_changed\": 42, \"lines_score\": 2.1, \"reviewer_suggestions\": [{\"file\": \"login.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (28 lines)\"}, {\"file\": \"payment.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (21 lines)\"}, {\"file\": \"profile.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (16 lines)\"}, {\"file\": \"test_login.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (14 lines)\"}, {\"file\": \"test_payment.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (17 lines)\"}, {\"file\": \"test_profile.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (17 lines)\"}], \"formula_summary\": \"(6 dependents \\u00d7 2) + (2 past defect files \\u00d7 3) + (42 lines \\u00f7 20)\"}",
+      "timestamp": "2026-09-07 09:43:56"
+    },
+    {
+      "id": 26,
+      "commit_hash": "02ddaf57f0af0d2de0314266b7b8eeed042c53f2",
+      "stage": "BASELINE_RECORDED",
+      "message": "Commit baseline 02ddaf5 registered by Alex Developer",
+      "metadata_json": null,
+      "timestamp": "2026-09-07 09:43:56"
+    },
+    {
+      "id": 27,
+      "commit_hash": "02ddaf57f0af0d2de0314266b7b8eeed042c53f2",
+      "stage": "CHANGE_DETECTED",
+      "message": "Detected 6 changed file(s)",
+      "metadata_json": "{\"files\": [\"login.py\", \"payment.py\", \"profile.py\", \"test_login.py\", \"test_payment.py\", \"test_profile.py\"]}",
+      "timestamp": "2026-09-07 09:43:56"
+    },
+    {
+      "id": 28,
+      "commit_hash": "02ddaf57f0af0d2de0314266b7b8eeed042c53f2",
+      "stage": "DEP_MAPPED",
+      "message": "Identified 0 affected downstream file(s)",
+      "metadata_json": "{\"affected\": []}",
+      "timestamp": "2026-09-07 09:43:56"
+    },
+    {
+      "id": 29,
+      "commit_hash": "02ddaf57f0af0d2de0314266b7b8eeed042c53f2",
+      "stage": "TESTS_RUN",
+      "message": "Executed 6 regression test(s): 3 passed, 3 failed",
+      "metadata_json": "{\"passed\": 3, \"failed\": 3}",
+      "timestamp": "2026-09-07 09:43:56"
+    },
+    {
+      "id": 30,
+      "commit_hash": "02ddaf57f0af0d2de0314266b7b8eeed042c53f2",
+      "stage": "RISK_SCORED",
+      "message": "Calculated change risk score: 23.1 (High)",
+      "metadata_json": "{\"total_score\": 23.1, \"risk_level\": \"High\", \"badge_class\": \"risk-high\", \"risk_color\": \"#ef4444\", \"dependents_count\": 0, \"dependents_score\": 0.0, \"failing_files\": [\"login.py\", \"payment.py\", \"profile.py\", \"test_login.py\", \"test_payment.py\", \"test_profile.py\"], \"past_failures_score\": 18.0, \"total_lines_changed\": 103, \"lines_score\": 5.15, \"reviewer_suggestions\": [], \"formula_summary\": \"(0 dependents \\u00d7 2) + (6 past defect files \\u00d7 3) + (103 lines \\u00f7 20)\"}",
+      "timestamp": "2026-09-07 09:43:56"
+    },
+    {
+      "id": 31,
+      "commit_hash": "9cf778cc10f9639726fa7adc06e4c6abeccd0cef",
+      "stage": "BASELINE_RECORDED",
+      "message": "Commit baseline 9cf778c registered by Alex Developer",
+      "metadata_json": null,
+      "timestamp": "2026-09-07 09:43:56"
+    },
+    {
+      "id": 32,
+      "commit_hash": "9cf778cc10f9639726fa7adc06e4c6abeccd0cef",
+      "stage": "CHANGE_DETECTED",
+      "message": "Detected 1 changed file(s)",
+      "metadata_json": "{\"files\": [\"login.py\"]}",
+      "timestamp": "2026-09-07 09:43:56"
+    },
+    {
+      "id": 33,
+      "commit_hash": "9cf778cc10f9639726fa7adc06e4c6abeccd0cef",
+      "stage": "DEP_MAPPED",
+      "message": "Identified 5 affected downstream file(s)",
+      "metadata_json": "{\"affected\": [\"payment.py\", \"profile.py\", \"test_login.py\", \"test_payment.py\", \"test_profile.py\"]}",
+      "timestamp": "2026-09-07 09:43:56"
+    },
+    {
+      "id": 34,
+      "commit_hash": "9cf778cc10f9639726fa7adc06e4c6abeccd0cef",
+      "stage": "TESTS_RUN",
+      "message": "Executed 6 regression test(s): 3 passed, 3 failed",
+      "metadata_json": "{\"passed\": 3, \"failed\": 3}",
+      "timestamp": "2026-09-07 09:43:56"
+    },
+    {
+      "id": 35,
+      "commit_hash": "9cf778cc10f9639726fa7adc06e4c6abeccd0cef",
+      "stage": "RISK_SCORED",
+      "message": "Calculated change risk score: 13.6 (High)",
+      "metadata_json": "{\"total_score\": 13.6, \"risk_level\": \"High\", \"badge_class\": \"risk-high\", \"risk_color\": \"#ef4444\", \"dependents_count\": 5, \"dependents_score\": 10.0, \"failing_files\": [\"login.py\"], \"past_failures_score\": 3.0, \"total_lines_changed\": 12, \"lines_score\": 0.6, \"reviewer_suggestions\": [{\"file\": \"payment.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (21 lines)\"}, {\"file\": \"profile.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (16 lines)\"}, {\"file\": \"test_login.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (14 lines)\"}, {\"file\": \"test_payment.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (17 lines)\"}, {\"file\": \"test_profile.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (17 lines)\"}], \"formula_summary\": \"(5 dependents \\u00d7 2) + (1 past defect files \\u00d7 3) + (12 lines \\u00f7 20)\"}",
+      "timestamp": "2026-09-07 09:43:56"
+    },
+    {
+      "id": 36,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "stage": "BASELINE_RECORDED",
+      "message": "Commit baseline bac3151 registered by Alex Developer",
+      "metadata_json": null,
+      "timestamp": "2026-09-07 09:43:56"
+    },
+    {
+      "id": 37,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "stage": "CHANGE_DETECTED",
+      "message": "Detected 1 changed file(s)",
+      "metadata_json": "{\"files\": [\"database.py\"]}",
+      "timestamp": "2026-09-07 09:43:56"
+    },
+    {
+      "id": 38,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "stage": "DEP_MAPPED",
+      "message": "Identified 7 affected downstream file(s)",
+      "metadata_json": "{\"affected\": [\"login.py\", \"payment.py\", \"test_database.py\", \"profile.py\", \"test_login.py\", \"test_payment.py\", \"test_profile.py\"]}",
+      "timestamp": "2026-09-07 09:43:56"
+    },
+    {
+      "id": 39,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "stage": "TESTS_RUN",
+      "message": "Executed 9 regression test(s): 5 passed, 4 failed",
+      "metadata_json": "{\"passed\": 5, \"failed\": 4}",
+      "timestamp": "2026-09-07 09:43:57"
+    },
+    {
+      "id": 40,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "stage": "RISK_SCORED",
+      "message": "Calculated change risk score: 17.4 (High)",
+      "metadata_json": "{\"total_score\": 17.4, \"risk_level\": \"High\", \"badge_class\": \"risk-high\", \"risk_color\": \"#ef4444\", \"dependents_count\": 7, \"dependents_score\": 14.0, \"failing_files\": [\"database.py\"], \"past_failures_score\": 3.0, \"total_lines_changed\": 8, \"lines_score\": 0.4, \"reviewer_suggestions\": [{\"file\": \"login.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (28 lines)\"}, {\"file\": \"payment.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (21 lines)\"}, {\"file\": \"test_database.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (17 lines)\"}, {\"file\": \"profile.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (16 lines)\"}, {\"file\": \"test_login.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (14 lines)\"}, {\"file\": \"test_payment.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (17 lines)\"}, {\"file\": \"test_profile.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (17 lines)\"}], \"formula_summary\": \"(7 dependents \\u00d7 2) + (1 past defect files \\u00d7 3) + (8 lines \\u00f7 20)\"}",
+      "timestamp": "2026-09-07 09:43:57"
+    },
+    {
+      "id": 41,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "stage": "BASELINE_RECORDED",
+      "message": "Commit baseline c9be741 registered by Alex Developer",
+      "metadata_json": null,
+      "timestamp": "2026-09-07 09:44:12"
+    },
+    {
+      "id": 42,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "stage": "CHANGE_DETECTED",
+      "message": "Detected 2 changed file(s)",
+      "metadata_json": "{\"files\": [\"database.py\", \"test_database.py\"]}",
+      "timestamp": "2026-09-07 09:44:12"
+    },
+    {
+      "id": 43,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "stage": "DEP_MAPPED",
+      "message": "Identified 6 affected downstream file(s)",
+      "metadata_json": "{\"affected\": [\"login.py\", \"payment.py\", \"profile.py\", \"test_login.py\", \"test_payment.py\", \"test_profile.py\"]}",
+      "timestamp": "2026-09-07 09:44:12"
+    },
+    {
+      "id": 44,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "stage": "TESTS_RUN",
+      "message": "Executed 9 regression test(s): 5 passed, 4 failed",
+      "metadata_json": "{\"passed\": 5, \"failed\": 4}",
+      "timestamp": "2026-09-07 09:44:12"
+    },
+    {
+      "id": 45,
+      "commit_hash": "c9be7417c680500f705501cd8137f61895cdf8ab",
+      "stage": "RISK_SCORED",
+      "message": "Calculated change risk score: 20.1 (High)",
+      "metadata_json": "{\"total_score\": 20.1, \"risk_level\": \"High\", \"badge_class\": \"risk-high\", \"risk_color\": \"#ef4444\", \"dependents_count\": 6, \"dependents_score\": 12.0, \"failing_files\": [\"database.py\", \"test_database.py\"], \"past_failures_score\": 6.0, \"total_lines_changed\": 42, \"lines_score\": 2.1, \"reviewer_suggestions\": [{\"file\": \"login.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (28 lines)\"}, {\"file\": \"payment.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (21 lines)\"}, {\"file\": \"profile.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (16 lines)\"}, {\"file\": \"test_login.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (14 lines)\"}, {\"file\": \"test_payment.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (17 lines)\"}, {\"file\": \"test_profile.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (17 lines)\"}], \"formula_summary\": \"(6 dependents \\u00d7 2) + (2 past defect files \\u00d7 3) + (42 lines \\u00f7 20)\"}",
+      "timestamp": "2026-09-07 09:44:12"
+    },
+    {
+      "id": 46,
+      "commit_hash": "02ddaf57f0af0d2de0314266b7b8eeed042c53f2",
+      "stage": "BASELINE_RECORDED",
+      "message": "Commit baseline 02ddaf5 registered by Alex Developer",
+      "metadata_json": null,
+      "timestamp": "2026-09-07 09:44:12"
+    },
+    {
+      "id": 47,
+      "commit_hash": "02ddaf57f0af0d2de0314266b7b8eeed042c53f2",
+      "stage": "CHANGE_DETECTED",
+      "message": "Detected 6 changed file(s)",
+      "metadata_json": "{\"files\": [\"login.py\", \"payment.py\", \"profile.py\", \"test_login.py\", \"test_payment.py\", \"test_profile.py\"]}",
+      "timestamp": "2026-09-07 09:44:12"
+    },
+    {
+      "id": 48,
+      "commit_hash": "02ddaf57f0af0d2de0314266b7b8eeed042c53f2",
+      "stage": "DEP_MAPPED",
+      "message": "Identified 0 affected downstream file(s)",
+      "metadata_json": "{\"affected\": []}",
+      "timestamp": "2026-09-07 09:44:12"
+    },
+    {
+      "id": 49,
+      "commit_hash": "02ddaf57f0af0d2de0314266b7b8eeed042c53f2",
+      "stage": "TESTS_RUN",
+      "message": "Executed 6 regression test(s): 3 passed, 3 failed",
+      "metadata_json": "{\"passed\": 3, \"failed\": 3}",
+      "timestamp": "2026-09-07 09:44:12"
+    },
+    {
+      "id": 50,
+      "commit_hash": "02ddaf57f0af0d2de0314266b7b8eeed042c53f2",
+      "stage": "RISK_SCORED",
+      "message": "Calculated change risk score: 23.1 (High)",
+      "metadata_json": "{\"total_score\": 23.1, \"risk_level\": \"High\", \"badge_class\": \"risk-high\", \"risk_color\": \"#ef4444\", \"dependents_count\": 0, \"dependents_score\": 0.0, \"failing_files\": [\"login.py\", \"payment.py\", \"profile.py\", \"test_login.py\", \"test_payment.py\", \"test_profile.py\"], \"past_failures_score\": 18.0, \"total_lines_changed\": 103, \"lines_score\": 5.15, \"reviewer_suggestions\": [], \"formula_summary\": \"(0 dependents \\u00d7 2) + (6 past defect files \\u00d7 3) + (103 lines \\u00f7 20)\"}",
+      "timestamp": "2026-09-07 09:44:12"
+    },
+    {
+      "id": 51,
+      "commit_hash": "9cf778cc10f9639726fa7adc06e4c6abeccd0cef",
+      "stage": "BASELINE_RECORDED",
+      "message": "Commit baseline 9cf778c registered by Alex Developer",
+      "metadata_json": null,
+      "timestamp": "2026-09-07 09:44:12"
+    },
+    {
+      "id": 52,
+      "commit_hash": "9cf778cc10f9639726fa7adc06e4c6abeccd0cef",
+      "stage": "CHANGE_DETECTED",
+      "message": "Detected 1 changed file(s)",
+      "metadata_json": "{\"files\": [\"login.py\"]}",
+      "timestamp": "2026-09-07 09:44:12"
+    },
+    {
+      "id": 53,
+      "commit_hash": "9cf778cc10f9639726fa7adc06e4c6abeccd0cef",
+      "stage": "DEP_MAPPED",
+      "message": "Identified 5 affected downstream file(s)",
+      "metadata_json": "{\"affected\": [\"payment.py\", \"profile.py\", \"test_login.py\", \"test_payment.py\", \"test_profile.py\"]}",
+      "timestamp": "2026-09-07 09:44:12"
+    },
+    {
+      "id": 54,
+      "commit_hash": "9cf778cc10f9639726fa7adc06e4c6abeccd0cef",
+      "stage": "TESTS_RUN",
+      "message": "Executed 6 regression test(s): 3 passed, 3 failed",
+      "metadata_json": "{\"passed\": 3, \"failed\": 3}",
+      "timestamp": "2026-09-07 09:44:13"
+    },
+    {
+      "id": 55,
+      "commit_hash": "9cf778cc10f9639726fa7adc06e4c6abeccd0cef",
+      "stage": "RISK_SCORED",
+      "message": "Calculated change risk score: 13.6 (High)",
+      "metadata_json": "{\"total_score\": 13.6, \"risk_level\": \"High\", \"badge_class\": \"risk-high\", \"risk_color\": \"#ef4444\", \"dependents_count\": 5, \"dependents_score\": 10.0, \"failing_files\": [\"login.py\"], \"past_failures_score\": 3.0, \"total_lines_changed\": 12, \"lines_score\": 0.6, \"reviewer_suggestions\": [{\"file\": \"payment.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (21 lines)\"}, {\"file\": \"profile.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (16 lines)\"}, {\"file\": \"test_login.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (14 lines)\"}, {\"file\": \"test_payment.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (17 lines)\"}, {\"file\": \"test_profile.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (17 lines)\"}], \"formula_summary\": \"(5 dependents \\u00d7 2) + (1 past defect files \\u00d7 3) + (12 lines \\u00f7 20)\"}",
+      "timestamp": "2026-09-07 09:44:13"
+    },
+    {
+      "id": 56,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "stage": "BASELINE_RECORDED",
+      "message": "Commit baseline bac3151 registered by Alex Developer",
+      "metadata_json": null,
+      "timestamp": "2026-09-07 09:44:13"
+    },
+    {
+      "id": 57,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "stage": "CHANGE_DETECTED",
+      "message": "Detected 1 changed file(s)",
+      "metadata_json": "{\"files\": [\"database.py\"]}",
+      "timestamp": "2026-09-07 09:44:13"
+    },
+    {
+      "id": 58,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "stage": "DEP_MAPPED",
+      "message": "Identified 7 affected downstream file(s)",
+      "metadata_json": "{\"affected\": [\"login.py\", \"payment.py\", \"test_database.py\", \"profile.py\", \"test_login.py\", \"test_payment.py\", \"test_profile.py\"]}",
+      "timestamp": "2026-09-07 09:44:13"
+    },
+    {
+      "id": 59,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "stage": "TESTS_RUN",
+      "message": "Executed 9 regression test(s): 5 passed, 4 failed",
+      "metadata_json": "{\"passed\": 5, \"failed\": 4}",
+      "timestamp": "2026-09-07 09:44:13"
+    },
+    {
+      "id": 60,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "stage": "RISK_SCORED",
+      "message": "Calculated change risk score: 17.4 (High)",
+      "metadata_json": "{\"total_score\": 17.4, \"risk_level\": \"High\", \"badge_class\": \"risk-high\", \"risk_color\": \"#ef4444\", \"dependents_count\": 7, \"dependents_score\": 14.0, \"failing_files\": [\"database.py\"], \"past_failures_score\": 3.0, \"total_lines_changed\": 8, \"lines_score\": 0.4, \"reviewer_suggestions\": [{\"file\": \"login.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (28 lines)\"}, {\"file\": \"payment.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (21 lines)\"}, {\"file\": \"test_database.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (17 lines)\"}, {\"file\": \"profile.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (16 lines)\"}, {\"file\": \"test_login.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (14 lines)\"}, {\"file\": \"test_payment.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (17 lines)\"}, {\"file\": \"test_profile.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (17 lines)\"}], \"formula_summary\": \"(7 dependents \\u00d7 2) + (1 past defect files \\u00d7 3) + (8 lines \\u00f7 20)\"}",
+      "timestamp": "2026-09-07 09:44:13"
+    },
+    {
+      "id": 61,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "stage": "BASELINE_RECORDED",
+      "message": "Commit baseline bac3151 registered by Alex Developer",
+      "metadata_json": null,
+      "timestamp": "2026-09-07 09:50:19"
+    },
+    {
+      "id": 62,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "stage": "CHANGE_DETECTED",
+      "message": "Detected 1 changed file(s)",
+      "metadata_json": "{\"files\": [\"database.py\"]}",
+      "timestamp": "2026-09-07 09:50:19"
+    },
+    {
+      "id": 63,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "stage": "DEP_MAPPED",
+      "message": "Identified 7 affected downstream file(s)",
+      "metadata_json": "{\"affected\": [\"login.py\", \"payment.py\", \"test_database.py\", \"profile.py\", \"test_login.py\", \"test_payment.py\", \"test_profile.py\"]}",
+      "timestamp": "2026-09-07 09:50:19"
+    },
+    {
+      "id": 64,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "stage": "TESTS_RUN",
+      "message": "Executed 9 regression test(s): 5 passed, 4 failed",
+      "metadata_json": "{\"passed\": 5, \"failed\": 4}",
+      "timestamp": "2026-09-07 09:50:19"
+    },
+    {
+      "id": 65,
+      "commit_hash": "bac3151e609617527bff2f2bf360bea2dd543c62",
+      "stage": "RISK_SCORED",
+      "message": "Calculated change risk score: 17.4 (High)",
+      "metadata_json": "{\"total_score\": 17.4, \"risk_level\": \"High\", \"badge_class\": \"risk-high\", \"risk_color\": \"#ef4444\", \"dependents_count\": 7, \"dependents_score\": 14.0, \"failing_files\": [\"database.py\"], \"past_failures_score\": 3.0, \"total_lines_changed\": 8, \"lines_score\": 0.4, \"reviewer_suggestions\": [{\"file\": \"login.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (28 lines)\"}, {\"file\": \"payment.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (21 lines)\"}, {\"file\": \"test_database.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (17 lines)\"}, {\"file\": \"profile.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (16 lines)\"}, {\"file\": \"test_login.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (14 lines)\"}, {\"file\": \"test_payment.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (17 lines)\"}, {\"file\": \"test_profile.py\", \"suggested_reviewer\": \"Alex Developer\", \"reason\": \"Top contributor to affected file (17 lines)\"}], \"formula_summary\": \"(7 dependents \\u00d7 2) + (1 past defect files \\u00d7 3) + (8 lines \\u00f7 20)\"}",
+      "timestamp": "2026-09-07 09:50:20"
+    }
+  ]
+}

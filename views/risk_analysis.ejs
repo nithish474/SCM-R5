@@ -1,0 +1,236 @@
+<%- include('partials/header', { title: 'CodeGuard - Change Risk Quantification Methodology', activePage: 'risk-analysis' }) %>
+
+<div class="page-header d-flex justify-between align-center">
+    <div>
+        <div class="breadcrumb">
+            <a href="/">Home</a> &gt; <span>Risk Analysis</span>
+        </div>
+        <h1 class="page-title">Change Risk Quantification Model</h1>
+        <p class="text-muted" style="margin-top: 0.25rem;">
+            A transparent, rule-based mathematical scoring model balancing structural blast radius, historical module fragility, and net code churn.
+        </p>
+    </div>
+    <div class="d-flex gap-sm">
+        <a href="/dashboard" class="btn btn-outline btn-sm">Dashboard Overview</a>
+    </div>
+</div>
+
+<!-- Architecture Flow Banner -->
+<div class="card shadow-xs" style="margin-bottom: 1.5rem; padding: 1.25rem 1.5rem;">
+    <div class="section-eyebrow">Risk Quantification Sequence</div>
+    <div class="rts-flow-steps" style="margin-top: 0.75rem;">
+        <div class="rts-flow-box">
+            <span class="rts-step-num">Step 1</span>
+            <strong>Code Change</strong>
+            <span class="text-muted">Lines added/deleted</span>
+        </div>
+        <div class="rts-flow-arrow">&rarr;</div>
+        <div class="rts-flow-box">
+            <span class="rts-step-num">Step 2</span>
+            <strong>Dependency Impact</strong>
+            <span class="text-muted">Downstream fan-out</span>
+        </div>
+        <div class="rts-flow-arrow">&rarr;</div>
+        <div class="rts-flow-box highlighted">
+            <span class="rts-step-num">Step 3</span>
+            <strong>Change Risk</strong>
+            <span class="text-primary font-semibold">Formula Score</span>
+        </div>
+        <div class="rts-flow-arrow">&rarr;</div>
+        <div class="rts-flow-box">
+            <span class="rts-step-num">Step 4</span>
+            <strong>Targeted Tests</strong>
+            <span class="text-muted">RTS mapping</span>
+        </div>
+        <div class="rts-flow-arrow">&rarr;</div>
+        <div class="rts-flow-box">
+            <span class="rts-step-num">Step 5</span>
+            <strong>Release Confidence</strong>
+            <span class="text-success font-semibold">Audit Verdict</span>
+        </div>
+    </div>
+</div>
+
+<!-- Formula Breakdown & Interactive Calculator Grid -->
+<div class="two-col-layout" style="margin-bottom: 1.5rem;">
+    <!-- Formula Deep Dive -->
+    <div class="card shadow-xs">
+        <div class="card-header">
+            <h2 class="card-title">The CodeGuard Risk Formula</h2>
+            <p class="card-subtitle">Linear weighted rule-based model for SCM decision making.</p>
+        </div>
+        <div class="card-body">
+            <div class="formula-box">
+                <code>Risk Score = (Dependents × 2.0) + (Past Defect Files × 3.0) + (Lines ÷ 20.0)</code>
+            </div>
+
+            <div class="weight-breakdown-list" style="margin-top: 1.25rem;">
+                <div class="weight-item">
+                    <div class="weight-badge bg-blue-subtle text-primary">Weight: 2.0</div>
+                    <div>
+                        <h4 style="font-size: 0.95rem;">Downstream Dependents (Impact Breadth)</h4>
+                        <p class="text-muted" style="font-size: 0.85rem;">
+                            Every downstream file that directly or transitively imports the modified file adds 2.0 risk points. A change to a root model or core utility with 8 dependents adds 16.0 points automatically.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="weight-item" style="margin-top: 1rem;">
+                    <div class="weight-badge bg-rose-subtle text-danger">Weight: 3.0</div>
+                    <div>
+                        <h4 style="font-size: 0.95rem;">Past Defect History (Module Fragility)</h4>
+                        <p class="text-muted" style="font-size: 0.85rem;">
+                            Files associated with past test failures in SQLite audit logs represent historically fragile code. Each modified file with a past defect history adds 3.0 penalty points.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="weight-item" style="margin-top: 1rem;">
+                    <div class="weight-badge bg-amber-subtle text-warning">Weight: 0.05</div>
+                    <div>
+                        <h4 style="font-size: 0.95rem;">Code Churn Magnitude (Lines Added + Deleted)</h4>
+                        <p class="text-muted" style="font-size: 0.85rem;">
+                            Total line additions and deletions divided by 20. A 100-line churn adds 5.0 points; a 20-line documentation fix adds only 1.0 point.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Risk Tiers Summary -->
+            <div style="margin-top: 1.5rem; border-top: 1px solid #e2e8f0; padding-top: 1.25rem;">
+                <h4 style="font-size: 0.9rem; margin-bottom: 0.75rem;">Classification Thresholds</h4>
+                <div class="d-flex gap-md flex-wrap">
+                    <div class="tier-card tier-low">
+                        <div class="badge badge-low">Low Risk (&lt; 5.0 pts)</div>
+                        <p class="text-muted" style="font-size: 0.78rem; margin-top: 0.25rem;">Isolated changes, low churn, no past defects. Safe for fast-track merge.</p>
+                    </div>
+                    <div class="tier-card tier-med">
+                        <div class="badge badge-med">Medium Risk (5.0 - 9.9 pts)</div>
+                        <p class="text-muted" style="font-size: 0.78rem; margin-top: 0.25rem;">Moderate fan-out or higher churn. Requires regression test pass.</p>
+                    </div>
+                    <div class="tier-card tier-high">
+                        <div class="badge badge-high">High Risk (&ge; 10.0 pts)</div>
+                        <p class="text-muted" style="font-size: 0.78rem; margin-top: 0.25rem;">High fan-out, past defect area, or large churn. Requires senior peer review.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive Risk Calculator -->
+    <div class="card shadow-xs">
+        <div class="card-header">
+            <h2 class="card-title">Interactive Risk Calculator</h2>
+            <p class="card-subtitle">Experiment with change variables to simulate risk scoring in real-time.</p>
+        </div>
+        <div class="card-body">
+            <!-- Slider 1 -->
+            <div class="calc-control-group">
+                <div class="d-flex justify-between align-center">
+                    <label for="calcDependentsInput" class="calc-label font-medium">Downstream Dependents</label>
+                    <span id="calcDependentsVal" class="badge badge-secondary font-semibold">2 files</span>
+                </div>
+                <input type="range" id="calcDependentsInput" min="0" max="15" value="2" class="calc-slider" oninput="updateCalculator()">
+                <div class="d-flex justify-between text-muted" style="font-size: 0.72rem;">
+                    <span>0 (Isolated leaf)</span>
+                    <span>15 (High fan-out)</span>
+                </div>
+            </div>
+
+            <!-- Slider 2 -->
+            <div class="calc-control-group" style="margin-top: 1.25rem;">
+                <div class="d-flex justify-between align-center">
+                    <label for="calcDefectsInput" class="calc-label font-medium">Past Defect Files</label>
+                    <span id="calcDefectsVal" class="badge badge-secondary font-semibold">0 files</span>
+                </div>
+                <input type="range" id="calcDefectsInput" min="0" max="5" value="0" class="calc-slider" oninput="updateCalculator()">
+                <div class="d-flex justify-between text-muted" style="font-size: 0.72rem;">
+                    <span>0 (Clean history)</span>
+                    <span>5 (Historically fragile)</span>
+                </div>
+            </div>
+
+            <!-- Slider 3 -->
+            <div class="calc-control-group" style="margin-top: 1.25rem;">
+                <div class="d-flex justify-between align-center">
+                    <label for="calcLinesInput" class="calc-label font-medium">Lines of Code Churn</label>
+                    <span id="calcLinesVal" class="badge badge-secondary font-semibold">40 lines</span>
+                </div>
+                <input type="range" id="calcLinesInput" min="0" max="300" step="5" value="40" class="calc-slider" oninput="updateCalculator()">
+                <div class="d-flex justify-between text-muted" style="font-size: 0.72rem;">
+                    <span>0 lines</span>
+                    <span>300 lines</span>
+                </div>
+            </div>
+
+            <!-- Live Calculation Result Card -->
+            <div class="calc-result-box" id="calcResultBox" style="margin-top: 1.5rem;">
+                <div class="d-flex justify-between align-center">
+                    <div>
+                        <div class="text-muted" style="font-size: 0.75rem; text-transform: uppercase;">Simulated Score</div>
+                        <div class="calc-total-score" id="calcTotalScore">6.0 pts</div>
+                    </div>
+                    <div id="calcBadgeContainer">
+                        <span class="badge badge-med badge-lg" id="calcRiskBadge">Medium Risk</span>
+                    </div>
+                </div>
+
+                <div class="calc-formula-echo" id="calcFormulaEcho" style="margin-top: 0.85rem; font-family: monospace; font-size: 0.8rem;">
+                    (2 × 2.0) + (0 × 3.0) + (40 ÷ 20.0) = 6.0
+                </div>
+
+                <div class="calc-recommendation text-muted" id="calcRecommendation" style="font-size: 0.8rem; margin-top: 0.75rem;">
+                    Standard verification: Targeted regression tests must pass before approval.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function updateCalculator() {
+    const deps = parseInt(document.getElementById('calcDependentsInput').value, 10);
+    const defects = parseInt(document.getElementById('calcDefectsInput').value, 10);
+    const lines = parseInt(document.getElementById('calcLinesInput').value, 10);
+
+    document.getElementById('calcDependentsVal').textContent = deps + ' files';
+    document.getElementById('calcDefectsVal').textContent = defects + ' files';
+    document.getElementById('calcLinesVal').textContent = lines + ' lines';
+
+    const depScore = deps * 2.0;
+    const defectScore = defects * 3.0;
+    const linesScore = lines / 20.0;
+    const total = Math.round((depScore + defectScore + linesScore) * 10) / 10;
+
+    document.getElementById('calcTotalScore').textContent = total.toFixed(1) + ' pts';
+    document.getElementById('calcFormulaEcho').textContent = `(${deps} × 2.0) + (${defects} × 3.0) + (${lines} ÷ 20.0) = ${total.toFixed(1)}`;
+
+    const badge = document.getElementById('calcRiskBadge');
+    const rec = document.getElementById('calcRecommendation');
+    const box = document.getElementById('calcResultBox');
+
+    if (total >= 10.0) {
+        badge.className = 'badge badge-high badge-lg';
+        badge.textContent = 'High Risk';
+        rec.textContent = 'High Attention: Cascading impact risk detected. Mandatory regression test execution and senior peer review required.';
+        box.style.borderColor = '#fecaca';
+        box.style.backgroundColor = '#fef2f2';
+    } else if (total >= 5.0) {
+        badge.className = 'badge badge-med badge-lg';
+        badge.textContent = 'Medium Risk';
+        rec.textContent = 'Standard verification: Targeted regression tests must pass cleanly before merge approval.';
+        box.style.borderColor = '#fde68a';
+        box.style.backgroundColor = '#fffbeb';
+    } else {
+        badge.className = 'badge badge-low badge-lg';
+        badge.textContent = 'Low Risk';
+        rec.textContent = 'Safe: Minimal downstream dependencies and zero historical fragility. Eligible for expedited merge.';
+        box.style.borderColor = '#a7f3d0';
+        box.style.backgroundColor = '#ecfdf5';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', updateCalculator);
+</script>
+
+<%- include('partials/footer') %>

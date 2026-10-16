@@ -1,0 +1,505 @@
+<%- include('partials/header', { title: 'CodeGuard - SCM & Testing Dashboard', activePage: 'dashboard' }) %>
+
+<!-- Repository Information Header & Quick System Status -->
+<div class="repo-info-banner card shadow-xs" style="margin-bottom: 1.5rem; padding: 1.25rem 1.5rem;">
+    <div class="d-flex justify-between align-center flex-wrap gap-md">
+        <div class="repo-details">
+            <div class="d-flex align-center gap-sm">
+                <span class="badge badge-primary">Active SCM Repository</span>
+                <span class="branch-pill">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="6" y1="3" x2="6" y2="15"></line>
+                        <circle cx="18" cy="6" r="3"></circle>
+                        <circle cx="6" cy="18" r="3"></circle>
+                        <path d="M18 9a9 9 0 0 1-9 9"></path>
+                    </svg>
+                    <span>branch: <strong>master</strong></span>
+                </span>
+            </div>
+            <h2 style="font-size: 1.25rem; font-weight: 700; margin-top: 0.35rem; color: #0f172a;">
+                <%= repo_path.split('/').pop() || 'CodeGuard' %>
+            </h2>
+            <div class="repo-meta-text text-muted" style="font-size: 0.82rem; margin-top: 0.2rem;">
+                <% if (commits && commits.length > 0) { %>
+                    <span>Latest Baseline: <code><%= commits[0].commit_hash.substring(0, 7) %></code> by <strong><%= commits[0].author %></strong> (<%= commits[0].timestamp %>)</span>
+                <% } else { %>
+                    <span>No commits analyzed yet</span>
+                <% } %>
+            </div>
+        </div>
+
+        <!-- 4-Pill System Status Indicator -->
+        <div class="system-status-pills d-flex gap-xs flex-wrap">
+            <div class="status-pill status-ready" title="Git repository initialized & tracking">
+                <span class="status-dot"></span>
+                <span>Git: Ready</span>
+            </div>
+            <div class="status-pill status-ready" title="SQLite database connected (codeguard.db)">
+                <span class="status-dot"></span>
+                <span>SQLite: Ready</span>
+            </div>
+            <div class="status-pill status-ready" title="AST static dependency engine operational">
+                <span class="status-dot"></span>
+                <span>AST Engine: Ready</span>
+            </div>
+            <div class="status-pill status-ready" title="PyTest test runner configured">
+                <span class="status-dot"></span>
+                <span>PyTest: Ready</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 8 Key Metrics Grid -->
+<div class="metrics-grid-8" style="margin-bottom: 1.5rem;">
+    <!-- Metric 1 -->
+    <div class="metric-card shadow-xs">
+        <div class="d-flex justify-between align-center" style="margin-bottom: 0.35rem;">
+            <div class="metric-label" style="margin-bottom: 0;">Total Commits</div>
+            <% if (metrics.failed_tests > 0) { %>
+                <span class="badge badge-failed" style="font-size: 0.65rem; padding: 0.15rem 0.45rem;">Regression Detected</span>
+            <% } else if (metrics.high_risk > 0) { %>
+                <span class="badge badge-med" style="font-size: 0.65rem; padding: 0.15rem 0.45rem;">Review Required</span>
+            <% } else { %>
+                <span class="badge badge-passed" style="font-size: 0.65rem; padding: 0.15rem 0.45rem;">Stable</span>
+            <% } %>
+        </div>
+        <div class="metric-value"><%= metrics.total_commits %></div>
+        <div class="metric-subtext text-muted">SCM Baselines</div>
+    </div>
+    <!-- Metric 2 -->
+    <div class="metric-card shadow-xs">
+        <div class="d-flex justify-between align-center" style="margin-bottom: 0.35rem;">
+            <div class="metric-label" style="margin-bottom: 0;">High Risk</div>
+            <% if (metrics.high_risk > 0) { %>
+                <span class="badge badge-med" style="font-size: 0.65rem; padding: 0.15rem 0.45rem;">Review Required</span>
+            <% } else { %>
+                <span class="badge badge-passed" style="font-size: 0.65rem; padding: 0.15rem 0.45rem;">Stable</span>
+            <% } %>
+        </div>
+        <div class="metric-value text-danger"><%= metrics.high_risk %></div>
+        <div class="metric-subtext text-danger font-medium">&ge; 10.0 pts</div>
+    </div>
+    <!-- Metric 3 -->
+    <div class="metric-card shadow-xs">
+        <div class="d-flex justify-between align-center" style="margin-bottom: 0.35rem;">
+            <div class="metric-label" style="margin-bottom: 0;">Medium Risk</div>
+            <% if (metrics.med_risk > 0) { %>
+                <span class="badge badge-med" style="font-size: 0.65rem; padding: 0.15rem 0.45rem;">Review Required</span>
+            <% } else { %>
+                <span class="badge badge-passed" style="font-size: 0.65rem; padding: 0.15rem 0.45rem;">Stable</span>
+            <% } %>
+        </div>
+        <div class="metric-value text-warning"><%= metrics.med_risk %></div>
+        <div class="metric-subtext text-warning font-medium">5.0 - 9.9 pts</div>
+    </div>
+    <!-- Metric 4 -->
+    <div class="metric-card shadow-xs">
+        <div class="d-flex justify-between align-center" style="margin-bottom: 0.35rem;">
+            <div class="metric-label" style="margin-bottom: 0;">Low Risk</div>
+            <span class="badge badge-passed" style="font-size: 0.65rem; padding: 0.15rem 0.45rem;">Stable</span>
+        </div>
+        <div class="metric-value text-success"><%= metrics.low_risk %></div>
+        <div class="metric-subtext text-success font-medium">&lt; 5.0 pts</div>
+    </div>
+    <!-- Metric 5 -->
+    <div class="metric-card shadow-xs">
+        <div class="d-flex justify-between align-center" style="margin-bottom: 0.35rem;">
+            <div class="metric-label" style="margin-bottom: 0;">Tests Executed</div>
+            <% if (metrics.failed_tests > 0) { %>
+                <span class="badge badge-failed" style="font-size: 0.65rem; padding: 0.15rem 0.45rem;">Regression Detected</span>
+            <% } else { %>
+                <span class="badge badge-passed" style="font-size: 0.65rem; padding: 0.15rem 0.45rem;">Stable</span>
+            <% } %>
+        </div>
+        <div class="metric-value"><%= metrics.total_tests %></div>
+        <div class="metric-subtext text-muted">PyTest runs</div>
+    </div>
+    <!-- Metric 6 -->
+    <div class="metric-card shadow-xs">
+        <div class="d-flex justify-between align-center" style="margin-bottom: 0.35rem;">
+            <div class="metric-label" style="margin-bottom: 0;">Tests Passed</div>
+            <span class="badge badge-passed" style="font-size: 0.65rem; padding: 0.15rem 0.45rem;">Stable</span>
+        </div>
+        <div class="metric-value text-success"><%= metrics.passed_tests %></div>
+        <div class="metric-subtext text-success font-medium">Verified assertions</div>
+    </div>
+    <!-- Metric 7 -->
+    <div class="metric-card shadow-xs">
+        <div class="d-flex justify-between align-center" style="margin-bottom: 0.35rem;">
+            <div class="metric-label" style="margin-bottom: 0;">Tests Failed</div>
+            <% if (metrics.failed_tests > 0) { %>
+                <span class="badge badge-failed" style="font-size: 0.65rem; padding: 0.15rem 0.45rem;">Regression Detected</span>
+            <% } else { %>
+                <span class="badge badge-passed" style="font-size: 0.65rem; padding: 0.15rem 0.45rem;">Stable</span>
+            <% } %>
+        </div>
+        <div class="metric-value <%= metrics.failed_tests > 0 ? 'text-danger' : 'text-muted' %>"><%= metrics.failed_tests %></div>
+        <div class="metric-subtext <%= metrics.failed_tests > 0 ? 'text-danger' : 'text-muted' %>">Regressions</div>
+    </div>
+    <!-- Metric 8 -->
+    <div class="metric-card shadow-xs">
+        <div class="d-flex justify-between align-center" style="margin-bottom: 0.35rem;">
+            <div class="metric-label" style="margin-bottom: 0;">Pass Rate</div>
+            <% if (metrics.failed_tests > 0 || metrics.pass_rate < 80) { %>
+                <span class="badge badge-failed" style="font-size: 0.65rem; padding: 0.15rem 0.45rem;">Regression Detected</span>
+            <% } else if (metrics.pass_rate < 100) { %>
+                <span class="badge badge-med" style="font-size: 0.65rem; padding: 0.15rem 0.45rem;">Review Required</span>
+            <% } else { %>
+                <span class="badge badge-passed" style="font-size: 0.65rem; padding: 0.15rem 0.45rem;">Stable</span>
+            <% } %>
+        </div>
+        <div class="metric-value <%= metrics.pass_rate >= 80 ? 'text-success' : 'text-danger' %>"><%= metrics.pass_rate %>%</div>
+        <div class="metric-subtext font-medium">Verification Health</div>
+    </div>
+</div>
+
+<!-- Quick Actions & Risk Visualization Row -->
+<div class="two-col-layout" style="margin-bottom: 1.5rem;">
+    <!-- Quick Actions Panel -->
+    <div class="card shadow-xs">
+        <div class="card-header d-flex justify-between align-center">
+            <div>
+                <h3 class="card-title">Quick Actions & Analysis Controls</h3>
+                <p class="card-subtitle">Trigger live Git inspection, AST impact propagation, and RTS tests.</p>
+            </div>
+            <button id="btn-reanalyze-all" class="btn btn-outline btn-sm" onclick="reanalyzeAllCommits()">
+                Re-analyze All
+            </button>
+        </div>
+        <div class="card-body">
+            <div class="analysis-form-row d-flex gap-sm flex-wrap align-end">
+                <div style="flex: 2; min-width: 220px;">
+                    <label class="form-label" for="select-commit-hash">Select Git Baseline:</label>
+                    <select id="select-commit-hash" class="form-input form-input-sm">
+                        <option value="HEAD">HEAD (Latest Baseline)</option>
+                        <% if (git_commits && git_commits.length > 0) { %>
+                            <% git_commits.forEach(function(gc) { %>
+                                <option value="<%= gc.commit_hash %>">
+                                    <%= gc.short_hash %> - <%= gc.message.substring(0, 40) %> (<%= gc.author %>)
+                                </option>
+                            <% }); %>
+                        <% } %>
+                    </select>
+                </div>
+                <div style="flex: 1; min-width: 140px;">
+                    <label class="form-label" for="input-custom-hash">Or Custom SHA:</label>
+                    <input type="text" id="input-custom-hash" class="form-input form-input-sm" placeholder="e.g. d213af2">
+                </div>
+                <div>
+                    <button id="btn-trigger-analyze" class="btn btn-primary btn-sm" onclick="triggerCommitAnalysis()">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                        </svg>
+                        <span>Analyze Commit</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quick Navigation Shortcuts -->
+            <div class="quick-nav-links d-flex gap-xs flex-wrap" style="margin-top: 1rem; border-top: 1px solid #f1f5f9; padding-top: 0.85rem;">
+                <a href="/dependency-map" class="btn btn-light btn-xs">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="12" r="3"></circle></svg>
+                    <span>View Dependency Map</span>
+                </a>
+                <a href="/regression-tests" class="btn btn-light btn-xs">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"></polyline></svg>
+                    <span>Regression Test Matrix</span>
+                </a>
+                <a href="/risk-analysis" class="btn btn-light btn-xs">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"></path><path d="M12 20V4"></path></svg>
+                    <span>Risk Formula Sandbox</span>
+                </a>
+                <a href="/reports" class="btn btn-light btn-xs">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path></svg>
+                    <span>All Reports</span>
+                </a>
+            </div>
+
+            <div id="analyze-status-box" class="analyze-status-box" style="display: none; margin-top: 0.75rem;"></div>
+        </div>
+    </div>
+
+    <!-- Risk Analysis Visualization Breakdown -->
+    <div class="card shadow-xs">
+        <div class="card-header">
+            <h3 class="card-title">Risk Distribution Analysis</h3>
+            <p class="card-subtitle">Aggregated risk tiers across <%= metrics.total_commits %> baseline commits.</p>
+        </div>
+        <div class="card-body">
+            <% 
+                const totalC = metrics.total_commits || 1;
+                const pctHigh = Math.round((metrics.high_risk / totalC) * 100);
+                const pctMed = Math.round((metrics.med_risk / totalC) * 100);
+                const pctLow = Math.round((metrics.low_risk / totalC) * 100);
+            %>
+            <!-- Proportion Bar -->
+            <div class="risk-bar-container" style="height: 18px; border-radius: 9px; background: #e2e8f0; display: flex; overflow: hidden; margin-bottom: 1rem;">
+                <div style="width: <%= pctHigh %>%; background: #ef4444;" title="High Risk: <%= metrics.high_risk %> (<%= pctHigh %>%)"></div>
+                <div style="width: <%= pctMed %>%; background: #f59e0b;" title="Medium Risk: <%= metrics.med_risk %> (<%= pctMed %>%)"></div>
+                <div style="width: <%= pctLow %>%; background: #10b981;" title="Low Risk: <%= metrics.low_risk %> (<%= pctLow %>%)"></div>
+            </div>
+
+            <div class="risk-legend-grid">
+                <div class="risk-legend-card bg-rose-subtle">
+                    <div class="d-flex justify-between align-center">
+                        <span class="badge badge-high">High Risk</span>
+                        <strong class="text-danger"><%= metrics.high_risk %> commits (<%= pctHigh %>%)</strong>
+                    </div>
+                    <p class="text-muted" style="font-size: 0.74rem; margin-top: 0.25rem;">Score &ge; 10.0 &bull; High fan-out or past defect area</p>
+                </div>
+
+                <div class="risk-legend-card bg-amber-subtle" style="margin-top: 0.5rem;">
+                    <div class="d-flex justify-between align-center">
+                        <span class="badge badge-med">Medium Risk</span>
+                        <strong class="text-warning"><%= metrics.med_risk %> commits (<%= pctMed %>%)</strong>
+                    </div>
+                    <p class="text-muted" style="font-size: 0.74rem; margin-top: 0.25rem;">Score 5.0 - 9.9 &bull; Moderate downstream propagation</p>
+                </div>
+
+                <div class="risk-legend-card bg-emerald-subtle" style="margin-top: 0.5rem;">
+                    <div class="d-flex justify-between align-center">
+                        <span class="badge badge-low">Low Risk</span>
+                        <strong class="text-success"><%= metrics.low_risk %> commits (<%= pctLow %>%)</strong>
+                    </div>
+                    <p class="text-muted" style="font-size: 0.74rem; margin-top: 0.25rem;">Score &lt; 5.0 &bull; Isolated changes with zero test regressions</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Commits Table Section -->
+<div class="card shadow-xs" id="commits">
+    <div class="card-header d-flex justify-between align-center flex-wrap gap-sm">
+        <div>
+            <h2 class="card-title">Recent SCM Baselines & Impact Audits</h2>
+            <p class="card-subtitle">Complete ledger of analyzed commits, change risk, and verification status.</p>
+        </div>
+        <div class="d-flex align-center gap-sm flex-wrap">
+            <div class="d-flex align-center gap-xs">
+                <button class="btn btn-sm btn-outline risk-filter-btn active" data-risk="all" onclick="filterByRisk('all', this)">All</button>
+                <button class="btn btn-sm btn-outline risk-filter-btn" data-risk="high" onclick="filterByRisk('high', this)">High</button>
+                <button class="btn btn-sm btn-outline risk-filter-btn" data-risk="medium" onclick="filterByRisk('medium', this)">Med</button>
+                <button class="btn btn-sm btn-outline risk-filter-btn" data-risk="low" onclick="filterByRisk('low', this)">Low</button>
+            </div>
+            <div class="search-box">
+                <input type="text" id="commit-search" class="form-input form-input-sm" placeholder="Filter commits or authors..." oninput="filterCommitRows(this.value)">
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="data-table" id="commitsTable">
+            <thead>
+                <tr>
+                    <th>Commit Hash</th>
+                    <th>Message</th>
+                    <th>Author & Date</th>
+                    <th>Changes</th>
+                    <th>Churn (+/-)</th>
+                    <th>Risk Level</th>
+                    <th>Test Verification</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (commits && commits.length > 0) { %>
+                    <% commits.forEach(function(c) { %>
+                    <tr class="commit-row" data-risk="<%= (c.risk_level || '').toLowerCase() %>">
+                        <td>
+                            <a href="/commit/<%= c.commit_hash %>" class="commit-hash" title="Inspect SCM baseline details">
+                                <code><%= c.commit_hash.substring(0, 7) %></code>
+                            </a>
+                        </td>
+                        <td class="commit-msg">
+                            <span class="font-medium" title="<%= c.message %>"><%= c.message %></span>
+                        </td>
+                        <td>
+                            <div class="font-medium"><%= c.author %></div>
+                            <div class="text-muted" style="font-size: 0.75rem;"><%= c.timestamp %></div>
+                        </td>
+                        <td>
+                            <span class="font-semibold"><%= c.changed_files_count || 1 %></span> modified
+                            <div class="text-muted" style="font-size: 0.75rem;"><%= c.affected_files_count || 0 %> affected</div>
+                        </td>
+                        <td>
+                            <span class="text-success font-semibold">+<%= c.lines_added %></span>
+                            <span class="text-danger font-semibold">-<%= c.lines_deleted %></span>
+                        </td>
+                        <td>
+                            <span class="badge badge-<%= c.risk_level.toLowerCase() %>">
+                                <%= c.risk_level %> (<%= Number(c.risk_score).toFixed(1) %> pts)
+                            </span>
+                        </td>
+                        <td>
+                            <% if (c.total_tests > 0) { %>
+                                <% if (c.failed_tests === 0) { %>
+                                    <span class="badge badge-passed">✓ <%= c.passed_tests %>/<%= c.total_tests %> Passed</span>
+                                <% } else { %>
+                                    <span class="badge badge-failed">✗ <%= c.failed_tests %> Failed</span>
+                                <% } %>
+                            <% } else { %>
+                                <span class="text-muted" style="font-size: 0.78rem;">No tests</span>
+                            <% } %>
+                        </td>
+                        <td>
+                            <div class="d-flex gap-xs">
+                                <a href="/commit/<%= c.commit_hash %>" class="btn btn-outline btn-xs" title="View Commit Baseline Details">Details</a>
+                                <button class="btn btn-secondary btn-xs" onclick="reanalyzeCommit('<%= c.commit_hash %>')" title="Re-run pipeline">Re-run</button>
+                                <a href="/report/<%= c.commit_hash %>" class="btn btn-light btn-xs" title="Printable SCM Quality Report">Report</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <% }); %>
+                    <tr id="commitsEmptyFiltered" style="display: none;">
+                        <td colspan="8" class="text-center text-muted" style="padding: 2.5rem;">
+                            No commits match the selected search query and risk filter criteria.
+                        </td>
+                    </tr>
+                <% } else { %>
+                    <tr>
+                        <td colspan="8" class="text-center text-muted" style="padding: 2.5rem;">
+                            No commits analyzed yet. Click <strong>"Analyze Commit"</strong> above to run the CodeGuard pipeline.
+                        </td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+let currentRiskFilter = 'all';
+
+function filterByRisk(risk, btnEl) {
+    document.querySelectorAll('.risk-filter-btn').forEach(b => b.classList.remove('active'));
+    if (btnEl) btnEl.classList.add('active');
+    currentRiskFilter = risk;
+    applyAllFilters();
+}
+
+function filterCommitRows(val) {
+    applyAllFilters();
+}
+
+function applyAllFilters() {
+    const searchVal = (document.getElementById('commit-search')?.value || '').toLowerCase().trim();
+    const rows = document.querySelectorAll('.commit-row');
+    let visibleCount = 0;
+
+    rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        const rowRisk = (row.dataset.risk || '').toLowerCase();
+
+        const matchesQuery = !searchVal || text.includes(searchVal);
+        const matchesRisk = currentRiskFilter === 'all' || rowRisk === currentRiskFilter;
+
+        if (matchesQuery && matchesRisk) {
+            row.style.display = '';
+            visibleCount++;
+        } else {
+            row.style.display = 'none';
+        }
+    });
+
+    const emptyRow = document.getElementById('commitsEmptyFiltered');
+    if (emptyRow) {
+        emptyRow.style.display = (visibleCount === 0 && rows.length > 0) ? '' : 'none';
+    }
+}
+
+function triggerCommitAnalysis() {
+    const selectEl = document.getElementById('select-commit-hash');
+    const customInput = document.getElementById('input-custom-hash');
+    const statusBox = document.getElementById('analyze-status-box');
+    const btn = document.getElementById('btn-trigger-analyze');
+
+    let commitHash = (customInput.value.trim() || selectEl.value).trim();
+    if (!commitHash) commitHash = 'HEAD';
+
+    btn.disabled = true;
+    btn.innerHTML = '<span class="btn-spinner"></span> <span>Analyzing...</span>';
+    statusBox.style.display = 'block';
+    statusBox.className = 'analyze-status-box status-loading';
+    statusBox.innerHTML = `<strong>Running CodeGuard SCM Pipeline:</strong> Ingesting git diff &bull; parsing AST dependencies &bull; computing risk formula &bull; executing RTS tests...`;
+
+    if (typeof showToast === 'function') {
+        showToast('Analysis Started', `Processing baseline ${commitHash.substring(0, 7)}...`, 'info');
+    }
+
+    fetch('/api/analyze', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ commit_hash: commitHash, run_tests: true })
+    })
+    .then(r => r.json())
+    .then(data => {
+        btn.disabled = false;
+        btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg> <span>Analyze Commit</span>';
+        if (data.status === 'success') {
+            statusBox.className = 'analyze-status-box status-success';
+            statusBox.innerHTML = `✓ <strong>Analysis Complete:</strong> Baseline <code>${data.commit_hash.substring(0, 7)}</code> analyzed. Risk: <strong>${data.risk_level} (${data.risk_score} pts)</strong>. Tests Run: <strong>${data.tests_run}</strong> (${data.tests_failed} failed). <a href="/commit/${data.commit_hash}" style="text-decoration: underline; margin-left: 0.5rem;">View Full Details &rarr;</a>`;
+            if (typeof showToast === 'function') {
+                showToast('Analysis Successful', `Risk: ${data.risk_level} (${data.risk_score} pts) &bull; ${data.tests_run} tests run`, 'success');
+            }
+            setTimeout(() => { window.location.reload(); }, 1500);
+        } else {
+            statusBox.className = 'analyze-status-box status-error';
+            statusBox.innerHTML = `✗ <strong>Error:</strong> ${data.message || 'Analysis failed'}`;
+            if (typeof showToast === 'function') {
+                showToast('Analysis Error', data.message || 'Analysis failed.', 'error');
+            }
+        }
+    })
+    .catch(err => {
+        btn.disabled = false;
+        btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg> <span>Analyze Commit</span>';
+        statusBox.className = 'analyze-status-box status-error';
+        statusBox.innerHTML = `✗ <strong>Network Error:</strong> ${err.message}`;
+        if (typeof showToast === 'function') {
+            showToast('Network Error', err.message, 'error');
+        }
+    });
+}
+
+function reanalyzeCommit(hash) {
+    document.getElementById('input-custom-hash').value = hash;
+    triggerCommitAnalysis();
+}
+
+function reanalyzeAllCommits() {
+    if (!confirm("Re-analyze all repository commit history? This runs regression tests across all commits.")) return;
+    const btn = document.getElementById('btn-reanalyze-all');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="btn-spinner"></span> <span>Analyzing All...</span>';
+    if (typeof showToast === 'function') {
+        showToast('Batch Analysis', 'Re-analyzing all commits and calculating regression impacts...', 'info');
+    }
+    fetch('/api/analyze-all', { method: 'POST' })
+        .then(r => r.json())
+        .then(data => {
+            if (data.status === 'success') {
+                if (typeof showToast === 'function') {
+                    showToast('Complete', 'All baselines updated successfully!', 'success');
+                }
+                setTimeout(() => { window.location.reload(); }, 800);
+            } else {
+                if (typeof showToast === 'function') {
+                    showToast('Error', data.message || 'Batch analysis error.', 'error');
+                }
+                btn.disabled = false;
+                btn.textContent = 'Re-analyze All';
+            }
+        })
+        .catch(err => {
+            if (typeof showToast === 'function') {
+                showToast('Error', err.message, 'error');
+            }
+            btn.disabled = false;
+            btn.textContent = 'Re-analyze All';
+        });
+}
+</script>
+
+<%- include('partials/footer') %>

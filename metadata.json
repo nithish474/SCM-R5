@@ -1,0 +1,6 @@
+{
+  "name": "CodeGuard",
+  "description": "Software Configuration Management (SCM) impact analysis, baseline tracking, and regression test selection dashboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

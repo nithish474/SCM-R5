@@ -1,0 +1,169 @@
+<%- include('partials/header', { title: 'CodeGuard - Commit Baseline Comparison', activePage: 'dashboard' }) %>
+
+<div class="page-header d-flex justify-between align-center flex-wrap gap-md">
+    <div>
+        <div class="breadcrumb">
+            <a href="/dashboard">Dashboard</a> &gt; <span>Baseline Comparison</span>
+        </div>
+        <h1 class="page-title">SCM Commit Delta & Impact Comparison</h1>
+        <p class="text-muted" style="margin-top: 0.25rem;">
+            Comparative blast-radius and regression analysis between two genuine SCM configuration baselines.
+        </p>
+    </div>
+    <div class="d-flex gap-sm">
+        <a href="/dashboard" class="btn btn-outline btn-sm">Back to Dashboard</a>
+    </div>
+</div>
+
+<!-- Comparison Selector Card -->
+<div class="card shadow-xs" style="margin-bottom: 1.5rem; padding: 1.25rem 1.5rem;">
+    <form method="GET" action="/compare" class="d-flex align-center gap-md flex-wrap">
+        <div style="flex: 1; min-width: 240px;">
+            <label style="font-size: 0.78rem; text-transform: uppercase; font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">
+                Baseline A (Base Commit)
+            </label>
+            <select name="commit1" class="form-input form-input-sm" style="width: 100%;">
+                <% commits.forEach(function(c) { %>
+                    <option value="<%= c.commit_hash %>" <%= c1 && c1.commit_hash === c.commit_hash ? 'selected' : '' %>>
+                        <%= c.commit_hash.substring(0, 7) %> — <%= c.message.substring(0, 45) %> (<%= c.risk_level %>)
+                    </option>
+                <% }); %>
+            </select>
+        </div>
+
+        <div style="font-weight: 700; color: var(--primary); font-size: 1.2rem; padding-top: 1rem;">
+            &harr;
+        </div>
+
+        <div style="flex: 1; min-width: 240px;">
+            <label style="font-size: 0.78rem; text-transform: uppercase; font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">
+                Baseline B (Target Commit)
+            </label>
+            <select name="commit2" class="form-input form-input-sm" style="width: 100%;">
+                <% commits.forEach(function(c) { %>
+                    <option value="<%= c.commit_hash %>" <%= c2 && c2.commit_hash === c.commit_hash ? 'selected' : '' %>>
+                        <%= c.commit_hash.substring(0, 7) %> — <%= c.message.substring(0, 45) %> (<%= c.risk_level %>)
+                    </option>
+                <% }); %>
+            </select>
+        </div>
+
+        <div style="padding-top: 1.25rem;">
+            <button type="submit" class="btn btn-primary btn-sm">Compare Baselines</button>
+        </div>
+    </form>
+</div>
+
+<% if (c1 && c2) { %>
+<!-- Comparison Delta Metrics Grid -->
+<div class="metrics-grid" style="margin-bottom: 1.5rem;">
+    <div class="metric-card">
+        <div class="metric-label">Risk Delta (B vs A)</div>
+        <% const riskDelta = Math.round((c2.risk_score - c1.risk_score) * 10) / 10; %>
+        <div class="metric-value <%= riskDelta > 0 ? 'text-danger' : riskDelta < 0 ? 'text-success' : '' %>">
+            <%= riskDelta > 0 ? '+' + riskDelta : riskDelta %> pts
+        </div>
+        <div class="metric-subtext text-muted">
+            <%= c1.risk_level %> (<%= c1.risk_score %>) &rarr; <%= c2.risk_level %> (<%= c2.risk_score %>)
+        </div>
+    </div>
+
+    <div class="metric-card">
+        <div class="metric-label">Code Churn Delta</div>
+        <% const churn1 = (c1.lines_added || 0) + (c1.lines_deleted || 0); %>
+        <% const churn2 = (c2.lines_added || 0) + (c2.lines_deleted || 0); %>
+        <% const churnDelta = churn2 - churn1; %>
+        <div class="metric-value">
+            <%= churnDelta >= 0 ? '+' + churnDelta : churnDelta %> lines
+        </div>
+        <div class="metric-subtext text-muted">
+            Baseline A: <%= churn1 %> lines &bull; Baseline B: <%= churn2 %> lines
+        </div>
+    </div>
+
+    <div class="metric-card">
+        <div class="metric-label">Affected Blast Radius</div>
+        <% const aff1 = c1.affected_files_count || 0; %>
+        <% const aff2 = c2.affected_files_count || 0; %>
+        <% const affDelta = aff2 - aff1; %>
+        <div class="metric-value <%= affDelta > 0 ? 'text-warning' : '' %>">
+            <%= affDelta >= 0 ? '+' + affDelta : affDelta %> files
+        </div>
+        <div class="metric-subtext text-muted">
+            <%= aff1 %> affected in A &bull; <%= aff2 %> affected in B
+        </div>
+    </div>
+
+    <div class="metric-card">
+        <div class="metric-label">Regression Defect Count</div>
+        <% const fail1 = c1.failed_tests || 0; %>
+        <% const fail2 = c2.failed_tests || 0; %>
+        <% const failDelta = fail2 - fail1; %>
+        <div class="metric-value <%= fail2 > 0 ? 'text-danger' : 'text-success' %>">
+            <%= fail2 %> Failed
+        </div>
+        <div class="metric-subtext <%= failDelta > 0 ? 'text-danger' : 'text-muted' %>">
+            <%= failDelta > 0 ? '+' + failDelta + ' regressions detected' : 'No regression increase' %>
+        </div>
+    </div>
+</div>
+
+<!-- Detailed Side-by-Side Card -->
+<div class="two-col-layout" style="margin-bottom: 1.5rem;">
+    <!-- Commit A Details -->
+    <div class="card shadow-xs">
+        <div class="card-header">
+            <span class="badge badge-outline">Baseline A</span>
+            <h3 style="margin-top: 0.35rem; font-size: 1.1rem;">
+                <code><%= c1.commit_hash.substring(0, 7) %></code> &bull; <%= c1.author %>
+            </h3>
+            <p class="text-muted" style="font-size: 0.85rem;"><%= c1.timestamp %></p>
+        </div>
+        <div class="card-body">
+            <div style="background: #f8fafc; border-radius: var(--radius-sm); padding: 0.75rem 1rem; margin-bottom: 1rem; font-size: 0.88rem;">
+                <strong>Message:</strong> <%= c1.message %>
+            </div>
+            <div class="d-flex justify-between" style="font-size: 0.85rem; margin-bottom: 0.5rem;">
+                <span class="text-muted">Lines Added / Deleted:</span>
+                <span class="font-medium">+<%= c1.lines_added %> / -<%= c1.lines_deleted %></span>
+            </div>
+            <div class="d-flex justify-between" style="font-size: 0.85rem; margin-bottom: 0.5rem;">
+                <span class="text-muted">Risk Score:</span>
+                <span class="badge badge-<%= c1.risk_level.toLowerCase() %>"><%= c1.risk_score %> (<%= c1.risk_level %>)</span>
+            </div>
+            <div style="margin-top: 1rem;">
+                <a href="/commit/<%= c1.commit_hash %>" class="btn btn-outline btn-xs" style="width: 100%;">View Full Baseline A Details &rarr;</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Commit B Details -->
+    <div class="card shadow-xs">
+        <div class="card-header">
+            <span class="badge badge-primary">Baseline B</span>
+            <h3 style="margin-top: 0.35rem; font-size: 1.1rem;">
+                <code><%= c2.commit_hash.substring(0, 7) %></code> &bull; <%= c2.author %>
+            </h3>
+            <p class="text-muted" style="font-size: 0.85rem;"><%= c2.timestamp %></p>
+        </div>
+        <div class="card-body">
+            <div style="background: #f8fafc; border-radius: var(--radius-sm); padding: 0.75rem 1rem; margin-bottom: 1rem; font-size: 0.88rem;">
+                <strong>Message:</strong> <%= c2.message %>
+            </div>
+            <div class="d-flex justify-between" style="font-size: 0.85rem; margin-bottom: 0.5rem;">
+                <span class="text-muted">Lines Added / Deleted:</span>
+                <span class="font-medium">+<%= c2.lines_added %> / -<%= c2.lines_deleted %></span>
+            </div>
+            <div class="d-flex justify-between" style="font-size: 0.85rem; margin-bottom: 0.5rem;">
+                <span class="text-muted">Risk Score:</span>
+                <span class="badge badge-<%= c2.risk_level.toLowerCase() %>"><%= c2.risk_score %> (<%= c2.risk_level %>)</span>
+            </div>
+            <div style="margin-top: 1rem;">
+                <a href="/commit/<%= c2.commit_hash %>" class="btn btn-outline btn-xs" style="width: 100%;">View Full Baseline B Details &rarr;</a>
+            </div>
+        </div>
+    </div>
+</div>
+<% } %>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeGuard Impact & Verification Report - <%= data.commit.commit_hash.substring(0, 7) %></title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: #0f172a;
+            line-height: 1.5;
+            background: #ffffff;
+            margin: 0;
+            padding: 2rem;
+            font-size: 14px;
+        }
+        .report-header {
+            border-bottom: 2px solid #0f172a;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        .report-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 0.25rem;
+        }
+        .report-sub {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        .section {
+            margin-bottom: 2rem;
+            page-break-inside: avoid;
+        }
+        .section-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.4rem;
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 1rem;
+            border-radius: 6px;
+        }
+        .meta-item label {
+            display: block;
+            font-size: 0.75rem;
+            color: #64748b;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        .meta-item span {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0.5rem;
+        }
+        th {
+            background: #f1f5f9;
+            text-align: left;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: #475569;
+            border: 1px solid #cbd5e1;
+        }
+        td {
+            padding: 0.5rem 0.75rem;
+            border: 1px solid #e2e8f0;
+            font-size: 0.85rem;
+        }
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        .risk-Low { background: #ecfdf5; color: #065f46; }
+        .risk-Medium { background: #fffbeb; color: #92400e; }
+        .risk-High { background: #fef2f2; color: #991b1b; }
+        .status-PASSED { background: #ecfdf5; color: #065f46; }
+        .status-FAILED, .status-ERROR { background: #fef2f2; color: #991b1b; }
+        .print-btn {
+            background: #2563eb;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        @media print {
+            .no-print { display: none !important; }
+            body { padding: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print" style="margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; background: #f8fafc; padding: 0.75rem 1rem; border: 1px solid #e2e8f0; border-radius: 6px;">
+        <a href="/commit/<%= data.commit.commit_hash %>" style="color: #2563eb; text-decoration: none; font-weight: 500;">&larr; Return to Dashboard</a>
+        <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+    </div>
+
+    <div class="report-header">
+        <div>
+            <div class="report-title">CodeGuard Verification & Impact Report</div>
+            <div class="report-sub">Software Configuration Management Audit & Regression Quality Assessment</div>
+        </div>
+        <div style="text-align: right;">
+            <div style="font-size: 0.8rem; color: #64748b;">Generated on: <%= data.commit.analyzed_at %></div>
+            <div style="font-size: 0.85rem; font-weight: 600;">System: CodeGuard v1.0.4</div>
+        </div>
+    </div>
+
+    <!-- 1. Executive Summary & Baseline Identification -->
+    <div class="section">
+        <div class="section-title">1. Configuration Baseline Information</div>
+        <div class="meta-grid">
+            <div class="meta-item">
+                <label>Commit Hash</label>
+                <span><code><%= data.commit.commit_hash.substring(0, 10) %></code></span>
+            </div>
+            <div class="meta-item">
+                <label>Author</label>
+                <span><%= data.commit.author %></span>
+            </div>
+            <div class="meta-item">
+                <label>Branch & Date</label>
+                <span><%= data.commit.branch %> (<%= data.commit.timestamp %>)</span>
+            </div>
+            <div class="meta-item">
+                <label>Assessed Risk</label>
+                <span class="badge risk-<%= data.commit.risk_level %>"><%= data.commit.risk_level %> (Score: <%= Number(data.commit.risk_score).toFixed(1) %>)</span>
+            </div>
+        </div>
+        <div style="margin-top: 0.75rem; background: #f8fafc; border: 1px solid #e2e8f0; padding: 0.75rem; border-radius: 4px;">
+            <strong>Commit Message:</strong> <%= data.commit.message %>
+        </div>
+    </div>
+
+    <!-- 2. Risk Scoring Breakdown (Layer 3) -->
+    <% const rb = data.commit.risk_breakdown || {}; %>
+    <div class="section">
+        <div class="section-title">2. Change Risk Quantification (Layer 3)</div>
+        <p style="font-size: 0.85rem; color: #475569; margin-bottom: 0.5rem;">
+            Calculated via transparent weighted rule formula: <code>Risk = (Dependents × 2) + (Past Defects × 3) + (Lines ÷ 20)</code>
+        </p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Factor</th>
+                    <th>Measured Value</th>
+                    <th>Weight</th>
+                    <th>Subtotal Points</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Downstream Dependent Files</td>
+                    <td><%= rb.dependents_count || 0 %> files</td>
+                    <td>+2.0 pts / file</td>
+                    <td>+<%= rb.dependents_score || 0 %> pts</td>
+                </tr>
+                <tr>
+                    <td>Historical Defect Prone Files</td>
+                    <td><%= (rb.failing_files && rb.failing_files.length) || 0 %> files with past test failures</td>
+                    <td>+3.0 pts / file</td>
+                    <td>+<%= rb.past_failures_score || 0 %> pts</td>
+                </tr>
+                <tr>
+                    <td>Code Churn Magnitude</td>
+                    <td><%= data.commit.lines_added + data.commit.lines_deleted %> total lines (+<%= data.commit.lines_added %> / -<%= data.commit.lines_deleted %>)</td>
+                    <td>+1.0 pt / 20 lines</td>
+                    <td>+<%= rb.lines_score || 0 %> pts</td>
+                </tr>
+                <tr style="font-weight: 700; background: #f8fafc;">
+                    <td colspan="3">TOTAL RISK SCORE</td>
+                    <td><%= Number(data.commit.risk_score).toFixed(1) %> (<%= data.commit.risk_level %> Risk)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 3. Change Delta & Impact Analysis (Layer 1) -->
+    <div class="section">
+        <div class="section-title">3. Change Impact Analysis (CIA) (Layer 1)</div>
+        <p style="font-size: 0.85rem; color: #475569; margin-bottom: 0.5rem;">
+            Files modified directly in the commit baseline and downstream configuration items identified via AST dependency parsing:
+        </p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Configuration Item (File)</th>
+                    <th>Classification</th>
+                    <th>Delta / Relationship</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% data.changed_files.forEach(function(cf) { %>
+                <tr>
+                    <td><code><%= cf.filepath %></code></td>
+                    <td><span class="badge" style="background:#fee2e2; color:#991b1b;">Directly Modified (Delta)</span></td>
+                    <td>+<%= cf.lines_added %> lines / -<%= cf.lines_deleted %> lines</td>
+                </tr>
+                <% }); %>
+                <% data.affected_files.forEach(function(af) { %>
+                <tr>
+                    <td><code><%= af.filepath %></code></td>
+                    <td><span class="badge" style="background:#eff6ff; color:#1e40af;">Affected (Depth <%= af.depth %>)</span></td>
+                    <td><%= af.reason %></td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 4. Regression Testing Results (Layer 2) -->
+    <div class="section">
+        <div class="section-title">4. Regression Test Selection & Execution (Layer 2)</div>
+        <div style="margin-bottom: 0.5rem; font-size: 0.85rem;">
+            <strong>Test Verdict:</strong>
+            <% if (!data.test_runs || data.test_runs.failed === 0) { %>
+                <span class="badge status-PASSED">ALL <%= (data.test_runs && data.test_runs.total) || 0 %> PASSED (Regression Verified)</span>
+            <% } else { %>
+                <span class="badge status-FAILED"><%= data.test_runs.failed %> FAILED / <%= data.test_runs.total %> TOTAL (Regression Failure Detected)</span>
+            <% } %>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Test Case</th>
+                    <th>Test Suite</th>
+                    <th>Status</th>
+                    <th>Duration</th>
+                    <th>Trace / Note</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (data.test_runs && data.test_runs.list && data.test_runs.list.length > 0) { %>
+                    <% data.test_runs.list.forEach(function(tr) { %>
+                    <tr>
+                        <td><code><%= tr.test_name %></code></td>
+                        <td><%= tr.test_file %></td>
+                        <td><span class="badge status-<%= tr.status %>"><%= tr.status %></span></td>
+                        <td><%= Number(tr.duration_sec).toFixed(3) %>s</td>
+                        <td><%= tr.error_message || 'OK' %></td>
+                    </tr>
+                    <% }); %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="5" style="text-align: center; color: #64748b;">No matching tests found.</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 5. Audit Trail -->
+    <div class="section">
+        <div class="section-title">5. SCM Audit Trail Log</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Timestamp</th>
+                    <th>Stage</th>
+                    <th>Audit Message</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (data.audit_logs && data.audit_logs.length > 0) { %>
+                    <% data.audit_logs.forEach(function(log) { %>
+                    <tr>
+                        <td style="width: 160px; color: #64748b;"><%= log.timestamp %></td>
+                        <td style="width: 180px; font-weight: 600;"><%= log.stage %></td>
+                        <td><%= log.message %></td>
+                    </tr>
+                    <% }); %>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

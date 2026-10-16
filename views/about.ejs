@@ -1,0 +1,257 @@
+<%- include('partials/header', { title: 'CodeGuard - Academic SCM & Verification Guide', activePage: 'about' }) %>
+
+<div class="page-header d-flex justify-between align-center flex-wrap gap-md">
+    <div>
+        <div class="breadcrumb">
+            <a href="/">Home</a> &gt; <span>Academic Concepts & Architecture</span>
+        </div>
+        <h1 class="page-title">Software Configuration Management & Testing Theory</h1>
+        <p class="text-muted" style="margin-top: 0.25rem;">
+            Theoretical foundations and IEEE standard definitions underpinning CodeGuard's baseline accounting, change-impact analysis, and regression minimization.
+        </p>
+    </div>
+    <div class="d-flex gap-sm align-center">
+        <input type="text" id="conceptSearchInput" class="form-input form-input-sm" placeholder="Search concepts (e.g. AST, RTS, CSA)..." oninput="filterConcepts(this.value)">
+        <a href="/dashboard" class="btn btn-primary btn-sm">Launch System Dashboard</a>
+    </div>
+</div>
+
+<!-- Core Architectural Theory Cards -->
+<div class="academic-concepts-grid">
+    <!-- Concept 1: SCM -->
+    <div class="card shadow-xs academic-card" id="scm">
+        <div class="academic-badge">SCM Core</div>
+        <h3>1. Software Configuration Management (SCM)</h3>
+        <p>
+            SCM is the discipline of identifying, organizing, controlling, and tracking changes to software work products throughout the Software Development Life Cycle (SDLC). CodeGuard establishes an automated SCM control loop integrating version control baselines with verification audits.
+        </p>
+        <div class="academic-quote">
+            "SCM provides traceability, reproducibility, and integrity across evolving software baselines."
+        </div>
+    </div>
+
+    <!-- Concept 2: Baseline Identification -->
+    <div class="card shadow-xs academic-card" id="baseline">
+        <div class="academic-badge">IEEE 828</div>
+        <h3>2. Baseline Identification</h3>
+        <p>
+            A software baseline is an officially agreed-upon specification or product version that serves as the foundation for further development. In CodeGuard, every Git commit hash functions as an immutable configuration baseline with recorded author, timestamp, parent tree, and checksum integrity.
+        </p>
+    </div>
+
+    <!-- Concept 3: Revision Tracking & CSA -->
+    <div class="card shadow-xs academic-card" id="csa">
+        <div class="academic-badge">Accounting</div>
+        <h3>3. Configuration Status Accounting (CSA)</h3>
+        <p>
+            CSA answers: <em>What changed, why did it change, who changed it, and what is its verification status?</em> CodeGuard tracks exact file-level additions, deletions, modifications, and git blame authorship to maintain a tamper-evident revision ledger.
+        </p>
+    </div>
+
+    <!-- Concept 4: Change Control -->
+    <div class="card shadow-xs academic-card" id="change-control">
+        <div class="academic-badge">Governance</div>
+        <h3>4. Change Control & Governance</h3>
+        <p>
+            Change control ensures changes are formally assessed before integration into the master branch. CodeGuard provides automated decision support: scoring risk, recommending code reviewers based on git blame history, and requiring regression test verification.
+        </p>
+    </div>
+
+    <!-- Concept 5: Change Impact Analysis -->
+    <div class="card shadow-xs academic-card" id="cia">
+        <div class="academic-badge">Analysis (CIA)</div>
+        <h3>5. Change-Impact Analysis (CIA)</h3>
+        <p>
+            CIA identifies the potential consequences of a change or estimates what needs to be modified to accomplish a change. CodeGuard traverses downstream directed dependency edges using Breadth-First Search (BFS) to identify all affected components at direct (depth 1) and transitive (depth 2+) blast radii.
+        </p>
+    </div>
+
+    <!-- Concept 6: Dependency Mapping -->
+    <div class="card shadow-xs academic-card" id="dependency-mapping">
+        <div class="academic-badge">AST Parsing</div>
+        <h3>6. Abstract Syntax Tree (AST) Dependency Mapping</h3>
+        <p>
+            Rather than relying on inaccurate regex searches, CodeGuard parses Python source code into Abstract Syntax Trees (via Python's <code>ast</code> module) to extract syntactic <code>import</code> and <code>from ... import</code> declarations, constructing a verifiable directed dependency graph.
+        </p>
+    </div>
+
+    <!-- Concept 7: Regression Test Selection (RTS) -->
+    <div class="card shadow-xs academic-card" id="rts">
+        <div class="academic-badge">Verification</div>
+        <h3>7. Regression Test Selection (RTS)</h3>
+        <p>
+            RTS selects a subset of test cases from an existing test suite that are relevant to the modified code. CodeGuard correlates modified and affected modules with test suites that import or exercise them, ensuring zero test escapes while eliminating redundant executions.
+        </p>
+    </div>
+
+    <!-- Concept 8: Test Minimization -->
+    <div class="card shadow-xs academic-card" id="minimization">
+        <div class="academic-badge">Optimization</div>
+        <h3>8. Regression Test Minimization</h3>
+        <p>
+            By executing only targeted test suites (saving approximately 70% of CI compute cycles compared to a full suite re-run), CodeGuard dramatically reduces feedback latency for developers without compromising test coverage.
+        </p>
+    </div>
+
+    <!-- Concept 9: Automated Test Execution -->
+    <div class="card shadow-xs academic-card" id="execution">
+        <div class="academic-badge">PyTest Runner</div>
+        <h3>9. Automated Test Execution</h3>
+        <p>
+            Selected test suites are executed programmatically via the PyTest runner. CodeGuard captures individual test case durations, pass/fail statuses, stdout output, and traceback exceptions, feeding results directly into the baseline verification record.
+        </p>
+    </div>
+
+    <!-- Concept 10: Defect History & Fragility -->
+    <div class="card shadow-xs academic-card" id="defect-history">
+        <div class="academic-badge">Quality Metrics</div>
+        <h3>10. Defect History & Component Fragility</h3>
+        <p>
+            Modules that have failed tests in previous baselines exhibit higher structural fragility. CodeGuard queries historical test run tables in SQLite to penalize modifications to error-prone files with additional risk points.
+        </p>
+    </div>
+
+    <!-- Concept 11: Risk Quantification -->
+    <div class="card shadow-xs academic-card" id="risk-model">
+        <div class="academic-badge">Scoring Model</div>
+        <h3>11. Explainable Risk Quantification</h3>
+        <p>
+            Unlike opaque machine learning models, CodeGuard uses an explainable mathematical formula: <code>(Dependents × 2) + (Defects × 3) + (Churn ÷ 20)</code>. This guarantees full auditability for regulatory compliance and peer review scrutiny.
+        </p>
+    </div>
+
+    <!-- Concept 12: Audit Trail & Reporting -->
+    <div class="card shadow-xs academic-card" id="audit-trail">
+        <div class="academic-badge">Traceability</div>
+        <h3>12. SCM Audit Trail & Quality Reporting</h3>
+        <p>
+            Every phase of the pipeline generates an immutable audit event (BASELINE_RECORDED, IMPACT_MAPPED, RISK_ASSESSED, TESTS_SELECTED, TESTS_EXECUTED, REPORT_GENERATED). These events are permanently persisted to SQLite and compiled into formal verification reports.
+        </p>
+    </div>
+</div>
+
+<!-- Academic Architecture Diagram Summary -->
+<div class="card shadow-xs" style="margin-top: 1.5rem; padding: 1.5rem;">
+    <h3 style="margin-bottom: 0.5rem;">CodeGuard System Architecture</h3>
+    <p class="text-muted" style="margin-bottom: 1rem; font-size: 0.88rem;">
+        Layered architecture uniting Git revision control, static analysis, dynamic testing, and relational persistence.
+    </p>
+
+    <div class="arch-diagram-grid">
+        <div class="arch-box">
+            <strong>Layer 1: SCM Ingestion & Delta</strong>
+            <p>GitPython repository inspector &bull; Commit hash baselines &bull; Diff churn calculation &bull; Blame author tracking</p>
+        </div>
+        <div class="arch-box">
+            <strong>Layer 2: AST Analysis & RTS</strong>
+            <p>Python AST import parser &bull; BFS impact propagation &bull; Regression test mapper &bull; PyTest automated runner</p>
+        </div>
+        <div class="arch-box">
+            <strong>Layer 3: Risk & Accounting</strong>
+            <p>Explainable risk formula &bull; Component fragility history &bull; Reviewer recommendation engine &bull; SQLite SCM store</p>
+        </div>
+    </div>
+</div>
+
+<!-- Algorithms In-Depth Breakdown -->
+<div class="card shadow-xs" style="margin-top: 1.5rem; padding: 1.5rem;">
+    <h3 style="margin-bottom: 0.5rem;">Core Algorithms & Execution Mechanics</h3>
+    <p class="text-muted" style="margin-bottom: 1.25rem; font-size: 0.88rem;">
+        Transparent, auditable algorithmic designs power each layer of the CodeGuard analysis pipeline.
+    </p>
+
+    <div class="two-col-layout">
+        <div class="p-3" style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: var(--radius-md);">
+            <div class="font-bold text-primary" style="margin-bottom: 0.5rem;">1. AST Import Visitor & Graph Assembly</div>
+            <p class="text-muted text-sm" style="margin-bottom: 0.75rem;">
+                Parses raw Python code into an Abstract Syntax Tree via <code>ast.parse()</code>. An <code>ast.NodeVisitor</code> inspects <code>Import</code> and <code>ImportFrom</code> nodes to resolve exact module paths, constructing directed dependency edges <code>(A &rarr; B)</code>.
+            </p>
+            <div style="font-family: ui-monospace, monospace; font-size: 0.78rem; background: #0f172a; color: #38bdf8; padding: 0.75rem; border-radius: 4px;">
+                def visit_ImportFrom(self, node):<br>
+                &nbsp;&nbsp;module = self._resolve(node.module)<br>
+                &nbsp;&nbsp;self.graph.add_edge(current_file, module)
+            </div>
+        </div>
+
+        <div class="p-3" style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: var(--radius-md);">
+            <div class="font-bold text-primary" style="margin-bottom: 0.5rem;">2. BFS Blast Radius Propagation</div>
+            <p class="text-muted text-sm" style="margin-bottom: 0.75rem;">
+                When a commit modifies file <code>F</code>, Breadth-First Search traverses inverted dependency edges to collect direct dependents (Depth 1) and transitive dependents (Depth 2+), bounding the blast radius.
+            </p>
+            <div style="font-family: ui-monospace, monospace; font-size: 0.78rem; background: #0f172a; color: #34d399; padding: 0.75rem; border-radius: 4px;">
+                queue = deque([(F, 0)])<br>
+                while queue and depth &lt; MAX_DEPTH:<br>
+                &nbsp;&nbsp;curr, depth = queue.popleft()<br>
+                &nbsp;&nbsp;for dep in reverse_graph[curr]: queue.append((dep, depth + 1))
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Interactive FAQ & SCM Glossary Accordion -->
+<div class="card shadow-xs" style="margin-top: 1.5rem; padding: 1.5rem;">
+    <h3 style="margin-bottom: 0.5rem;">Frequently Asked Questions & SCM Glossary</h3>
+    <p class="text-muted" style="margin-bottom: 1rem; font-size: 0.88rem;">
+        Clear answers to common questions about SCM baseline compliance, test optimization, and risk evaluation.
+    </p>
+
+    <div class="faq-accordion">
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>What is the difference between a Git commit and an SCM baseline?</span>
+                <span class="faq-icon">&#9662;</span>
+            </div>
+            <div class="faq-answer">
+                A Git commit is an individual point-in-time snapshot of repository files. An SCM baseline (per IEEE 828) is a formally reviewed, verified, and agreed-upon version of a software configuration item that serves as the basis for further development and release candidate auditing.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>How does Regression Test Selection (RTS) prevent test escapes?</span>
+                <span class="faq-icon">&#9662;</span>
+            </div>
+            <div class="faq-answer">
+                CodeGuard's AST analyzer maps exact syntactic call and import graphs. Any test suite that imports a modified file—or imports a file that depends on the modified file—is automatically selected for execution. By maintaining a 100% downstream coverage rule, redundant tests are skipped while zero affected paths escape verification.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>How is the risk score formula calibrated?</span>
+                <span class="faq-icon">&#9662;</span>
+            </div>
+            <div class="faq-answer">
+                The formula balances three pillars of risk: <code>(Dependents × 2) + (Defects × 3) + (Lines ÷ 20)</code>.
+                Downstream dependents evaluate systemic architectural exposure, past defect files capture code instability/fragility, and lines changed gauge pure review complexity. Scores &lt; 5 are Low Risk, 5–15 Medium Risk, and &gt; 15 High Risk.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>Can CodeGuard run against custom Git repositories?</span>
+                <span class="faq-icon">&#9662;</span>
+            </div>
+            <div class="faq-answer">
+                Yes! CodeGuard leverages GitPython to dynamically inspect any local repository worktree or clone. By executing <code>git log</code>, <code>git diff</code>, and <code>git blame</code> natively, it functions autonomously across standard Git workflows.
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function filterConcepts(query) {
+    const q = query.toLowerCase().trim();
+    document.querySelectorAll('.academic-card').forEach(card => {
+        const text = card.textContent.toLowerCase();
+        card.style.display = (!q || text.includes(q)) ? '' : 'none';
+    });
+}
+
+function toggleFaq(el) {
+    const item = el.closest('.faq-item');
+    item.classList.toggle('open');
+}
+</script>
+
+<%- include('partials/footer') %>

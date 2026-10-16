@@ -1,0 +1,100 @@
+<%- include('partials/header', { title: 'Generated Reports - CodeGuard', activePage: 'reports' }) %>
+
+<div class="d-flex justify-between align-center flex-wrap gap-md" style="margin-bottom: 2rem;">
+    <div>
+        <h1 style="font-size: 1.6rem; font-weight: 700; margin-bottom: 0.35rem;">Analysis & Verification Reports</h1>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">
+            View, export, and print formal SCM quality and impact reports for each analyzed commit baseline.
+        </p>
+    </div>
+    <div>
+        <input type="text" id="reportSearchInput" class="form-input" placeholder="Search reports by SHA, author, or message..." style="min-width: 280px;" oninput="filterReportRows(this.value)">
+    </div>
+</div>
+
+<div class="card">
+    <div class="table-responsive">
+        <table id="reportsTable">
+            <thead>
+                <tr>
+                    <th>Commit SHA</th>
+                    <th>Analyzed Baseline Date</th>
+                    <th>Author</th>
+                    <th>Commit Message</th>
+                    <th>Risk Rating</th>
+                    <th>Test Summary</th>
+                    <th>Report Link</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (commits && commits.length > 0) { %>
+                    <% commits.forEach(function(c) { %>
+                    <tr class="report-row">
+                        <td><code><%= c.commit_hash.substring(0, 7) %></code></td>
+                        <td style="font-size: 0.82rem; color: var(--text-muted);"><%= c.timestamp %></td>
+                        <td style="font-weight: 500;"><%= c.author %></td>
+                        <td style="max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><%= c.message %></td>
+                        <td>
+                            <span class="badge badge-<%= c.risk_level.toLowerCase() %>">
+                                <%= c.risk_level %> (<%= Number(c.risk_score).toFixed(1) %>)
+                            </span>
+                        </td>
+                        <td>
+                            <% if (c.total_tests > 0) { %>
+                                <% if (c.failed_tests === 0) { %>
+                                    <span class="badge badge-passed">✓ <%= c.passed_tests %>/<%= c.total_tests %> Passed</span>
+                                <% } else { %>
+                                    <span class="badge badge-failed">✗ <%= c.failed_tests %> Failed</span>
+                                <% } %>
+                            <% } else { %>
+                                <span style="color: var(--text-muted); font-size: 0.8rem;">No tests</span>
+                            <% } %>
+                        </td>
+                        <td>
+                            <a href="/report/<%= c.commit_hash %>" target="_blank" class="btn btn-outline btn-sm">
+                                View Report &rarr;
+                            </a>
+                        </td>
+                    </tr>
+                    <% }); %>
+                    <tr id="reportsEmptyFiltered" style="display: none;">
+                        <td colspan="7" style="text-align: center; color: var(--text-muted); padding: 2rem;">
+                            No reports match your search query.
+                        </td>
+                    </tr>
+                <% } else { %>
+                    <tr>
+                        <td colspan="7" style="text-align: center; color: var(--text-muted); padding: 2rem;">
+                            No reports available yet. Run an analysis from the Dashboard first.
+                        </td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+function filterReportRows(query) {
+    const q = query.toLowerCase().trim();
+    const rows = document.querySelectorAll('.report-row');
+    let visible = 0;
+
+    rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        if (!q || text.includes(q)) {
+            row.style.display = '';
+            visible++;
+        } else {
+            row.style.display = 'none';
+        }
+    });
+
+    const empty = document.getElementById('reportsEmptyFiltered');
+    if (empty) {
+        empty.style.display = (visible === 0 && rows.length > 0) ? '' : 'none';
+    }
+}
+</script>
+
+<%- include('partials/footer') %>

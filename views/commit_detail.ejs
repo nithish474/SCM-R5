@@ -1,0 +1,391 @@
+<%- include('partials/header', { title: 'Commit ' + data.commit.commit_hash.substring(0, 7) + ' - CodeGuard Impact Analysis', activePage: 'dashboard' }) %>
+
+<!-- Top Header & Actions -->
+<div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+    <div>
+        <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.25rem;">
+            <a href="/dashboard" style="color: var(--primary); text-decoration: none;">&larr; Back to Dashboard</a>
+            <span style="margin: 0 0.5rem;">/</span>
+            <span>Commit Baseline</span>
+        </div>
+        <h1 style="font-size: 1.6rem; font-weight: 700; display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;">
+            <span>Commit</span>
+            <code id="commitHashDisplay"><%= data.commit.commit_hash.substring(0, 7) %></code>
+            <button class="btn btn-light btn-xs" onclick="copyCommitHash('<%= data.commit.commit_hash %>')" title="Copy Full Hash to Clipboard" style="padding: 0.2rem 0.5rem;">
+                📋 Copy Hash
+            </button>
+            <span class="badge badge-<%= data.commit.risk_level.toLowerCase() %>"><%= data.commit.risk_level %> Risk</span>
+        </h1>
+        <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.25rem;">
+            Committed by <strong><%= data.commit.author %></strong> on <%= data.commit.timestamp %> (Branch: <code><%= data.commit.branch %></code>)
+        </div>
+    </div>
+    <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
+        <a href="/report/<%= data.commit.commit_hash %>" class="btn btn-outline" target="_blank">
+            Generate HTML Report
+        </a>
+        <button id="btn-reanalyze" class="btn btn-primary" onclick="reanalyzeThisCommit()">
+            Re-run Analysis
+        </button>
+    </div>
+</div>
+
+<!-- Commit Message Box -->
+<div style="background: white; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1rem 1.25rem; margin-bottom: 1.5rem;">
+    <div style="font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-muted); font-weight: 600; margin-bottom: 0.25rem;">
+        Commit Message
+    </div>
+    <div style="font-size: 0.95rem; font-weight: 500; color: var(--text-main); font-family: inherit;">
+        <%= data.commit.message %>
+    </div>
+</div>
+
+<!-- LAYER 3: Risk Score Breakdown Widget -->
+<% const rb = data.commit.risk_breakdown || {}; %>
+<div class="risk-widget">
+    <div class="risk-dial" style="background: <%= rb.risk_color || '#10b981' %>;">
+        <div class="risk-dial-score"><%= Number(data.commit.risk_score).toFixed(1) %></div>
+        <div class="risk-dial-label"><%= data.commit.risk_level %> Risk</div>
+    </div>
+    <div class="risk-formula-box">
+        <div class="risk-formula-title">Rule-Based Change Risk Quantification (Layer 3)</div>
+        <div class="risk-formula-math">
+            <strong>Formula:</strong> <%= rb.formula_summary || 'Risk Score = (Dependents × 2) + (Past Defect Files × 3) + (Lines ÷ 20)' %>
+        </div>
+        <div class="risk-factors-grid">
+            <div class="risk-factor-item">
+                <div class="factor-name">1. Dependency Fan-Out</div>
+                <div class="factor-value">+<%= rb.dependents_score || 0 %> pts (<%= rb.dependents_count || 0 %> affected)</div>
+            </div>
+            <div class="risk-factor-item">
+                <div class="factor-name">2. Historical Defect History</div>
+                <div class="factor-value">+<%= rb.past_failures_score || 0 %> pts (<%= (rb.failing_files && rb.failing_files.length) || 0 %> past failing files)</div>
+            </div>
+            <div class="risk-factor-item">
+                <div class="factor-name">3. Code Churn Magnitude</div>
+                <div class="factor-value">+<%= rb.lines_score || 0 %> pts (<%= data.commit.lines_added + data.commit.lines_deleted %> lines changed)</div>
+            </div>
+        </div>
+
+        <% if (rb.reviewer_suggestions && rb.reviewer_suggestions.length > 0) { %>
+        <div style="margin-top: 1rem; padding-top: 0.75rem; border-top: 1px dashed var(--border-color);">
+            <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase;">
+                SCM Provenance — Suggested Reviewers (Git Blame):
+            </span>
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.35rem;">
+                <% rb.reviewer_suggestions.forEach(function(rev) { %>
+                <span style="background: white; border: 1px solid var(--border-color); border-radius: 4px; padding: 0.2rem 0.6rem; font-size: 0.8rem;">
+                    👤 <strong><%= rev.suggested_reviewer %></strong> on <code><%= rev.file %></code>
+                </span>
+                <% }); %>
+            </div>
+        </div>
+        <% } %>
+    </div>
+</div>
+
+<!-- SCM Dependency & Impact Visualizer -->
+<div class="card">
+    <div class="card-header">
+        <div class="card-title">Impact Flow: Delta &rarr; Dependencies &rarr; Regression Tests</div>
+        <span style="font-size: 0.8rem; color: var(--text-muted);">SCM Impact Graph & Test Case Traceability</span>
+    </div>
+    <div class="card-body">
+        <div class="graph-nodes-container">
+            <!-- Col 1: Changed Files -->
+            <div class="graph-column">
+                <div class="column-title">1. Modified Files (Delta)</div>
+                <% data.changed_files.forEach(function(cf) { %>
+                <div class="graph-node changed">
+                    <span>📄 <%= cf.filepath %></span>
+                    <span style="font-size: 0.75rem; font-weight: 600; color: #ef4444;">+<%= cf.lines_added %>/-<%= cf.lines_deleted %></span>
+                </div>
+                <% }); %>
+            </div>
+
+            <div style="font-size: 1.5rem; color: #94a3b8;">&rarr;</div>
+
+            <!-- Col 2: Direct Dependents -->
+            <div class="graph-column">
+                <div class="column-title">2. Direct Dependents (Depth 1)</div>
+                <% let directCount = 0; %>
+                <% data.affected_files.forEach(function(af) { %>
+                    <% if (af.depth === 1) { directCount++; %>
+                    <div class="graph-node depth-1">
+                        <span>🔗 <%= af.filepath %></span>
+                        <span class="badge badge-depth-1">Direct</span>
+                    </div>
+                    <% } %>
+                <% }); %>
+                <% if (directCount === 0) { %>
+                <div style="font-size: 0.8rem; color: var(--text-muted); font-style: italic; padding: 0.5rem;">None</div>
+                <% } %>
+            </div>
+
+            <div style="font-size: 1.5rem; color: #94a3b8;">&rarr;</div>
+
+            <!-- Col 3: Transitive Dependents -->
+            <div class="graph-column">
+                <div class="column-title">3. Transitive (Depth 2)</div>
+                <% let transCount = 0; %>
+                <% data.affected_files.forEach(function(af) { %>
+                    <% if (af.depth === 2) { transCount++; %>
+                    <div class="graph-node depth-2">
+                        <span>🔄 <%= af.filepath %></span>
+                        <span class="badge badge-depth-2">Transitive</span>
+                    </div>
+                    <% } %>
+                <% }); %>
+                <% if (transCount === 0) { %>
+                <div style="font-size: 0.8rem; color: var(--text-muted); font-style: italic; padding: 0.5rem;">None</div>
+                <% } %>
+            </div>
+
+            <div style="font-size: 1.5rem; color: #94a3b8;">&rarr;</div>
+
+            <!-- Col 4: Recommended Tests -->
+            <div class="graph-column">
+                <div class="column-title">4. Selected Tests (RTS)</div>
+                <% if (data.test_runs && data.test_runs.list && data.test_runs.list.length > 0) { %>
+                    <% const seenTests = []; %>
+                    <% data.test_runs.list.forEach(function(tr) { %>
+                        <% if (!seenTests.includes(tr.test_file)) { %>
+                            <% seenTests.push(tr.test_file); %>
+                            <div class="graph-node" style="border-left: 4px solid #10b981;">
+                                <span>🧪 <%= tr.test_file %></span>
+                                <span class="badge badge-passed">Selected</span>
+                            </div>
+                        <% } %>
+                    <% }); %>
+                <% } else { %>
+                    <div style="font-size: 0.8rem; color: var(--text-muted); font-style: italic; padding: 0.5rem;">No matching tests found</div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="two-col-layout" style="margin-bottom: 2rem;">
+    <!-- LAYER 1: Changed Files Detail -->
+    <div class="card" style="margin-bottom: 0;">
+        <div class="card-header">
+            <div class="card-title">Changed Files in Commit (<%= data.changed_files.length %>)</div>
+            <span style="font-size: 0.78rem; color: var(--text-muted);">SCM Delta Accounting</span>
+        </div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>File Path</th>
+                        <th>Type</th>
+                        <th>Lines</th>
+                        <th>Blame Author</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% data.changed_files.forEach(function(cf) { %>
+                    <tr>
+                        <td><code><%= cf.filepath %></code></td>
+                        <td>
+                            <span class="badge" style="background:#e0f2fe; color:#0369a1;"><%= cf.change_type %></span>
+                        </td>
+                        <td>
+                            <span style="color: #10b981; font-weight: 600;">+<%= cf.lines_added %></span>
+                            <span style="color: #ef4444; font-weight: 600;">-<%= cf.lines_deleted %></span>
+                        </td>
+                        <td style="font-size: 0.85rem;"><%= cf.blame_author || 'Unknown' %></td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- LAYER 1: Affected Files Detail -->
+    <div class="card" style="margin-bottom: 0;">
+        <div class="card-header">
+            <div class="card-title">Downstream Affected Files (<%= data.affected_files.length %>)</div>
+            <span style="font-size: 0.78rem; color: var(--text-muted);">Impact Analysis</span>
+        </div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>File Path</th>
+                        <th>Depth</th>
+                        <th>Propagation Reason</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if (data.affected_files && data.affected_files.length > 0) { %>
+                        <% data.affected_files.forEach(function(af) { %>
+                        <tr>
+                            <td><code><%= af.filepath %></code></td>
+                            <td>
+                                <% if (af.depth === 1) { %>
+                                <span class="badge badge-depth-1">Depth 1</span>
+                                <% } else { %>
+                                <span class="badge badge-depth-2">Depth 2</span>
+                                <% } %>
+                            </td>
+                            <td style="font-size: 0.82rem; color: #475569;"><%= af.reason %></td>
+                        </tr>
+                        <% }); %>
+                    <% } else { %>
+                        <tr>
+                            <td colspan="3" style="text-align: center; color: var(--text-muted); padding: 1.5rem;">
+                                No downstream files import or depend on the changed file(s).
+                            </td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- LAYER 2: Regression Test Execution Results -->
+<div class="card">
+    <div class="card-header">
+        <div class="card-title">
+            Automated Test Execution Results (PyTest)
+            <% if (data.test_runs && data.test_runs.total > 0) { %>
+                <% if (data.test_runs.failed === 0) { %>
+                <span class="badge badge-passed" style="margin-left: 0.5rem;">All <%= data.test_runs.total %> Passed</span>
+                <% } else { %>
+                <span class="badge badge-failed" style="margin-left: 0.5rem;"><%= data.test_runs.failed %> Failed / <%= data.test_runs.total %> Total</span>
+                <% } %>
+            <% } %>
+        </div>
+        <span style="font-size: 0.8rem; color: var(--text-muted);">Testing Concept: Regression Selection & Execution</span>
+    </div>
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>Test Case</th>
+                    <th>Status</th>
+                    <th>Execution Time</th>
+                    <th>Details / Error Traceback</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (data.test_runs && data.test_runs.list && data.test_runs.list.length > 0) { %>
+                    <% data.test_runs.list.forEach(function(tr) { %>
+                    <tr>
+                        <td style="font-weight: 500;">
+                            <code><%= tr.test_name %></code>
+                            <div style="font-size: 0.75rem; color: var(--text-muted);">Suite: <%= tr.test_file %></div>
+                        </td>
+                        <td>
+                            <% if (tr.status === 'PASSED') { %>
+                            <span class="badge badge-passed">✓ PASSED</span>
+                            <% } else if (tr.status === 'SKIPPED') { %>
+                            <span class="badge badge-med">SKIPPED</span>
+                            <% } else { %>
+                            <span class="badge badge-failed">✗ <%= tr.status %></span>
+                            <% } %>
+                        </td>
+                        <td style="font-size: 0.85rem; color: var(--text-muted);">
+                            <%= Number(tr.duration_sec).toFixed(3) %>s
+                        </td>
+                        <td>
+                            <% if (tr.error_message) { %>
+                            <pre class="error-pre"><%= tr.error_message %></pre>
+                            <% } else { %>
+                            <span style="color: #10b981; font-size: 0.82rem;">Assertion satisfied</span>
+                            <% } %>
+                        </td>
+                    </tr>
+                    <% }); %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="4" style="text-align: center; color: var(--text-muted); padding: 2rem;">
+                            No matching tests were found for the changed and affected files.
+                        </td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- SCM Audit Trail Timeline -->
+<div class="card">
+    <div class="card-header">
+        <div class="card-title">SCM Configuration Audit Trail</div>
+        <span style="font-size: 0.8rem; color: var(--text-muted);">Chronological event record</span>
+    </div>
+    <div class="card-body">
+        <div class="timeline">
+            <% if (data.audit_logs && data.audit_logs.length > 0) { %>
+                <% data.audit_logs.forEach(function(log) { %>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <span class="timeline-stage">[<%= log.stage %>]</span>
+                            <span><%= log.timestamp %></span>
+                        </div>
+                        <div class="timeline-msg"><%= log.message %></div>
+                    </div>
+                </div>
+                <% }); %>
+            <% } %>
+        </div>
+    </div>
+</div>
+
+<% const commitHashVal = data.commit.commit_hash; %>
+<script>
+function copyCommitHash(hash) {
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(hash).then(() => {
+            if (typeof showToast === 'function') {
+                showToast('Copied to Clipboard', `Hash ${hash.substring(0, 7)}... copied!`, 'success');
+            }
+        }).catch(() => {
+            prompt('Copy commit hash:', hash);
+        });
+    } else {
+        prompt('Copy commit hash:', hash);
+    }
+}
+
+async function reanalyzeThisCommit() {
+    const btn = document.getElementById("btn-reanalyze");
+    btn.disabled = true;
+    btn.innerHTML = '<span class="btn-spinner"></span> <span>Re-analyzing...</span>';
+    if (typeof showToast === 'function') {
+        showToast('Analysis Started', 'Re-evaluating AST dependencies and running regression tests...', 'info');
+    }
+    try {
+        const res = await fetch("/api/analyze", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ commit_hash: "<%= commitHashVal %>", run_tests: true })
+        });
+        const d = await res.json();
+        if (d.status === "success") {
+            if (typeof showToast === 'function') {
+                showToast('Analysis Succeeded', `Risk score: ${d.risk_score} (${d.risk_level})`, 'success');
+            }
+            setTimeout(() => { window.location.reload(); }, 800);
+        } else {
+            if (typeof showToast === 'function') {
+                showToast('Analysis Failed', d.message || 'Could not re-analyze commit.', 'error');
+            }
+            btn.disabled = false;
+            btn.innerText = "Re-run Analysis";
+        }
+    } catch (e) {
+        if (typeof showToast === 'function') {
+            showToast('Request Error', e.message, 'error');
+        }
+        btn.disabled = false;
+        btn.innerText = "Re-run Analysis";
+    }
+}
+</script>
+
+<%- include('partials/footer') %>
